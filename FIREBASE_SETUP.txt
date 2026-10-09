@@ -1,0 +1,42 @@
+JRUNG WEBSITE V62 — FIREBASE SETUP
+
+CAN LAM 1 LAN TRONG FIREBASE CONSOLE
+
+A. Tao Firebase project
+1. Mo https://console.firebase.google.com/ va tao project.
+2. Project settings (bieu tuong banh rang) > General > Your apps > Add app > Web.
+3. Copy object firebaseConfig duoc cung cap.
+4. Mo index.html, tim `const firebaseConfig = {` va thay cac gia tri PASTE_... bang gia tri that. Khong can gui config rieng cho nguoi khac.
+
+B. Bat dang nhap email/mat khau
+1. Build > Authentication > Get started.
+2. Sign-in method > Email/Password > Enable > Save.
+3. Authentication > Settings > Authorized domains: dam bao co `kjrusagki.github.io` (neu khong thi them domain nay).
+
+C. Bat Firebase Storage
+1. Build > Storage > Get started.
+2. Chon vi tri bucket va hoan tat.
+3. Vao tab Rules va thay bang rules ben duoi, sau do Publish.
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /users/{uid}/media/{fileName} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}
+
+D. Cap nhat GitHub Pages
+1. Tai len index.html, Reze_Hoa.mp4, Reze_Yen_Binh.mp4 vao cung thu muc goc cua repo.
+2. Cho GitHub Pages cap nhat, mo website qua HTTPS.
+3. Vao You > Dong bo thu vien. Nhap email va mat khau de tao tai khoan hoac dang nhap.
+4. Tren thiet bi cu, dang nhap va bam Dong bo ngay de tai cac file len cloud. Tren thiet bi moi, dang nhap cung email va bam Dong bo ngay de tai file ve.
+
+GHI CHU QUAN TRONG
+- Firebase config web khong phai private secret. Tuy nhien khong duoc mo Storage Rules cho tat ca moi nguoi; rules tren gioi han file theo UID da dang nhap.
+- Neu da co thu vien cu tren mot trinh duyet, hay bam Dong bo ngay tren chinh thiet bi do truoc. Khong xoa du lieu trinh duyet cu cho den khi da kiem tra file tren cloud.
+- Moi thiet bi can bam Dong bo ngay de nhan file moi; ban nay chua tu dong dong bo realtime.
+- Ban nay dong bo them/tai ve anh va video, khong tu dong dong bo thao tac xoa file hoac moi thay doi metadata.
+- Firebase Storage co the yeu cau billing tuy thoi diem/region/chinh sach tai khoan. Kiem tra chi phi va gioi han trong Firebase Console.
+- Mat khau dang mo website cu van la mot khoa phia client, khong phai lop bao mat thuc su. Firebase dang nhap bao ve kho file cloud; neu website chua can cong khai, can them backend/auth rieng de bao ve noi dung trang.

@@ -138,6 +138,30 @@
 @media(max-width:560px){.music-manager-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}.music-manager-buttons #musicSearchBtn{grid-column:1/2}.music-manager-buttons #musicUploadBtn{grid-column:2/3}.music-manager-buttons #musicSyncTopBtn2{grid-column:1/-1}}
 .page-transition .access-word{font-family:"Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;font-style:normal;font-weight:700;letter-spacing:.012em}
 </style>
+<style>
+/* V62 — storage and backup controls: premium compact mobile layout */
+.storage-card{position:relative;overflow:hidden;margin-top:18px;padding:20px 16px 17px;border:1px solid rgba(255,255,255,.13);border-radius:26px;background:radial-gradient(120% 90% at 0% 0%,rgba(142,112,255,.13),transparent 55%),linear-gradient(145deg,rgba(26,25,33,.98),rgba(12,12,16,.98));box-shadow:0 18px 48px rgba(0,0,0,.28)}
+.storage-card:before{content:"";position:absolute;top:0;left:18px;right:18px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent)}
+.storage-card .storage-top{align-items:center}.storage-card .storage-top .eyebrow{letter-spacing:.19em;font-size:9px;color:#b9a8ff}.storage-card .storage-top h3{font-size:20px;letter-spacing:-.035em;margin:5px 0 5px}.storage-card .storage-top p{max-width:280px;font-size:11px;line-height:1.55;color:#a4a2ae}
+.storage-card .storage-bar{height:7px;margin:17px 0 11px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.035)}.storage-card .storage-bar>div{border-radius:999px;background:linear-gradient(90deg,#a78bfa,#e9d5ff);box-shadow:0 0 16px rgba(167,139,250,.35)}
+.storage-card .storage-stats,.storage-card .storage-breakdown{gap:8px}.storage-card .storage-stats span,.storage-card .storage-breakdown span{padding:8px 9px;border:1px solid rgba(255,255,255,.065);border-radius:12px;background:rgba(255,255,255,.025);font-size:9px;color:#aaa}.storage-card .storage-stats b,.storage-card .storage-breakdown b{color:#f5f3ff}
+.backup-tools{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:17px;padding-top:16px;border-top:1px solid rgba(255,255,255,.09)}
+.backup-tools button{min-height:49px;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 11px;border-radius:15px;font-size:12px;font-weight:750;letter-spacing:-.01em;transition:transform .18s ease,filter .18s ease,background .18s ease;border:1px solid rgba(255,255,255,.13);white-space:normal;line-height:1.25}
+.backup-tools button:active{transform:scale(.975)}.backup-tools button:disabled{opacity:.55;filter:grayscale(.4)}
+.backup-tools #backupExportBtn{color:#15111f;background:linear-gradient(135deg,#f5edff,#cbb8ff);border-color:rgba(255,255,255,.55);box-shadow:0 7px 22px rgba(167,139,250,.13)}
+.backup-tools #backupImportBtn{color:#f2efff;background:linear-gradient(145deg,rgba(167,139,250,.14),rgba(255,255,255,.035));border-color:rgba(190,170,255,.32)}
+.backup-tools #backupExportBtn:before{content:'↧';font-size:17px;font-weight:500}.backup-tools #backupImportBtn:before{content:'↥';font-size:17px;font-weight:500}
+.backup-tools #backupStatus{grid-column:1/-1;margin:0;padding:11px 12px;border:1px solid rgba(255,255,255,.075);border-radius:13px;background:rgba(0,0,0,.16);font-size:10px;line-height:1.55;color:#aaaebc}
+.backup-tools #backupStatus:empty{display:none}.storage-sync-note{display:flex;gap:10px;align-items:flex-start;margin-top:12px;padding:12px;border:1px solid rgba(255,205,120,.18);border-radius:14px;background:rgba(255,190,80,.045);font-size:10px;line-height:1.55;color:#c4b9a5}.storage-sync-note .sync-symbol{flex:0 0 22px;width:22px;height:22px;display:grid;place-items:center;border-radius:8px;background:rgba(255,190,80,.1);color:#ffd48a;font-size:12px}
+@media(max-width:380px){.storage-card{padding:17px 12px}.backup-tools{gap:7px}.backup-tools button{font-size:10px;padding:10px 7px}.storage-card .storage-stats span,.storage-card .storage-breakdown span{padding:7px 6px;font-size:8px}}
+</style>
+<style>
+.cloud-card{position:relative;overflow:hidden;margin:16px 0;padding:19px 16px;border:1px solid rgba(167,139,250,.25);border-radius:24px;background:radial-gradient(120% 90% at 0 0,rgba(139,92,246,.16),transparent 60%),linear-gradient(145deg,#191720,#0d0d12);box-shadow:0 16px 42px rgba(0,0,0,.24)}
+.cloud-card h3{font-size:19px;letter-spacing:-.03em;margin:5px 0}.cloud-card .storage-top p{max-width:290px;color:#a7a3b3;font-size:11px;line-height:1.55}.cloud-status-dot{width:9px;height:9px;flex:0 0 auto;border-radius:50%;background:#777;box-shadow:0 0 0 5px rgba(255,255,255,.04);margin:5px 4px}.cloud-status-dot.online{background:#70e1a1;box-shadow:0 0 0 5px rgba(112,225,161,.1),0 0 15px rgba(112,225,161,.45)}
+.cloud-auth-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:14px}.cloud-auth-grid input{width:100%;min-width:0;padding:12px 13px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);color:#fff;font:inherit;font-size:12px;outline:none}.cloud-auth-grid input:focus{border-color:rgba(167,139,250,.65);box-shadow:0 0 0 3px rgba(167,139,250,.09)}
+.cloud-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.cloud-actions button{min-height:42px;padding:9px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);color:#eee;font-size:11px;font-weight:700}.cloud-actions button.primary{background:linear-gradient(135deg,#f1eaff,#bca6ff);color:#191324;border-color:rgba(255,255,255,.5)}.cloud-actions button:disabled{opacity:.42}.cloud-actions #cloudSyncBtn{grid-column:1/-1;background:rgba(167,139,250,.12);border-color:rgba(167,139,250,.28)}.cloud-status{font-size:11px;line-height:1.5;color:#c6b9ff;margin:12px 0 0;overflow-wrap:anywhere}.cloud-warning{font-size:10px;line-height:1.5;color:#85818e;margin:8px 0 0}.cloud-card .hidden{display:none!important}
+@media(min-width:480px){.cloud-auth-grid{grid-template-columns:1fr 1fr}}
+</style>
 </head>
 <body data-build="V61">
 <div id="viewTransition" class="view-transition"><div class="vt-title" id="vtTitle">Home</div><div class="vt-line"></div></div><div id="pageTransition" class="page-transition" aria-hidden="true"><div class="beam"></div><div class="beam b2"></div><div class="flash"></div><div class="access-word">Chào mừng về Nhà</div></div>
@@ -206,7 +230,7 @@
     </section>
 
     <section id="achievementsView" class="view"><div class="view-head"><div><div class="eyebrow">ACHIEVEMENTS</div><h1>Achievements</h1><p>Kho riêng cho những nội dung thành tích.</p></div></div><div id="achievementGrid" class="media-grid"></div><div id="achievementEmpty" class="empty">Chưa có nội dung.</div></section>
-    <section id="youView" class="view"><div class="view-head"><div><div class="eyebrow">YOU</div><h1>You</h1><p>Cài đặt nhanh cho trải nghiệm của mày.</p></div></div><div class="category-card" style="cursor:default"><div class="topic-icon">♪</div><div class="topic-text"><b>Âm thanh nền</b><span id="musicStateText">Nhạc nền đang bật · Chuyển mục không làm nhạc dừng.</span></div><button id="musicToggle" class="round-btn" style="margin-left:auto" title="Tắt nhạc nền">🔊</button></div><div class="you-sort-card"><div class="storage-top"><div><div class="eyebrow">HOME LAYOUT</div><h3>Sắp xếp vị trí</h3><p>Bấm nút rồi kéo 4 mục ở Home lên hoặc xuống để đổi vị trí. Chỉ các mục này di chuyển.</p></div><button id="categorySortBtn" class="primary" type="button">☷ Sắp xếp</button></div></div><div class="background-card"><div class="storage-top"><div><div class="eyebrow">BACKGROUND</div><h3>Video nền</h3><p>Thay video Reze Yên Bình bằng video của mày. Âm thanh gốc của video mới cũng sẽ trở thành nhạc nền khi chưa chọn Music.</p></div></div><div class="background-actions"><button class="primary" id="backgroundPickBtn" type="button">🎬 Chọn video nền</button><button id="backgroundResetBtn" type="button">↺ Khôi phục video gốc</button></div><div id="backgroundFileName" class="background-file-name">Đang dùng Reze Yên Bình</div><input id="backgroundInput" type="file" accept="video/*" class="hidden"></div><div class="notes-card" id="notesCard"><div class="storage-top"><div><div class="eyebrow">NHỮNG LỜI MUỐN NÓI</div><h3>Những lời muốn nói</h3><p>Thêm những câu mày muốn giữ lại. Mỗi lần chuyển sang một đề mục, website sẽ chọn ngẫu nhiên một câu và hiện dưới video nền.</p></div><button id="notesViewBtn" class="notes-view-btn" type="button">Xem</button></div><div id="notesSavedPanel" class="notes-saved-panel hidden"><div id="notesList" class="notes-list"></div></div><div class="notes-add"><textarea id="noteInput" rows="3" placeholder="Viết một câu bất kỳ..."></textarea><button class="primary" id="noteAddBtn" type="button">＋ Thêm câu</button></div></div><div class="storage-card" id="storageCard"><div class="storage-top"><div><div class="eyebrow">STORAGE</div><h3>Bộ nhớ website</h3><p id="storageSub">Đang kiểm tra dung lượng…</p></div><button id="storageRefresh" class="round-btn" title="Cập nhật dung lượng">↻</button></div><div class="storage-bar"><div id="storageBarFill"></div></div><div class="storage-stats"><span>Đã dùng <b id="storageUsed">—</b></span><span>Còn khoảng <b id="storageFree">—</b></span><span>Quota <b id="storageQuota">—</b></span></div><div class="storage-breakdown"><span>Ảnh <b id="storageImages">0 B</b></span><span>Video <b id="storageVideos">0 B</b></span><span>File <b id="storageFiles">0 B</b></span></div><div class="backup-tools"><button id="backupExportBtn" type="button" class="primary">↓ Sao lưu thư viện</button><button id="backupImportBtn" type="button" class="round-btn">↑ Khôi phục</button><input id="backupFileInput" type="file" accept="application/json,.json" hidden><p id="backupStatus" role="status" aria-live="polite">Bản sao lưu bao gồm nội dung đã tải lên và tùy chọn website.</p></div></div></section>
+    <section id="youView" class="view"><div class="view-head"><div><div class="eyebrow">YOU</div><h1>You</h1><p>Cài đặt nhanh cho trải nghiệm của mày.</p></div></div><div class="category-card" style="cursor:default"><div class="topic-icon">♪</div><div class="topic-text"><b>Âm thanh nền</b><span id="musicStateText">Nhạc nền đang bật · Chuyển mục không làm nhạc dừng.</span></div><button id="musicToggle" class="round-btn" style="margin-left:auto" title="Tắt nhạc nền">🔊</button></div><div class="you-sort-card"><div class="storage-top"><div><div class="eyebrow">HOME LAYOUT</div><h3>Sắp xếp vị trí</h3><p>Bấm nút rồi kéo 4 mục ở Home lên hoặc xuống để đổi vị trí. Chỉ các mục này di chuyển.</p></div><button id="categorySortBtn" class="primary" type="button">☷ Sắp xếp</button></div></div><div class="background-card"><div class="storage-top"><div><div class="eyebrow">BACKGROUND</div><h3>Video nền</h3><p>Thay video Reze Yên Bình bằng video của mày. Âm thanh gốc của video mới cũng sẽ trở thành nhạc nền khi chưa chọn Music.</p></div></div><div class="background-actions"><button class="primary" id="backgroundPickBtn" type="button">🎬 Chọn video nền</button><button id="backgroundResetBtn" type="button">↺ Khôi phục video gốc</button></div><div id="backgroundFileName" class="background-file-name">Đang dùng Reze Yên Bình</div><input id="backgroundInput" type="file" accept="video/*" class="hidden"></div><div class="notes-card" id="notesCard"><div class="storage-top"><div><div class="eyebrow">NHỮNG LỜI MUỐN NÓI</div><h3>Những lời muốn nói</h3><p>Thêm những câu mày muốn giữ lại. Mỗi lần chuyển sang một đề mục, website sẽ chọn ngẫu nhiên một câu và hiện dưới video nền.</p></div><button id="notesViewBtn" class="notes-view-btn" type="button">Xem</button></div><div id="notesSavedPanel" class="notes-saved-panel hidden"><div id="notesList" class="notes-list"></div></div><div class="notes-add"><textarea id="noteInput" rows="3" placeholder="Viết một câu bất kỳ..."></textarea><button class="primary" id="noteAddBtn" type="button">＋ Thêm câu</button></div></div><div class="cloud-card" id="firebaseCloudCard"><div class="storage-top"><div><div class="eyebrow">FIREBASE CLOUD</div><h3>Đồng bộ thư viện</h3><p>Đăng nhập tài khoản cloud để đưa ảnh/video lên Firebase và tải chúng về trên trình duyệt khác.</p></div><span class="cloud-status-dot" id="cloudStatusDot"></span></div><div class="cloud-auth-grid"><input id="cloudEmail" type="email" autocomplete="email" placeholder="Email Firebase"><input id="cloudPassword" type="password" autocomplete="current-password" placeholder="Mật khẩu tài khoản" minlength="6"></div><div class="cloud-actions"><button class="primary" id="cloudSignInBtn" type="button">Đăng nhập cloud</button><button id="cloudCreateBtn" type="button">Tạo tài khoản</button><button id="cloudSignOutBtn" type="button" class="hidden">Đăng xuất</button><button id="cloudSyncBtn" type="button" disabled>↻ Đồng bộ ngay</button></div><p id="cloudStatus" class="cloud-status" role="status" aria-live="polite">Chưa kết nối Firebase. Cần điền cấu hình dự án trong mã nguồn trước khi dùng.</p><p class="cloud-warning">Lưu ý: đây là tài khoản Firebase riêng, không phải mật khẩu mở trang. Không chia sẻ tài khoản cloud. Dữ liệu chỉ đồng bộ sau khi cấu hình Firebase và đăng nhập thành công.</p></div><div class="storage-card" id="storageCard"><div class="storage-top"><div><div class="eyebrow">STORAGE</div><h3>Bộ nhớ website</h3><p id="storageSub">Đang kiểm tra dung lượng…</p></div><button id="storageRefresh" class="round-btn" title="Cập nhật dung lượng">↻</button></div><div class="storage-bar"><div id="storageBarFill"></div></div><div class="storage-stats"><span>Đã dùng <b id="storageUsed">—</b></span><span>Còn khoảng <b id="storageFree">—</b></span><span>Quota <b id="storageQuota">—</b></span></div><div class="storage-breakdown"><span>Ảnh <b id="storageImages">0 B</b></span><span>Video <b id="storageVideos">0 B</b></span><span>File <b id="storageFiles">0 B</b></span></div><div class="backup-tools"><button id="backupExportBtn" type="button" class="primary">↓ Sao lưu thư viện</button><button id="backupImportBtn" type="button" class="round-btn">↑ Khôi phục</button><input id="backupFileInput" type="file" accept="application/json,.json" hidden><p id="backupStatus" role="status" aria-live="polite">Bản sao lưu bao gồm nội dung đã tải lên và tùy chọn website.</p><div class="storage-sync-note"><span class="sync-symbol">i</span><span><b>Lưu ý về đồng bộ:</b> ảnh/video đang lưu trong bộ nhớ của trình duyệt này. Muốn chúng tự xuất hiện khi mở website bằng app hoặc thiết bị khác, cần kết nối kho lưu trữ đám mây; file sao lưu chỉ giúp chuyển dữ liệu thủ công.</span></div></div></div></section>
   </main>
   <nav class="bottom-nav"><button class="active" data-view="homeView"><span class="nav-icon">⌂</span><span>Home</span></button><button data-view="searchView"><span class="nav-icon">⌕</span><span>Search</span></button><button data-view="musicView"><span class="nav-icon">♫</span><span>Music</span></button><button data-view="achievementsView"><span class="nav-icon">✦</span><span>Achievements</span></button><button data-view="youView"><span class="nav-icon">○</span><span>You</span></button></nav>
 </section>
@@ -953,8 +977,81 @@ document.getElementById('video1SoundHint')?.addEventListener('click',e=>{e.stopP
 
 function applyCategoryOrder(){const grid=document.getElementById('categoryGrid');if(!grid)return;const saved=JSON.parse(localStorage.getItem(CAT_ORDER_KEY)||'null');if(!Array.isArray(saved)||!saved.length)return;const map=new Map([...grid.children].map(x=>[x.dataset.cat,x]));saved.forEach(cat=>{const el=map.get(cat);if(el)grid.appendChild(el)})}
 function routeHash(){const h=decodeURIComponent(location.hash.slice(1));if(!h)return; if(h==='home'){switchView('homeView');return}if(h==='search'){switchView('searchView');renderSearch();return}if(h==='music'){switchView('musicView');renderMusicList();return}if(h==='achievements'){switchView('achievementsView');renderAchievements();return}if(h==='you'){switchView('youView');return}if(h.startsWith('category:')){openCategory(h.slice(9));return}}window.addEventListener('hashchange',routeHash);(async()=>{syncMusicButton();await prepareStorage();await openDB();await syncAllSameNameMusic();await loadBackgroundVideo();if(sessionStorage.getItem('rezeUnlocked')==='1'){stopVideo1();login.classList.add('hidden');app.classList.remove('hidden');await ensureVideo2Playing();showRandomHomeQuote();setTimeout(routeHash,0)}else{startVideo1WithAudio();const reveal=()=>document.querySelector('.access')?.classList.add('show');setTimeout(reveal,3000);setTimeout(reveal,4200)}})();
+window.__jrungCloudApi={allItems,hydrateItem,storeFile,saveMeta,async getMeta(id){return reqP(db.transaction(STORE,'readonly').objectStore(STORE).get(id))},async refresh(){return true}};
 })();
 </script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import { getStorage, ref, uploadBytes, getDownloadURL, listAll, getMetadata } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js';
+
+// TODO: Replace every placeholder below with the values from Firebase Console > Project settings > Your apps.
+const firebaseConfig = {
+  apiKey: 'PASTE_API_KEY_HERE',
+  authDomain: 'PASTE_PROJECT_ID_HERE.firebaseapp.com',
+  projectId: 'PASTE_PROJECT_ID_HERE',
+  storageBucket: 'PASTE_STORAGE_BUCKET_HERE',
+  messagingSenderId: 'PASTE_MESSAGING_SENDER_ID_HERE',
+  appId: 'PASTE_APP_ID_HERE'
+};
+const $ = id => document.getElementById(id);
+const email=$('cloudEmail'), password=$('cloudPassword'), status=$('cloudStatus'), dot=$('cloudStatusDot');
+const signInBtn=$('cloudSignInBtn'), createBtn=$('cloudCreateBtn'), signOutBtn=$('cloudSignOutBtn'), syncBtn=$('cloudSyncBtn');
+let auth=null, storage=null, currentUser=null, busy=false;
+const configured = Object.values(firebaseConfig).every(v=>typeof v==='string' && v && !v.includes('PASTE_'));
+function say(msg){if(status)status.textContent=msg}
+function setBusy(v){busy=v;[signInBtn,createBtn,signOutBtn,syncBtn].forEach(b=>{if(b)b.disabled=v||(!currentUser&&b===syncBtn)});}
+function safeName(name){return String(name||'media').replace(/[^\w.() -]+/g,'_').slice(0,100)||'media'}
+function pathFor(uid,id,name){return `users/${uid}/media/${id}_${safeName(name)}`}
+async function syncLibrary(){
+  if(!currentUser||!window.__jrungCloudApi)throw new Error('Hãy đăng nhập cloud và chờ website tải xong.');
+  setBusy(true); let uploaded=0, downloaded=0, skipped=0;
+  try{
+    say('Đang đọc thư viện trên thiết bị này…');
+    const api=window.__jrungCloudApi; const local=await api.allItems();
+    for(let i=0;i<local.length;i++){
+      const raw=local[i];
+      if(raw.cloudPath){skipped++;continue;}
+      say(`Đang tải lên ${i+1}/${local.length}: ${raw.name||'file'}…`);
+      const item=await api.hydrateItem({...raw});
+      if(!item.blob)throw new Error('Không đọc được file '+(item.name||item.id));
+      const path=pathFor(currentUser.uid,item.id,item.name||'media');
+      const fileRef=ref(storage,path);
+      await uploadBytes(fileRef,item.blob,{contentType:item.type||item.blob.type||'application/octet-stream',customMetadata:{originalName:String(item.name||'media'),category:String(item.category||'Other')}});
+      const meta={}; for(const [k,v] of Object.entries(item)){if(['blob','coverBlob','opfsPath','chunked','chunkCount','storage','id'].includes(k))continue;if(v===null||['string','number','boolean'].includes(typeof v))meta[k]=v;}
+      const metaRef=ref(storage,path+'.meta.json');
+      await uploadBytes(metaRef,new Blob([JSON.stringify(meta)],{type:'application/json'}),{contentType:'application/json'});
+      await api.saveMeta({...raw,cloudPath:path}); uploaded++;
+    }
+    say('Đang kiểm tra các file trên cloud…');
+    const listing=await listAll(ref(storage,`users/${currentUser.uid}/media`));
+    const cloudFiles=listing.items.filter(x=>!x.name.endsWith('.meta.json'));
+    const localNow=await api.allItems(); const known=new Set(localNow.map(x=>x.cloudPath).filter(Boolean));
+    for(let i=0;i<cloudFiles.length;i++){
+      const f=cloudFiles[i]; if(known.has(f.fullPath))continue;
+      say(`Đang tải về ${i+1}/${cloudFiles.length}: ${f.name}…`);
+      const url=await getDownloadURL(f); const response=await fetch(url); if(!response.ok)throw new Error('Không tải được '+f.name);
+      const blob=await response.blob(); let meta={name:f.name,category:'Other',type:blob.type,size:blob.size};
+      try{const mr=ref(storage,f.fullPath+'.meta.json');const mu=await getDownloadURL(mr);const mj=await fetch(mu);if(mj.ok)meta={...meta,...await mj.json()}}catch(_){ }
+      const file=new File([blob],String(meta.name||f.name),{type:meta.type||blob.type||'application/octet-stream'});
+      const id=await api.storeFile(file,meta.category||'Other');
+      const saved=await api.getMeta(id); await api.saveMeta({...saved,...meta,id,cloudPath:f.fullPath}); downloaded++;
+    }
+    say(`Đồng bộ xong. Đã tải lên ${uploaded}, tải về ${downloaded}, bỏ qua ${skipped} file đã liên kết. Tải lại trang nếu thư viện chưa cập nhật.`);
+    if(uploaded||downloaded) setTimeout(()=>{if(confirm('Đồng bộ xong. Tải lại website để cập nhật toàn bộ ảnh/video?'))location.reload()},250);
+  } finally {setBusy(false); if(currentUser&&syncBtn)syncBtn.disabled=false;}
+}
+if(!configured){say('Firebase chưa được cấu hình. Mở index.html, tìm firebaseConfig và điền thông tin dự án Firebase trước khi dùng.');[signInBtn,createBtn,syncBtn].forEach(b=>{if(b)b.disabled=true});}
+else try{
+  const app=initializeApp(firebaseConfig); auth=getAuth(app); storage=getStorage(app);
+  onAuthStateChanged(auth,user=>{currentUser=user; if(user){dot?.classList.add('online');say(`Đã đăng nhập: ${user.email||user.uid}. Bấm “Đồng bộ ngay” để chuyển thư viện giữa các thiết bị.`);signInBtn?.classList.add('hidden');createBtn?.classList.add('hidden');signOutBtn?.classList.remove('hidden');if(syncBtn)syncBtn.disabled=false;}else{dot?.classList.remove('online');say('Chưa đăng nhập Firebase. Hãy đăng nhập cùng một tài khoản trên các thiết bị.');signInBtn?.classList.remove('hidden');createBtn?.classList.remove('hidden');signOutBtn?.classList.add('hidden');if(syncBtn)syncBtn.disabled=true;}});
+  signInBtn?.addEventListener('click',async()=>{try{setBusy(true);await signInWithEmailAndPassword(auth,email.value.trim(),password.value);say('Đăng nhập thành công.')}catch(e){say('Đăng nhập lỗi: '+(e.code||e.message))}finally{setBusy(false);if(currentUser)syncBtn.disabled=false}});
+  createBtn?.addEventListener('click',async()=>{try{if(password.value.length<6)throw new Error('Mật khẩu Firebase cần ít nhất 6 ký tự.');setBusy(true);await createUserWithEmailAndPassword(auth,email.value.trim(),password.value);say('Đã tạo tài khoản và đăng nhập.')}catch(e){say('Tạo tài khoản lỗi: '+(e.code||e.message))}finally{setBusy(false);if(currentUser)syncBtn.disabled=false}});
+  signOutBtn?.addEventListener('click',async()=>{try{await signOut(auth)}catch(e){say('Đăng xuất lỗi: '+e.message)}});
+  syncBtn?.addEventListener('click',async()=>{try{await syncLibrary()}catch(e){console.error(e);say('Đồng bộ lỗi: '+(e.code||e.message)+' — kiểm tra cấu hình, Storage và Rules Firebase.')}finally{if(currentUser)syncBtn.disabled=false}});
+}catch(e){console.error(e);say('Không khởi tạo được Firebase: '+e.message)}
+</script>
+
 </body></html>
 
 <style>
