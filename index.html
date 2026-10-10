@@ -230,7 +230,7 @@
     </section>
 
     <section id="achievementsView" class="view"><div class="view-head"><div><div class="eyebrow">ACHIEVEMENTS</div><h1>Achievements</h1><p>Kho riêng cho những nội dung thành tích.</p></div></div><div id="achievementGrid" class="media-grid"></div><div id="achievementEmpty" class="empty">Chưa có nội dung.</div></section>
-    <section id="youView" class="view"><div class="view-head"><div><div class="eyebrow">YOU</div><h1>You</h1><p>Cài đặt nhanh cho trải nghiệm của mày.</p></div></div><div class="category-card" style="cursor:default"><div class="topic-icon">♪</div><div class="topic-text"><b>Âm thanh nền</b><span id="musicStateText">Nhạc nền đang bật · Chuyển mục không làm nhạc dừng.</span></div><button id="musicToggle" class="round-btn" style="margin-left:auto" title="Tắt nhạc nền">🔊</button></div><div class="you-sort-card"><div class="storage-top"><div><div class="eyebrow">HOME LAYOUT</div><h3>Sắp xếp vị trí</h3><p>Bấm nút rồi kéo 4 mục ở Home lên hoặc xuống để đổi vị trí. Chỉ các mục này di chuyển.</p></div><button id="categorySortBtn" class="primary" type="button">☷ Sắp xếp</button></div></div><div class="background-card"><div class="storage-top"><div><div class="eyebrow">BACKGROUND</div><h3>Video nền</h3><p>Thay video Reze Yên Bình bằng video của mày. Âm thanh gốc của video mới cũng sẽ trở thành nhạc nền khi chưa chọn Music.</p></div></div><div class="background-actions"><button class="primary" id="backgroundPickBtn" type="button">🎬 Chọn video nền</button><button id="backgroundResetBtn" type="button">↺ Khôi phục video gốc</button></div><div id="backgroundFileName" class="background-file-name">Đang dùng Reze Yên Bình</div><input id="backgroundInput" type="file" accept="video/*" class="hidden"></div><div class="notes-card" id="notesCard"><div class="storage-top"><div><div class="eyebrow">NHỮNG LỜI MUỐN NÓI</div><h3>Những lời muốn nói</h3><p>Thêm những câu mày muốn giữ lại. Mỗi lần chuyển sang một đề mục, website sẽ chọn ngẫu nhiên một câu và hiện dưới video nền.</p></div><button id="notesViewBtn" class="notes-view-btn" type="button">Xem</button></div><div id="notesSavedPanel" class="notes-saved-panel hidden"><div id="notesList" class="notes-list"></div></div><div class="notes-add"><textarea id="noteInput" rows="3" placeholder="Viết một câu bất kỳ..."></textarea><button class="primary" id="noteAddBtn" type="button">＋ Thêm câu</button></div></div><div class="cloud-card" id="publishCard"><div class="storage-top"><div><div class="eyebrow">PUBLISH · GITHUB PAGES</div><h3>Xuất bản thư viện</h3><p>Đưa ảnh, video, nhạc và văn bản lên web để bất kỳ ai mở link cũng thấy, không chỉ nằm trong trình duyệt của một máy.</p></div><span class="cloud-status-dot" id="cloudStatusDot"></span></div><p id="pubPublicInfo" class="cloud-status">Đang kiểm tra bản công khai…</p><details id="pubOwnerBox" class="pub-box"><summary>Chế độ chủ web — xuất bản (cần token GitHub)</summary><div class="cloud-auth-grid"><input id="pubOwner" type="text" autocomplete="off" placeholder="Owner (tài khoản GitHub)"><input id="pubRepo" type="text" autocomplete="off" placeholder="Repo (tên repository)"><input id="pubBranch" type="text" autocomplete="off" placeholder="Branch (để trống = mặc định)"><input id="pubToken" type="password" autocomplete="off" placeholder="Token GitHub (chỉ lưu trong trình duyệt này)" style="grid-column:1/-1"></div><div class="cloud-actions"><button class="primary" id="pubPublishBtn" type="button" style="grid-column:1/-1">☁ Xuất bản lên web</button><button id="pubPullBtn" type="button">↓ Lấy bản công khai</button><button id="pubForgetBtn" type="button">Xóa token</button></div><div class="storage-bar"><div id="pubBarFill"></div></div><p id="pubStatus" class="cloud-status" role="status" aria-live="polite" style="white-space:pre-line">Điền token rồi bấm Xuất bản. Mọi file sẽ được đưa vào thư mục data/ của repo.</p><details class="pub-help"><summary>Cách lấy token (1 lần)</summary><ol><li>Vào GitHub → ảnh đại diện → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token.</li><li>Repository access: Only select repositories → chọn repo của website này.</li><li>Permissions → Repository permissions → Contents: <b>Read and write</b>. Bấm Generate rồi sao chép token vào ô trên.</li></ol></details><p class="cloud-warning">Token cho phép sửa repo, hãy giữ kín và không gửi cho ai. Token chỉ nằm trong trình duyệt này, không nằm trong file sao lưu và không được đưa lên web. Lưu ý: ảnh/video đã xuất bản là công khai — ai biết đường dẫn trong thư mục data/ đều xem được, mật khẩu mở trang chỉ che giao diện.</p></details></div><div class="storage-card" id="storageCard"><div class="storage-top"><div><div class="eyebrow">STORAGE</div><h3>Bộ nhớ website</h3><p id="storageSub">Đang kiểm tra dung lượng…</p></div><button id="storageRefresh" class="round-btn" title="Cập nhật dung lượng">↻</button></div><div class="storage-bar"><div id="storageBarFill"></div></div><div class="storage-stats"><span>Đã dùng <b id="storageUsed">—</b></span><span>Còn khoảng <b id="storageFree">—</b></span><span>Quota <b id="storageQuota">—</b></span></div><div class="storage-breakdown"><span>Ảnh <b id="storageImages">0 B</b></span><span>Video <b id="storageVideos">0 B</b></span><span>File <b id="storageFiles">0 B</b></span></div><div class="backup-tools"><button id="backupExportBtn" type="button" class="primary">↓ Sao lưu thư viện</button><button id="backupImportBtn" type="button" class="round-btn">↑ Khôi phục</button><input id="backupFileInput" type="file" accept="application/json,.json" hidden><p id="backupStatus" role="status" aria-live="polite">Bản sao lưu bao gồm nội dung đã tải lên và tùy chọn website.</p><div class="storage-sync-note"><span class="sync-symbol">i</span><span><b>Lưu ý:</b> ảnh/video thêm vào sẽ nằm trong bộ nhớ của trình duyệt này. Muốn người khác/thiết bị khác cũng thấy, hãy dùng thẻ “Xuất bản thư viện” ở trên; file sao lưu chỉ giúp chuyển dữ liệu thủ công.</span></div></div></div></section>
+    <section id="youView" class="view"><div class="view-head"><div><div class="eyebrow">YOU</div><h1>You</h1><p>Cài đặt nhanh cho trải nghiệm của mày.</p></div></div><div class="category-card" style="cursor:default"><div class="topic-icon">♪</div><div class="topic-text"><b>Âm thanh nền</b><span id="musicStateText">Nhạc nền đang bật · Chuyển mục không làm nhạc dừng.</span></div><button id="musicToggle" class="round-btn" style="margin-left:auto" title="Tắt nhạc nền">🔊</button></div><div class="you-sort-card"><div class="storage-top"><div><div class="eyebrow">HOME LAYOUT</div><h3>Sắp xếp vị trí</h3><p>Bấm nút rồi kéo 4 mục ở Home lên hoặc xuống để đổi vị trí. Chỉ các mục này di chuyển.</p></div><button id="categorySortBtn" class="primary" type="button">☷ Sắp xếp</button></div></div><div class="background-card"><div class="storage-top"><div><div class="eyebrow">BACKGROUND</div><h3>Video nền</h3><p>Thay video Reze Yên Bình bằng video của mày. Âm thanh gốc của video mới cũng sẽ trở thành nhạc nền khi chưa chọn Music.</p></div></div><div class="background-actions"><button class="primary" id="backgroundPickBtn" type="button">🎬 Chọn video nền</button><button id="backgroundResetBtn" type="button">↺ Khôi phục video gốc</button></div><div id="backgroundFileName" class="background-file-name">Đang dùng Reze Yên Bình</div><input id="backgroundInput" type="file" accept="video/*" class="hidden"></div><div class="notes-card" id="notesCard"><div class="storage-top"><div><div class="eyebrow">NHỮNG LỜI MUỐN NÓI</div><h3>Những lời muốn nói</h3><p>Thêm những câu mày muốn giữ lại. Mỗi lần chuyển sang một đề mục, website sẽ chọn ngẫu nhiên một câu và hiện dưới video nền.</p></div><button id="notesViewBtn" class="notes-view-btn" type="button">Xem</button></div><div id="notesSavedPanel" class="notes-saved-panel hidden"><div id="notesList" class="notes-list"></div></div><div class="notes-add"><textarea id="noteInput" rows="3" placeholder="Viết một câu bất kỳ..."></textarea><button class="primary" id="noteAddBtn" type="button">＋ Thêm câu</button></div></div><div class="cloud-card" id="firebaseCloudCard"><div class="storage-top"><div><div class="eyebrow">FIREBASE CLOUD</div><h3>Đồng bộ thư viện</h3><p>Đăng nhập cùng tài khoản cloud để đồng bộ ảnh/video và danh sách “Những lời muốn nói” giữa các trình duyệt/thiết bị.</p></div><span class="cloud-status-dot" id="cloudStatusDot"></span></div><div class="cloud-auth-grid"><input id="cloudEmail" type="email" autocomplete="email" placeholder="Email Firebase"><input id="cloudPassword" type="password" autocomplete="current-password" placeholder="Mật khẩu tài khoản" minlength="6"></div><div class="cloud-actions"><button class="primary" id="cloudSignInBtn" type="button">Đăng nhập cloud</button><button id="cloudCreateBtn" type="button">Tạo tài khoản</button><button id="cloudSignOutBtn" type="button" class="hidden">Đăng xuất</button><button id="cloudSyncBtn" type="button" disabled>↻ Đồng bộ ngay</button></div><p id="cloudStatus" class="cloud-status" role="status" aria-live="polite">Chưa kết nối Firebase. Cần điền cấu hình dự án trong mã nguồn trước khi dùng.</p><p class="cloud-warning">Lưu ý: đây là tài khoản Firebase riêng, không phải mật khẩu mở trang. Không chia sẻ tài khoản cloud. Dữ liệu chỉ đồng bộ sau khi cấu hình Firebase và đăng nhập thành công.</p></div><div class="storage-card" id="storageCard"><div class="storage-top"><div><div class="eyebrow">STORAGE</div><h3>Bộ nhớ website</h3><p id="storageSub">Đang kiểm tra dung lượng…</p></div><button id="storageRefresh" class="round-btn" title="Cập nhật dung lượng">↻</button></div><div class="storage-bar"><div id="storageBarFill"></div></div><div class="storage-stats"><span>Đã dùng <b id="storageUsed">—</b></span><span>Còn khoảng <b id="storageFree">—</b></span><span>Quota <b id="storageQuota">—</b></span></div><div class="storage-breakdown"><span>Ảnh <b id="storageImages">0 B</b></span><span>Video <b id="storageVideos">0 B</b></span><span>File <b id="storageFiles">0 B</b></span></div><div class="backup-tools"><button id="backupExportBtn" type="button" class="primary">↓ Sao lưu thư viện</button><button id="backupImportBtn" type="button" class="round-btn">↑ Khôi phục</button><input id="backupFileInput" type="file" accept="application/json,.json" hidden><p id="backupStatus" role="status" aria-live="polite">Bản sao lưu bao gồm nội dung đã tải lên và tùy chọn website.</p><div class="storage-sync-note"><span class="sync-symbol">i</span><span><b>Lưu ý về đồng bộ:</b> ảnh/video đang lưu trong bộ nhớ của trình duyệt này. Muốn chúng tự xuất hiện khi mở website bằng app hoặc thiết bị khác, cần kết nối kho lưu trữ đám mây; file sao lưu chỉ giúp chuyển dữ liệu thủ công.</span></div></div></div></section>
   </main>
   <nav class="bottom-nav"><button class="active" data-view="homeView"><span class="nav-icon">⌂</span><span>Home</span></button><button data-view="searchView"><span class="nav-icon">⌕</span><span>Search</span></button><button data-view="musicView"><span class="nav-icon">♫</span><span>Music</span></button><button data-view="achievementsView"><span class="nav-icon">✦</span><span>Achievements</span></button><button data-view="youView"><span class="nav-icon">○</span><span>You</span></button></nav>
 </section>
@@ -264,12 +264,12 @@ async function reqP(req){return new Promise((res,rej)=>{req.onsuccess=()=>res(re
 async function chunkPut(itemId,index,data){const tx=db.transaction(CHUNKS,'readwrite');tx.objectStore(CHUNKS).put({itemId,index,data});return new Promise((res,rej)=>{tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error||new Error('CHUNK_WRITE_FAILED'));tx.onabort=()=>rej(tx.error||new Error('CHUNK_WRITE_ABORTED'))})}
 async function deleteChunks(itemId){return new Promise((res,rej)=>{const tx=db.transaction(CHUNKS,'readwrite');const req=tx.objectStore(CHUNKS).openCursor(IDBKeyRange.bound([itemId,0],[itemId,Number.MAX_SAFE_INTEGER]));req.onsuccess=e=>{const c=e.target.result;if(c){c.delete();c.continue()}};tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
 async function readChunks(itemId,count,type){const chunks=[];const tx=db.transaction(CHUNKS,'readonly');const store=tx.objectStore(CHUNKS);for(let i=0;i<count;i++){const x=await reqP(store.get([itemId,i]));if(!x)throw new Error('MISSING_CHUNK_'+i);chunks.push(x.data)}return new Blob(chunks,{type:type||'application/octet-stream'})}
-async function hydrateItem(item){if(item.cloudOnly&&!item.blob){await materializeCloud(item)}else if(item.chunked&&!item.blob){item.blob=await readChunks(item.id,item.chunkCount,item.type)}else if(item.opfsPath&&!item.blob){item.blob=await getOPFSFile(item.opfsPath)}return item}
+async function hydrateItem(item){if(item.chunked&&!item.blob){item.blob=await readChunks(item.id,item.chunkCount,item.type)}else if(item.opfsPath&&!item.blob){item.blob=await getOPFSFile(item.opfsPath)}return item}
 async function allItems(){return new Promise((res,rej)=>{const r=db.transaction(STORE,'readonly').objectStore(STORE).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error)})}
-async function getItem(id,lazy=false){const raw=await reqP(db.transaction(STORE,'readonly').objectStore(STORE).get(id));if(!raw)throw new Error('ITEM_NOT_FOUND');return lazy?raw:hydrateItem(raw)}
+async function getItem(id){const raw=await reqP(db.transaction(STORE,'readonly').objectStore(STORE).get(id));if(!raw)throw new Error('ITEM_NOT_FOUND');return hydrateItem(raw)}
 const liveUrls=new Set();
 function revokeLiveUrls(){for(const u of liveUrls)try{URL.revokeObjectURL(u)}catch(_){}liveUrls.clear()}
-async function hydrateGrid(grid){if(!grid)return;const holders=[...grid.querySelectorAll('[data-thumb-id]')];await Promise.all(holders.map(async h=>{try{const item0=await getItem(+h.dataset.thumbId,true);if(item0.cloudOnly&&!item0.coverBlob&&!item0.blob){const ts=item0.cloudThumb?cloudUrl(item0.cloudThumb):'';if(ts){const img=document.createElement('img');img.className='thumb';img.src=ts;img.alt='';img.loading='lazy';img.decoding='async';img.fetchPriority='low';h.replaceWith(img)}else if(!item0.type?.startsWith('video/')&&!item0.type?.startsWith('image/'))h.innerHTML='📄';return}const item=item0.cloudOnly?item0:await hydrateItem(item0);const file=item.coverBlob || item.blob || await (async()=>item.blob||await hydrateItem(item).then(x=>x.blob))();if(!file)return;const url=URL.createObjectURL(file);liveUrls.add(url);if(item.coverBlob || item.type?.startsWith('image/')){const img=document.createElement('img');img.className='thumb';img.src=url;img.alt='';img.loading='lazy';img.decoding='async';img.fetchPriority='low';h.replaceWith(img)}else if(item.type?.startsWith('video/')){const v=document.createElement('video');v.className='thumb';v.src=url;v.muted=true;v.playsInline=true;v.preload='metadata';v.setAttribute('aria-hidden','true');h.replaceWith(v)}else{h.innerHTML='📄'}}catch(e){h.textContent='Không tải được'}}))}
+async function hydrateGrid(grid){if(!grid)return;const holders=[...grid.querySelectorAll('[data-thumb-id]')];await Promise.all(holders.map(async h=>{try{const item=await getItem(+h.dataset.thumbId);const file=item.coverBlob || item.blob || await (async()=>item.blob||await hydrateItem(item).then(x=>x.blob))();if(!file)return;const url=URL.createObjectURL(file);liveUrls.add(url);if(item.coverBlob || item.type?.startsWith('image/')){const img=document.createElement('img');img.className='thumb';img.src=url;img.alt='';img.loading='lazy';img.decoding='async';img.fetchPriority='low';h.replaceWith(img)}else if(item.type?.startsWith('video/')){const v=document.createElement('video');v.className='thumb';v.src=url;v.muted=true;v.playsInline=true;v.preload='metadata';v.setAttribute('aria-hidden','true');h.replaceWith(v)}else{h.innerHTML='📄'}}catch(e){h.textContent='Không tải được'}}))}
 async function writeOPFS(blob,existingPath){
   if(!blob||!navigator.storage?.getDirectory)throw new Error('OPFS_UNAVAILABLE');
   const root=await navigator.storage.getDirectory();
@@ -354,7 +354,7 @@ const backupExportBtn=document.getElementById('backupExportBtn'),backupImportBtn
 function blobToDataURL(blob){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).split(',')[1]||'');r.onerror=()=>reject(r.error||new Error('Không đọc được dữ liệu'));r.readAsDataURL(blob)})}
 function dataURLToBlob(data,type){const raw=atob(data||'');const bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);return new Blob([bytes],{type:type||'application/octet-stream'})}
 function downloadText(name,text){const url=URL.createObjectURL(new Blob([text],{type:'application/json;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
-backupExportBtn?.addEventListener('click',async()=>{try{backupExportBtn.disabled=true;backupStatus.textContent='Đang chuẩn bị bản sao lưu…';const rawItems=await allItems(),items=[];for(let i=0;i<rawItems.length;i++){backupStatus.textContent=`Đang sao lưu ${i+1}/${rawItems.length}…`;const raw=rawItems[i],item=await hydrateItem({...raw});if(!item.blob){throw new Error('Không đọc được file: '+(item.name||item.id)+'. Hãy kiểm tra file đó trước khi sao lưu.')}const meta={...item};delete meta.id;delete meta.blob;delete meta.coverBlob;delete meta.opfsPath;delete meta.chunked;delete meta.chunkCount;delete meta.storage;delete meta.cloudOnly;delete meta.cloudFile;delete meta.cloudThumb;delete meta.cloudCover;delete meta.cloudCover2;delete meta.cloud_coverBlob_sig;delete meta.cloud_coverBlob2_sig;const entry={meta,blob:await blobToDataURL(item.blob),blobType:item.blob.type||item.type||'application/octet-stream'};if(item.coverBlob instanceof Blob){entry.coverBlob=await blobToDataURL(item.coverBlob);entry.coverType=item.coverBlob.type||'image/jpeg'}items.push(entry)}const prefs={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('reze_'))prefs[k]=localStorage.getItem(k)}const payload={format:'JrungWebsiteBackup',version:1,createdAt:new Date().toISOString(),items,preferences:prefs};downloadText('Jrung_Website_Backup_'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(payload));backupStatus.textContent=`Đã tạo bản sao lưu gồm ${items.length} mục. Hãy giữ file JSON ở nơi an toàn.`}catch(err){console.error(err);backupStatus.textContent='Sao lưu thất bại: '+(err?.message||err)}finally{backupExportBtn.disabled=false}});
+backupExportBtn?.addEventListener('click',async()=>{try{backupExportBtn.disabled=true;backupStatus.textContent='Đang chuẩn bị bản sao lưu…';const rawItems=await allItems(),items=[];for(let i=0;i<rawItems.length;i++){backupStatus.textContent=`Đang sao lưu ${i+1}/${rawItems.length}…`;const raw=rawItems[i],item=await hydrateItem({...raw});if(!item.blob){throw new Error('Không đọc được file: '+(item.name||item.id)+'. Hãy kiểm tra file đó trước khi sao lưu.')}const meta={...item};delete meta.id;delete meta.blob;delete meta.coverBlob;delete meta.opfsPath;delete meta.chunked;delete meta.chunkCount;delete meta.storage;const entry={meta,blob:await blobToDataURL(item.blob),blobType:item.blob.type||item.type||'application/octet-stream'};if(item.coverBlob instanceof Blob){entry.coverBlob=await blobToDataURL(item.coverBlob);entry.coverType=item.coverBlob.type||'image/jpeg'}items.push(entry)}const prefs={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('reze_'))prefs[k]=localStorage.getItem(k)}const payload={format:'JrungWebsiteBackup',version:1,createdAt:new Date().toISOString(),items,preferences:prefs};downloadText('Jrung_Website_Backup_'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(payload));backupStatus.textContent=`Đã tạo bản sao lưu gồm ${items.length} mục. Hãy giữ file JSON ở nơi an toàn.`}catch(err){console.error(err);backupStatus.textContent='Sao lưu thất bại: '+(err?.message||err)}finally{backupExportBtn.disabled=false}});
 backupImportBtn?.addEventListener('click',()=>backupFileInput?.click());
 backupFileInput?.addEventListener('change',async()=>{const file=backupFileInput.files?.[0];if(!file)return;try{if(!confirm('Khôi phục sẽ THÊM các mục trong bản sao lưu vào thư viện hiện tại, không xóa nội dung đang có. Tiếp tục?'))return;backupImportBtn.disabled=true;backupStatus.textContent='Đang đọc bản sao lưu…';const payload=JSON.parse(await file.text());if(payload?.format!=='JrungWebsiteBackup'||!Array.isArray(payload.items))throw new Error('File sao lưu không đúng định dạng.');let restored=0;for(const entry of payload.items){if(!entry?.meta||typeof entry.blob!=='string')continue;const meta=entry.meta,blob=dataURLToBlob(entry.blob,entry.blobType||meta.type);const id=await storeFile(new File([blob],String(meta.name||'media'),{type:meta.type||blob.type||'application/octet-stream'}),meta.category||'Other');const raw=await reqP(db.transaction(STORE,'readonly').objectStore(STORE).get(id));const merged={...raw,...meta,id};delete merged.blob;if(entry.coverBlob)merged.coverBlob=dataURLToBlob(entry.coverBlob,entry.coverType||'image/jpeg');await reqP(db.transaction(STORE,'readwrite').objectStore(STORE).put(merged));restored++;backupStatus.textContent=`Đã khôi phục ${restored}/${payload.items.length} mục…`}for(const [k,v] of Object.entries(payload.preferences||{})){if(k.startsWith('reze_')&&typeof v==='string')localStorage.setItem(k,v)}backupStatus.textContent=`Khôi phục xong ${restored} mục. Tải lại trang để cập nhật toàn bộ giao diện.`;if(confirm('Khôi phục xong. Tải lại website ngay?'))location.reload()}catch(err){console.error(err);backupStatus.textContent='Khôi phục thất bại: '+(err?.message||err)}finally{backupImportBtn.disabled=false;backupFileInput.value=''}});
 function showModal(id){document.getElementById(id).classList.add('show')}
@@ -366,7 +366,7 @@ function formatTime(sec){sec=Number(sec);if(!Number.isFinite(sec)||sec<0)return 
 function parseLyrics(raw,duration){const text=String(raw||'').replace(/\r/g,'').trim();if(!text)return [];const lines=text.split('\n').map(x=>x.trim()).filter(Boolean);const timed=[];for(const line of lines){const m=line.match(/^\s*\[(\d{1,2}):(\d{2}(?:\.\d{1,3})?)\]\s*(.*)$/);if(m)timed.push({time:Number(m[1])*60+Number(m[2]),text:m[3]||'♪'});}if(timed.length){timed.sort((a,b)=>a.time-b.time);return timed.map((x,i)=>({time:x.time,text:x.text,end:i+1<timed.length?timed[i+1].time:Math.max(duration||x.time+8,x.time+8)}))}const step=Number(duration)>0?Number(duration)/lines.length:8;return lines.map((text,i)=>({time:i*step,text,end:(i+1)*step}))}
 async function renderLyrics(item){const panel=document.getElementById('musicLyrics'),linesEl=document.getElementById('lyricsLines');if(!panel||!linesEl)return;const audio=document.getElementById('musicAudio');document.getElementById('lyricsTitle').textContent=musicMetaName(item);document.getElementById('lyricsAuthor').textContent=musicAuthor(item);const cover=document.getElementById('lyricsCover');if(cover.dataset.url)try{URL.revokeObjectURL(cover.dataset.url)}catch(_){}if(item.coverBlob){const u=URL.createObjectURL(item.coverBlob);cover.dataset.url=u;cover.src=u}else{delete cover.dataset.url;cover.removeAttribute('src')}const parsed=parseLyrics(item.lyrics,audio.duration);linesEl.innerHTML=parsed.length?parsed.map((x,i)=>`<div class="lyric-line" data-lyric-index="${i}">${escapeHtml(x.text)}</div>`).join(''):'<div class="lyrics-empty">Chưa có lyric. Vào Chỉnh sửa bài hát để thêm lời.</div>';panel.classList.remove('hidden');panel._lyrics=parsed;updateLyricsHighlight()}
 function updateLyricsHighlight(){const panel=document.getElementById('musicLyrics'),linesEl=document.getElementById('lyricsLines'),audio=document.getElementById('musicAudio');if(!panel||panel.classList.contains('hidden')||!panel._lyrics)return;const t=Number(audio.currentTime)||0;let active=-1;panel._lyrics.forEach((x,i)=>{if(t>=x.time&&(i===panel._lyrics.length-1||t<x.end))active=i});[...linesEl.children].forEach((el,i)=>{el.classList.toggle('active',i===active);el.classList.toggle('past',active>=0&&i<active)});if(active>=0){const el=linesEl.children[active];if(el)panel.scrollTo({top:Math.max(0,el.offsetTop-panel.clientHeight*.35),behavior:'smooth'})}}
-async function loadBackgroundVideo(){const key=localStorage.getItem(BG_VIDEO_KEY);if(!key)return;try{const item=await getItem(Number(key),true);if(item.cloudOnly&&item.cloudFile){const cu=cloudUrl(item.cloudFile);v2.dataset.customUrl=cu;v2.src=cu;document.getElementById('backgroundFileName').textContent='Đang dùng: '+(item.name||'Video nền tùy chỉnh');v2.load();return}const hydrated=await hydrateItem(item);if(!hydrated.blob)return;const url=URL.createObjectURL(hydrated.blob);v2.dataset.customUrl=url;v2.src=url;document.getElementById('backgroundFileName').textContent='Đang dùng: '+(item.name||'Video nền tùy chỉnh');v2.load()}catch(e){localStorage.removeItem(BG_VIDEO_KEY)}}
+async function loadBackgroundVideo(){const key=localStorage.getItem(BG_VIDEO_KEY);if(!key)return;try{const item=await getItem(Number(key));const hydrated=await hydrateItem(item);if(!hydrated.blob)return;const url=URL.createObjectURL(hydrated.blob);v2.dataset.customUrl=url;v2.src=url;document.getElementById('backgroundFileName').textContent='Đang dùng: '+(item.name||'Video nền tùy chỉnh');v2.load()}catch(e){localStorage.removeItem(BG_VIDEO_KEY)}}
 async function setBackgroundVideo(file){if(!file||!file.type.startsWith('video/'))return;const oldId=Number(localStorage.getItem(BG_VIDEO_KEY));if(oldId)try{await del(oldId)}catch(_){}const id=await storeFile(file,'Background');localStorage.setItem(BG_VIDEO_KEY,String(id));const item=await getItem(id);const hydrated=await hydrateItem(item);if(hydrated.blob){if(v2.dataset.customUrl)try{URL.revokeObjectURL(v2.dataset.customUrl)}catch(_){}const url=URL.createObjectURL(hydrated.blob);v2.dataset.customUrl=url;v2.src=url;v2.loop=true;v2.currentTime=0;v2.load();await ensureVideo2Playing()}document.getElementById('backgroundFileName').textContent='Đang dùng: '+file.name}
 async function resetBackgroundVideo(){const id=Number(localStorage.getItem(BG_VIDEO_KEY));if(id)try{await del(id)}catch(_){}localStorage.removeItem(BG_VIDEO_KEY);if(v2.dataset.customUrl)try{URL.revokeObjectURL(v2.dataset.customUrl)}catch(_){}delete v2.dataset.customUrl;v2.src='./Reze_Yen_Binh.mp4';v2.loop=true;v2.currentTime=0;v2.load();document.getElementById('backgroundFileName').textContent='Đang dùng Reze Yên Bình';await ensureVideo2Playing()}
 function syncMusicButton(){const b=document.getElementById('musicToggle'),t=document.getElementById('musicStateText');if(!b)return;b.textContent=musicEnabled?'🔊':'🔇';b.title=musicEnabled?'Tắt nhạc nền':'Bật nhạc nền';if(t)t.textContent=musicEnabled?'Nhạc nền đang bật · Chuyển mục không làm nhạc dừng.':'Nhạc nền đang tắt · Chuyển mục sẽ không tự bật lại âm thanh.';b.classList.toggle('active',!musicEnabled)}
@@ -383,7 +383,7 @@ function stopVideo2Audio(){try{v2.muted=true;v2.volume=0}catch(_){}
 async function showMiniMusic(item){const mini=document.getElementById('musicMini');if(!mini)return;document.getElementById('miniTitle').textContent=musicMetaName(item);document.getElementById('miniAuthor').textContent=musicAuthor(item);const img=document.getElementById('miniCover');if(img.dataset.url)try{URL.revokeObjectURL(img.dataset.url)}catch(_){}img.dataset.url='';if(item.coverBlob){const u=URL.createObjectURL(item.coverBlob);img.src=u;img.dataset.url=u}else img.removeAttribute('src');mini.classList.remove('hidden','sink');mini.classList.add('linger');document.getElementById('miniPlay').textContent=document.getElementById('musicAudio').paused?'▶':'❚❚';app.classList.add('music-playing')}
 async function stopBackgroundVideo(){try{v2.muted=true;v2.volume=0;if(v2.paused)await v2.play()}catch(_){}
 }
-async function playMusicItem(item,fromRandom=false){if(!item||!musicEnabled)return;const audio=document.getElementById('musicAudio');const raw=await getItem(item.id,true);if(musicRandom&&!fromRandom)musicPlayed.add(item.id);const streamSrc=raw?.remoteUrl||(raw?.cloudOnly&&raw.cloudFile?cloudUrl(raw.cloudFile):'');if(streamSrc){if(audio.dataset.url)try{URL.revokeObjectURL(audio.dataset.url)}catch(_){}audio.dataset.url='';audio.src=streamSrc}else{if(!raw?.blob&&!raw?.opfsPath&&!raw?.chunked)return;const hydrated=await hydrateItem(raw);if(!hydrated.blob)return;const url=URL.createObjectURL(hydrated.blob);if(audio.dataset.url)try{URL.revokeObjectURL(audio.dataset.url)}catch(_){}audio.dataset.url=url;audio.src=url}audio.loop=false;audio.volume=1;musicCurrentId=item.id;await stopBackgroundVideo();showMiniMusic(item);await renderLyrics(item);try{await audio.play()}catch(_){ }renderMusicList()}
+async function playMusicItem(item,fromRandom=false){if(!item||!musicEnabled)return;const audio=document.getElementById('musicAudio');const raw=await getItem(item.id);if(musicRandom&&!fromRandom)musicPlayed.add(item.id);if(raw?.remoteUrl){if(audio.dataset.url)try{URL.revokeObjectURL(audio.dataset.url)}catch(_){}audio.dataset.url='';audio.src=raw.remoteUrl}else{if(!raw?.blob&&!raw?.opfsPath&&!raw?.chunked)return;const hydrated=await hydrateItem(raw);if(!hydrated.blob)return;const url=URL.createObjectURL(hydrated.blob);if(audio.dataset.url)try{URL.revokeObjectURL(audio.dataset.url)}catch(_){}audio.dataset.url=url;audio.src=url}audio.loop=false;audio.volume=1;musicCurrentId=item.id;await stopBackgroundVideo();showMiniMusic(item);await renderLyrics(item);try{await audio.play()}catch(_){ }renderMusicList()}
 async function playNextMusic(){const items=await getMusicItems();if(!items.length)return;if(!musicRandom){let idx=items.findIndex(x=>x.id===musicCurrentId);let next=items[idx+1];if(!next){musicCurrentId=null;document.getElementById('musicAudio').pause();clearMusicProgress();document.getElementById('musicMini')?.classList.add('hidden');app.classList.remove('music-playing');await ensureVideo2Playing();renderMusicList();return}await playMusicItem(next);return}if(musicPlayed.size>=items.length){musicCurrentId=null;document.getElementById('musicAudio').pause();clearMusicProgress();document.getElementById('musicMini')?.classList.add('hidden');app.classList.remove('music-playing');await ensureVideo2Playing();renderMusicList();return}const pool=items.filter(x=>!musicPlayed.has(x.id));if(!pool.length){musicCurrentId=null;document.getElementById('musicAudio').pause();clearMusicProgress();document.getElementById('musicMini')?.classList.add('hidden');app.classList.remove('music-playing');await ensureVideo2Playing();renderMusicList();return}const next=pool[Math.floor(Math.random()*pool.length)];musicPlayed.add(next.id);await playMusicItem(next,true)}
 async function toggleMusicPlayback(){const a=document.getElementById('musicAudio');if(!a.src){const items=await getMusicItems();if(!items.length)return;if(musicRandom){musicPlayed.clear();const first=items[Math.floor(Math.random()*items.length)];musicPlayed.add(first.id);await playMusicItem(first,true)}else await playMusicItem(items[0]);return}if(a.paused){try{await a.play();v2.muted=true;v2.volume=0}catch(_){}}else{a.pause();if(musicEnabled){v2.muted=false;v2.volume=1;try{await v2.play()}catch(_){}}}const cur=(await getMusicItems()).find(x=>x.id===musicCurrentId);if(cur)showMiniMusic(cur)}
 let musicManageSelectedId=null;
@@ -719,8 +719,8 @@ async function openItem(item){
   const ma=document.getElementById('musicAudio');if(ma){try{ma.pause()}catch(_){} }
   if(item.type?.startsWith('video/')){
     v2.muted=true;v2.volume=0;
-    const videoSrc=item.streamUrl||(viewerObjectUrl=URL.createObjectURL(item.blob));
-    viewer.innerHTML=`<div style="text-align:center"><video id="activeViewerVideo" src="${videoSrc}" controls autoplay playsinline webkit-playsinline preload="auto"></video><div style="margin-top:10px;color:#aaa;font-size:11px">${escapeHtml(item.description||'')}</div></div>`;
+    viewerObjectUrl=URL.createObjectURL(item.blob);
+    viewer.innerHTML=`<div style="text-align:center"><video id="activeViewerVideo" src="${viewerObjectUrl}" controls autoplay playsinline webkit-playsinline preload="auto"></video><div style="margin-top:10px;color:#aaa;font-size:11px">${escapeHtml(item.description||'')}</div></div>`;
     viewerVideo=document.getElementById('activeViewerVideo');
     viewerVideo.muted=false;viewerVideo.volume=1;
     try{await viewerVideo.play()}catch(_){viewerVideo.controls=true}
@@ -735,7 +735,7 @@ async function openItem(item){
 }
 async function openEditModal(item){editingId=item.id;pendingCover=item.coverBlob||null;document.getElementById('editName').value=item.name||'';document.getElementById('editDesc').value=item.description||'';document.getElementById('editCategory').value=item.category;document.getElementById('editRank').value=item.rank||'';document.getElementById('rankEditField').style.display=item.category==='NSFW'?'block':'none';const preview=document.getElementById('coverPreview');if(preview.dataset.url){try{URL.revokeObjectURL(preview.dataset.url)}catch(_){}}delete preview.dataset.url;if(pendingCover){const u=URL.createObjectURL(pendingCover);preview.dataset.url=u;preview.src=u;preview.classList.remove('hidden')}else{preview.removeAttribute('src');preview.classList.add('hidden')}showModal('editModal')}
 function clearCoverPreview(){const p=document.getElementById('coverPreview');if(p.dataset.url){try{URL.revokeObjectURL(p.dataset.url)}catch(_){}}delete p.dataset.url;p.removeAttribute('src');p.classList.add('hidden')}
-async function handleGridClick(e){const rankAdd=e.target.closest('[data-rank-add]');if(rankAdd){e.stopPropagation();const id=+rankAdd.dataset.rankAdd;const item=(await allItems()).find(x=>x.id===id);if(item){item.rank=rankFilter;await put(item);renderCategory()}return}const check=e.target.closest('[data-check]');if(check){e.stopPropagation();const id=+check.dataset.check;if(check.checked)selected.add(id);else selected.delete(id);renderCategory();return}const cardEl=e.target.closest('.media-card');if(!cardEl)return;const id=+cardEl.dataset.id;const item=(await allItems()).find(x=>x.id===id);if(!item)return;if(editMode){await openEditModal(await getItem(id,true))}else{uiSound('open');const raw=await getItem(id,true);if(raw.cloudOnly&&raw.cloudFile&&raw.type?.startsWith('video/'))openItem({...raw,streamUrl:cloudUrl(raw.cloudFile)});else openItem(await getItem(id))}}
+async function handleGridClick(e){const rankAdd=e.target.closest('[data-rank-add]');if(rankAdd){e.stopPropagation();const id=+rankAdd.dataset.rankAdd;const item=(await allItems()).find(x=>x.id===id);if(item){item.rank=rankFilter;await put(item);renderCategory()}return}const check=e.target.closest('[data-check]');if(check){e.stopPropagation();const id=+check.dataset.check;if(check.checked)selected.add(id);else selected.delete(id);renderCategory();return}const cardEl=e.target.closest('.media-card');if(!cardEl)return;const id=+cardEl.dataset.id;const item=(await allItems()).find(x=>x.id===id);if(!item)return;if(editMode){await openEditModal(await getItem(id))}else{uiSound('open');openItem(await getItem(id))}}
 async function addFiles(fileList,category){if(!category){alert('Hãy mở một danh mục trước khi thêm nội dung.');return 0}const files=[...fileList];if(!files.length)return 0;let added=0,failed=[];await prepareStorage();for(const file of files){try{await storeFile(file,category);added++}catch(err){failed.push(file.name);console.error('Upload failed',file.name,err)}}await renderCategory();await renderSearch();await renderAchievements();if(failed.length){const reason=failed.length===files.length?'\n\nCó thể quota của website đã gần đầy. Vào You → Bộ nhớ website để kiểm tra.':'';alert(`Đã thêm ${added}/${files.length} tệp.\nKhông thêm được: ${failed.join(', ')}${reason}`)}return added}
 function openPicker(input){try{if(typeof input.showPicker==='function')input.showPicker();else input.click()}catch(e){input.click()}}
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.dataset.close)));
@@ -748,8 +748,8 @@ document.getElementById('coverPickBtn').onclick=()=>openPicker(document.getEleme
 document.getElementById('editBtn').onclick=()=>{editMode=!editMode;rankMode=false;selected.clear();renderCategory()};
 document.getElementById('selectAllBtn').onclick=async()=>{const items=(await allItems()).filter(x=>x.category===currentCat&&(currentCat!=='NSFW'||!rankFilter||x.rank===rankFilter));items.forEach(x=>selected.add(x.id));renderCategory()};
 document.getElementById('bulkDeleteBtn').onclick=async()=>{if(!selected.size)return;if(!confirm('Xóa '+selected.size+' nội dung đã chọn?'))return;for(const id of selected)await del(id);selected.clear();await renderCategory();renderSearch();renderAchievements()};
-document.getElementById('bulkEditBtn').onclick=async()=>{if(selected.size!==1){alert('Hãy chọn đúng 1 nội dung để sửa chi tiết. Muốn xóa nhiều thì dùng Xóa.');return}await openEditModal(await getItem([...selected][0],true));};
-document.getElementById('saveEditBtn').onclick=async()=>{const item=await getItem(editingId,true);if(!item)return;item.name=document.getElementById('editName').value.trim()||item.name;item.description=document.getElementById('editDesc').value.trim();item.category=document.getElementById('editCategory').value;item.rank=item.category==='NSFW'?document.getElementById('editRank').value:'';if(pendingCover===null)delete item.coverBlob;else item.coverBlob=pendingCover;await put(item);clearCoverPreview();pendingCover=null;hideModal('editModal');selected.clear();await renderCategory();renderSearch();renderAchievements()};
+document.getElementById('bulkEditBtn').onclick=async()=>{if(selected.size!==1){alert('Hãy chọn đúng 1 nội dung để sửa chi tiết. Muốn xóa nhiều thì dùng Xóa.');return}await openEditModal(await getItem([...selected][0]));};
+document.getElementById('saveEditBtn').onclick=async()=>{const item=await getItem(editingId);if(!item)return;item.name=document.getElementById('editName').value.trim()||item.name;item.description=document.getElementById('editDesc').value.trim();item.category=document.getElementById('editCategory').value;item.rank=item.category==='NSFW'?document.getElementById('editRank').value:'';if(pendingCover===null)delete item.coverBlob;else item.coverBlob=pendingCover;await put(item);clearCoverPreview();pendingCover=null;hideModal('editModal');selected.clear();await renderCategory();renderSearch();renderAchievements()};
 document.getElementById('rankTabs').onclick=async e=>{const b=e.target.closest('.rank-tab');if(!b)return;uiSound('tap');rankFilter=rankFilter===b.dataset.rank?'':b.dataset.rank;if(editMode)rankMode=true;await renderCategory()};
 document.getElementById('mediaGrid').onclick=handleGridClick;document.getElementById('searchGrid').onclick=handleGridClick;document.getElementById('achievementGrid').onclick=handleGridClick;document.getElementById('searchInput').oninput=renderSearch;
 document.querySelectorAll('.category-card[data-cat]').forEach(b=>b.onclick=()=>{uiSound('nav');playViewTransition(b.dataset.cat,true);history.replaceState(null,'','#category:'+encodeURIComponent(b.dataset.cat));openCategory(b.dataset.cat)});
@@ -900,7 +900,7 @@ document.getElementById('musicList').onclick=async e=>{
     e.stopPropagation();
     const id=Number(play.dataset.musicPlay);
     await selectMusicForManage(id);
-    const item=await getItem(id,true);
+    const item=await getItem(id);
     if(item){
       if(musicCurrentId===item.id&&!document.getElementById('musicAudio').paused){
         document.getElementById('musicAudio').pause();
@@ -913,13 +913,13 @@ document.getElementById('musicList').onclick=async e=>{
   if(row){
     const id=Number(row.dataset.musicId);
     await selectMusicForManage(id);
-    const item=await getItem(id,true);
+    const item=await getItem(id);
     if(item)await playMusicItem(item);
   }
 };
 document.getElementById('musicEditTopBtn').onclick=async()=>{
   if(musicManageSelectedId===null)return;
-  const item=await getItem(musicManageSelectedId,true);
+  const item=await getItem(musicManageSelectedId);
   if(item)await openMusicEdit(item);
 };
 document.getElementById('musicDeleteTopBtn').onclick=async()=>{
@@ -933,9 +933,9 @@ function resetMiniGesture(){const mini=document.getElementById('musicMini');mini
 function hideMiniBySwipe(dir){const mini=document.getElementById('musicMini');if(!mini)return;app.classList.remove('music-playing');mini.classList.remove('swiping','swipe-away-left','swipe-away-right');mini.classList.add(dir==='left'?'swipe-away-left':'swipe-away-right');setTimeout(()=>{mini.classList.add('hidden');mini.classList.remove('swipe-away-left','swipe-away-right');mini.style.transform='';mini.style.opacity=''},430)}
 function stopMusicFromMiniSwipe(){const mini=document.getElementById('musicMini'),a=document.getElementById('musicAudio');if(!mini||!a)return;try{a.pause()}catch(_){}musicCurrentId=null;clearMusicProgress();app.classList.remove('music-playing');mini.classList.remove('swiping');mini.classList.add('swipe-stop-down');setTimeout(()=>{mini.classList.add('hidden');mini.classList.remove('swipe-stop-down');mini.style.transform='';mini.style.opacity=''},590);if(musicEnabled){v2.muted=false;v2.volume=1;try{v2.play()}catch(_){}}renderMusicList()}
 const miniEl=document.getElementById('musicMini');if(miniEl){miniEl.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;miniPointerId=e.pointerId;miniStartX=e.clientX;miniStartY=e.clientY;miniDx=miniDy=0;miniDragging=true;miniEl.classList.add('swiping');try{miniEl.setPointerCapture(e.pointerId)}catch(_){}e.preventDefault()});miniEl.addEventListener('pointermove',e=>{if(!miniDragging||e.pointerId!==miniPointerId)return;miniDx=e.clientX-miniStartX;miniDy=e.clientY-miniStartY;if(Math.abs(miniDx)<Math.abs(miniDy)){const dy=Math.max(0,miniDy);miniEl.style.transform=`translate(-50%,${Math.min(125,dy)}px) scale(${Math.max(.94,1-dy/900)})`;miniEl.style.opacity=String(Math.max(.25,1-dy/160))}else{miniEl.style.transform=`translate(calc(-50% + ${miniDx}px),0) rotate(${Math.max(-3,Math.min(3,miniDx/90))}deg)`;miniEl.style.opacity=String(Math.max(.2,1-Math.abs(miniDx)/260))}});const end=e=>{if(!miniDragging||e.pointerId!==miniPointerId)return;const dx=miniDx,dy=miniDy;try{miniEl.releasePointerCapture(e.pointerId)}catch(_){}miniDragging=false;miniPointerId=null;miniEl.classList.remove('swiping');if(Math.abs(dx)>75&&Math.abs(dx)>Math.abs(dy)){hideMiniBySwipe(dx<0?'left':'right')}else if(dy>75&&dy>Math.abs(dx)){stopMusicFromMiniSwipe()}else resetMiniGesture()};miniEl.addEventListener('pointerup',end);miniEl.addEventListener('pointercancel',end)}
-document.getElementById('miniPlay').onclick=()=>toggleMusicPlayback();const musicAudio=document.getElementById('musicAudio'),musicProgress=document.getElementById('musicProgress');function updateMusicProgress(){const d=musicAudio.duration||0,t=musicAudio.currentTime||0;document.getElementById('musicCurrentTime').textContent=formatTime(t);document.getElementById('musicDuration').textContent=formatTime(d);musicProgress.value=d?Math.round(t/d*1000):0;updateLyricsHighlight()}function clearMusicProgress(){document.getElementById('musicCurrentTime').textContent='0:00';document.getElementById('musicDuration').textContent='0:00';musicProgress.value=0;const lp=document.getElementById('musicLyrics');if(lp){lp.classList.add('hidden');lp._lyrics=[]}}musicAudio.addEventListener('timeupdate',updateMusicProgress);musicAudio.addEventListener('loadedmetadata',async()=>{updateMusicProgress();if(musicCurrentId!==null){const it=await getItem(musicCurrentId,true);if(it)await renderLyrics(it)}});musicProgress.addEventListener('input',()=>{const d=musicAudio.duration||0;if(d)musicAudio.currentTime=(Number(musicProgress.value)/1000)*d});document.getElementById('musicAudio').addEventListener('ended',()=>playNextMusic());document.getElementById('musicAudio').addEventListener('play',async()=>{const cur=(await getMusicItems()).find(x=>x.id===musicCurrentId);if(cur)showMiniMusic(cur);v2.muted=true;v2.volume=0;renderMusicList()});document.getElementById('musicAudio').addEventListener('pause',async()=>{if(musicEnabled&&musicCurrentId!==null&&!window.__musicPausedByToggle){v2.muted=false;v2.volume=1;try{await v2.play()}catch(_){}}renderMusicList()});
+document.getElementById('miniPlay').onclick=()=>toggleMusicPlayback();const musicAudio=document.getElementById('musicAudio'),musicProgress=document.getElementById('musicProgress');function updateMusicProgress(){const d=musicAudio.duration||0,t=musicAudio.currentTime||0;document.getElementById('musicCurrentTime').textContent=formatTime(t);document.getElementById('musicDuration').textContent=formatTime(d);musicProgress.value=d?Math.round(t/d*1000):0;updateLyricsHighlight()}function clearMusicProgress(){document.getElementById('musicCurrentTime').textContent='0:00';document.getElementById('musicDuration').textContent='0:00';musicProgress.value=0;const lp=document.getElementById('musicLyrics');if(lp){lp.classList.add('hidden');lp._lyrics=[]}}musicAudio.addEventListener('timeupdate',updateMusicProgress);musicAudio.addEventListener('loadedmetadata',async()=>{updateMusicProgress();if(musicCurrentId!==null){const it=await getItem(musicCurrentId);if(it)await renderLyrics(it)}});musicProgress.addEventListener('input',()=>{const d=musicAudio.duration||0;if(d)musicAudio.currentTime=(Number(musicProgress.value)/1000)*d});document.getElementById('musicAudio').addEventListener('ended',()=>playNextMusic());document.getElementById('musicAudio').addEventListener('play',async()=>{const cur=(await getMusicItems()).find(x=>x.id===musicCurrentId);if(cur)showMiniMusic(cur);v2.muted=true;v2.volume=0;renderMusicList()});document.getElementById('musicAudio').addEventListener('pause',async()=>{if(musicEnabled&&musicCurrentId!==null&&!window.__musicPausedByToggle){v2.muted=false;v2.volume=1;try{await v2.play()}catch(_){}}renderMusicList()});
 document.getElementById('musicSearchBtn').onclick=()=>{const p=document.getElementById('musicSearchPanel');p.classList.toggle('hidden');if(!p.classList.contains('hidden'))document.getElementById('musicWebQuery').focus()};document.getElementById('musicWebGo').onclick=()=>renderMusicSearch(document.getElementById('musicWebQuery').value.trim());document.getElementById('musicWebQuery').addEventListener('input',e=>{clearTimeout(musicSearchTimer);const q=e.target.value.trim();musicSearchTimer=setTimeout(()=>renderMusicSearch(q),280)});document.getElementById('musicWebQuery').addEventListener('keydown',e=>{if(e.key==='Enter')renderMusicSearch(e.target.value.trim())});document.getElementById('musicSearchResults').onclick=async e=>{const add=e.target.closest('[data-preview-add]');if(add){const item={name:add.dataset.previewName||'Preview',author:add.dataset.previewAuthor||'Không rõ tác giả',description:'Preview online',category:'Music',rank:'',source:'review',type:'audio/mpeg',size:0,createdAt:Date.now(),remoteUrl:add.dataset.previewUrl||'',musicOrder:(await getMusicItems()).length};if(add.dataset.previewCover){try{const r=await fetch(add.dataset.previewCover);if(r.ok)item.coverBlob=await r.blob()}catch(_){}}await saveMeta(item);await renderMusicList();return}const b=e.target.closest('[data-preview-url]');if(!b||!musicEnabled)return;const a=document.getElementById('musicAudio');if(a.dataset.url)try{URL.revokeObjectURL(a.dataset.url)}catch(_){}a.src=b.dataset.previewUrl;musicCurrentId=null;await stopBackgroundVideo();try{await a.play()}catch(_){}};
-function pickMusicCover(which){openPicker(document.getElementById(which==='one'?'musicCover1Input':'musicCover2Input'))}document.getElementById('musicCover1Pick').onclick=()=>pickMusicCover('one');document.getElementById('musicCover2Pick').onclick=()=>pickMusicCover('two');document.getElementById('musicCover1Remove').onclick=()=>{pendingMusicCover1=null;setMusicPreview('musicCover1Preview',null)};document.getElementById('musicCover2Remove').onclick=()=>{pendingMusicCover2=null;setMusicPreview('musicCover2Preview',null)};document.getElementById('musicCover1Input').onchange=async e=>{const f=e.target.files?.[0];if(f){pendingMusicCover1=new Blob([await f.arrayBuffer()],{type:f.type});setMusicPreview('musicCover1Preview',pendingMusicCover1)}e.target.value=''};document.getElementById('musicCover2Input').onchange=async e=>{const f=e.target.files?.[0];if(f){pendingMusicCover2=new Blob([await f.arrayBuffer()],{type:f.type});setMusicPreview('musicCover2Preview',pendingMusicCover2)}e.target.value=''};document.getElementById('musicSaveEdit').onclick=async()=>{const item=await getItem(musicEditId,true);if(!item)return;const oldName=item.name;item.name=document.getElementById('musicEditName').value.trim()||item.name;item.author=document.getElementById('musicEditAuthor').value.trim()||'Không rõ tác giả';item.lyrics=document.getElementById('musicEditLyrics').value.trim();if(pendingMusicCover1===null)delete item.coverBlob;else item.coverBlob=pendingMusicCover1;if(pendingMusicCover2===null)delete item.coverBlob2;else item.coverBlob2=pendingMusicCover2;await saveMeta(item);await syncAllSameNameMusic();hideModal('musicEditModal');await renderMusicList();if(musicCurrentId===item.id)showMiniMusic(item);};
+function pickMusicCover(which){openPicker(document.getElementById(which==='one'?'musicCover1Input':'musicCover2Input'))}document.getElementById('musicCover1Pick').onclick=()=>pickMusicCover('one');document.getElementById('musicCover2Pick').onclick=()=>pickMusicCover('two');document.getElementById('musicCover1Remove').onclick=()=>{pendingMusicCover1=null;setMusicPreview('musicCover1Preview',null)};document.getElementById('musicCover2Remove').onclick=()=>{pendingMusicCover2=null;setMusicPreview('musicCover2Preview',null)};document.getElementById('musicCover1Input').onchange=async e=>{const f=e.target.files?.[0];if(f){pendingMusicCover1=new Blob([await f.arrayBuffer()],{type:f.type});setMusicPreview('musicCover1Preview',pendingMusicCover1)}e.target.value=''};document.getElementById('musicCover2Input').onchange=async e=>{const f=e.target.files?.[0];if(f){pendingMusicCover2=new Blob([await f.arrayBuffer()],{type:f.type});setMusicPreview('musicCover2Preview',pendingMusicCover2)}e.target.value=''};document.getElementById('musicSaveEdit').onclick=async()=>{const item=await getItem(musicEditId);if(!item)return;const oldName=item.name;item.name=document.getElementById('musicEditName').value.trim()||item.name;item.author=document.getElementById('musicEditAuthor').value.trim()||'Không rõ tác giả';item.lyrics=document.getElementById('musicEditLyrics').value.trim();if(pendingMusicCover1===null)delete item.coverBlob;else item.coverBlob=pendingMusicCover1;if(pendingMusicCover2===null)delete item.coverBlob2;else item.coverBlob2=pendingMusicCover2;await saveMeta(item);await syncAllSameNameMusic();hideModal('musicEditModal');await renderMusicList();if(musicCurrentId===item.id)showMiniMusic(item);};
 document.getElementById('musicDeleteEdit').onclick=async()=>{const item=await getItem(musicEditId);if(!item)return;const ok=confirm(`Xóa bài "${musicMetaName(item)}" khỏi Music?\n\nFile âm thanh và dữ liệu của bài này sẽ bị xóa khỏi bộ nhớ website.`);if(!ok)return;const wasCurrent=musicCurrentId===item.id;if(wasCurrent){try{musicAudio.pause()}catch(_){}musicAudio.removeAttribute('src');try{musicAudio.load()}catch(_){}musicCurrentId=null;clearMusicProgress();app.classList.remove('music-playing');if(musicEnabled){v2.muted=false;v2.volume=1;try{await v2.play()}catch(_){} }}await del(item.id);musicEditId=null;pendingMusicCover1=null;pendingMusicCover2=null;hideModal('musicEditModal');await renderMusicList();};
 // Create song
 function scaffoldLyrics(text,duration){const lines=String(text||'').split('\n').map(x=>x.trim()).filter(Boolean).filter(x=>!/^(\[\d{1,2}:\d{2}(?:\.\d{1,3})?\])/.test(x));if(!lines.length)return '';const d=Number(duration)||lines.length*5;const step=d/lines.length;return lines.map((x,i)=>{const t=Math.floor(i*step),m=Math.floor(t/60),sec=(t%60).toString().padStart(2,'0');return `[${m}:${sec}] ${x}`}).join('\n')}
@@ -976,312 +976,98 @@ document.getElementById('login')?.addEventListener('pointerdown',()=>{enableVide
 document.getElementById('video1SoundHint')?.addEventListener('click',e=>{e.stopPropagation();enableVideo1Audio()});
 
 function applyCategoryOrder(){const grid=document.getElementById('categoryGrid');if(!grid)return;const saved=JSON.parse(localStorage.getItem(CAT_ORDER_KEY)||'null');if(!Array.isArray(saved)||!saved.length)return;const map=new Map([...grid.children].map(x=>[x.dataset.cat,x]));saved.forEach(cat=>{const el=map.get(cat);if(el)grid.appendChild(el)})}
-function routeHash(){const h=decodeURIComponent(location.hash.slice(1));if(!h)return; if(h==='home'){switchView('homeView');return}if(h==='search'){switchView('searchView');renderSearch();return}if(h==='music'){switchView('musicView');renderMusicList();return}if(h==='achievements'){switchView('achievementsView');renderAchievements();return}if(h==='you'){switchView('youView');return}if(h.startsWith('category:')){openCategory(h.slice(9));return}}window.addEventListener('hashchange',routeHash);(async()=>{syncMusicButton();await prepareStorage();await openDB();try{await cloudPull()}catch(e){console.warn('cloudPull',e)}await syncAllSameNameMusic();await loadBackgroundVideo();if(sessionStorage.getItem('rezeUnlocked')==='1'){stopVideo1();login.classList.add('hidden');app.classList.remove('hidden');await ensureVideo2Playing();showRandomHomeQuote();setTimeout(routeHash,0)}else{startVideo1WithAudio();const reveal=()=>document.querySelector('.access')?.classList.add('show');setTimeout(reveal,3000);setTimeout(reveal,4200)}})();
-// ===== V62 PUBLISH: đưa thư viện lên GitHub Pages để mọi người mở link đều thấy =====
-const PUB_CFG_KEY='jrung_publish_cfg', PUB_REV_KEY='jrung_cloud_rev';
-const MANIFEST_PATH='data/manifest.json', MAX_PUB_FILE=95*1024*1024, BATCH_BYTES=45*1024*1024, BATCH_FILES=30;
-const pubEl=id=>document.getElementById(id);
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-function pageBase(){return location.href.split('#')[0].split('?')[0]}
-function cloudUrl(path){return new URL(path,pageBase()).href}
-function guessRepo(){
-  const host=location.hostname, seg=location.pathname.split('/').filter(Boolean)[0]||'';
-  if(/\.github\.io$/i.test(host)){const owner=host.split('.')[0];return {owner,repo:seg&&!/\.html?$/i.test(seg)?seg:owner+'.github.io'}}
-  return {owner:'',repo:''}
-}
-function getCfg(){try{const c=JSON.parse(localStorage.getItem(PUB_CFG_KEY)||'{}');return {...guessRepo(),branch:'',token:'',...c}}catch(_){return {...guessRepo(),branch:'',token:''}}}
-function setCfg(c){try{localStorage.setItem(PUB_CFG_KEY,JSON.stringify(c))}catch(_){}}
-const MIME_EXT={'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/gif':'gif','image/avif':'avif','image/heic':'heic','video/mp4':'mp4','video/webm':'webm','video/quicktime':'mov','video/x-matroska':'mkv','audio/mpeg':'mp3','audio/mp4':'m4a','audio/x-m4a':'m4a','audio/wav':'wav','audio/x-wav':'wav','audio/ogg':'ogg','audio/flac':'flac','application/pdf':'pdf','text/plain':'txt'};
-function extFor(type,name){
-  if(MIME_EXT[type])return MIME_EXT[type];
-  const sub=String(type||'').split('/')[1]||'';if(/^[a-z0-9]{1,5}$/i.test(sub))return sub.toLowerCase();
-  const m=String(name||'').match(/\.([a-z0-9]{1,5})$/i);return m?m[1].toLowerCase():'bin'
-}
-function newUid(){return (crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).replace(/-/g,'').slice(0,16)}
-const NON_PUBLIC_KEYS=['id','blob','coverBlob','coverBlob2','thumbBlob','opfsPath','chunked','chunkCount','storage','cloudOnly','cloudUid','cloudFile','cloudThumb','cloudCover','cloudCover2','cloudCoverType','cloudCover2Type','cloudCoverSig','cloudCover2Sig'];
-function publicMeta(item){
-  const meta={};
-  for(const [k,v] of Object.entries(item)){if(NON_PUBLIC_KEYS.includes(k)||k.startsWith('cloud')||v instanceof Blob||typeof v==='function'||v===undefined)continue;meta[k]=v}
-  try{return JSON.parse(JSON.stringify(meta))}catch(_){return {name:meta.name,category:meta.category,type:meta.type,size:meta.size,createdAt:meta.createdAt}}
-}
-async function gitBlobSha(blob){
-  const body=new Uint8Array(await blob.arrayBuffer()),head=new TextEncoder().encode('blob '+body.length+'\0'),all=new Uint8Array(head.length+body.length);
-  all.set(head);all.set(body,head.length);
-  return [...new Uint8Array(await crypto.subtle.digest('SHA-1',all))].map(b=>b.toString(16).padStart(2,'0')).join('')
-}
-function canvasToJpeg(c){return new Promise(r=>c.toBlob(b=>r(b),'image/jpeg',.78))}
-async function makeImageThumb(blob){
-  try{const bmp=await createImageBitmap(blob),s=Math.min(1,480/Math.max(bmp.width,bmp.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(bmp.width*s));c.height=Math.max(1,Math.round(bmp.height*s));c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);bmp.close?.();return await canvasToJpeg(c)}catch(_){return null}
-}
-function makeVideoThumb(blob){
-  return new Promise(resolve=>{
-    const url=URL.createObjectURL(blob),v=document.createElement('video');let done=false,t=null;
-    const finish=b=>{if(done)return;done=true;clearTimeout(t);try{URL.revokeObjectURL(url)}catch(_){}try{v.removeAttribute('src');v.load()}catch(_){}resolve(b)};
-    t=setTimeout(()=>finish(null),10000);v.muted=true;v.playsInline=true;v.preload='auto';
-    v.onerror=()=>finish(null);
-    v.onloadeddata=()=>{try{v.currentTime=Math.min(1,(v.duration||2)*.1)}catch(_){finish(null)}};
-    v.onseeked=async()=>{try{if(!v.videoWidth)return finish(null);const s=Math.min(1,480/Math.max(v.videoWidth,v.videoHeight)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(v.videoWidth*s));c.height=Math.max(1,Math.round(v.videoHeight*s));c.getContext('2d').drawImage(v,0,0,c.width,c.height);finish(await canvasToJpeg(c))}catch(_){finish(null)}};
-    v.src=url
-  })
-}
-
-// ---------- Khách / thiết bị khác: tải bản công khai về ----------
-const cloudInflight=new Map();
-async function materializeCloud(raw){
-  let p=cloudInflight.get(raw.id);
-  if(!p){
-    p=(async()=>{
-      const res=await fetch(cloudUrl(raw.cloudFile));
-      if(!res.ok)throw new Error('Không tải được '+(raw.name||'file')+' từ web ('+res.status+')');
-      const blob=new Blob([await res.blob()],{type:raw.type||res.headers.get('content-type')||'application/octet-stream'});
-      try{
-        const fresh=await reqP(db.transaction(STORE,'readonly').objectStore(STORE).get(raw.id));
-        if(fresh&&fresh.cloudOnly){
-          const rec={...fresh};
-          try{
-            if(!navigator.storage?.getDirectory)throw new Error('NO_OPFS');
-            rec.opfsPath=await writeOPFS(blob);rec.storage='opfs';delete rec.chunked;delete rec.chunkCount;
-          }catch(_){
-            delete rec.opfsPath;rec.chunked=true;rec.chunkCount=Math.max(1,Math.ceil(blob.size/CHUNK_SIZE));rec.storage='chunks';
-            for(let i=0;i<rec.chunkCount;i++)await chunkPut(raw.id,i,await blob.slice(i*CHUNK_SIZE,Math.min(blob.size,(i+1)*CHUNK_SIZE)).arrayBuffer());
-          }
-          delete rec.cloudOnly;await reqP(db.transaction(STORE,'readwrite').objectStore(STORE).put(rec));
-        }
-      }catch(e){console.warn('Không lưu được bản sao cục bộ, vẫn dùng trực tiếp từ web',e)}
-      return blob
-    })();
-    cloudInflight.set(raw.id,p);
-    p.then(()=>cloudInflight.delete(raw.id),()=>cloudInflight.delete(raw.id));
-  }
-  raw.blob=await p;delete raw.cloudOnly;return raw
-}
-function setPubInfo(text){const el=pubEl('pubPublicInfo');if(el)el.textContent=text}
-async function downloadCovers(jobs){
-  let i=0;
-  const worker=async()=>{while(i<jobs.length){const {id,e}=jobs[i++];
-    try{
-      const rec=await reqP(db.transaction(STORE,'readonly').objectStore(STORE).get(id));if(!rec)continue;
-      for(const [k,p,t,sig] of [['coverBlob',e.cover,e.coverType,e.coverSig],['coverBlob2',e.cover2,e.cover2Type,e.cover2Sig]]){
-        if(p){if(rec[k]&&rec['cloud_'+k+'_sig']===sig)continue;const r=await fetch(cloudUrl(p));if(r.ok){rec[k]=new Blob([await r.blob()],{type:t||'image/jpeg'});rec['cloud_'+k+'_sig']=sig||''}}
-        else if(rec['cloud_'+k+'_sig']!==undefined){delete rec[k];delete rec['cloud_'+k+'_sig']}
-      }
-      await reqP(db.transaction(STORE,'readwrite').objectStore(STORE).put(rec))
-    }catch(err){console.warn('Cover failed',err)}
-  }};
-  await Promise.all([worker(),worker(),worker(),worker()])
-}
-async function cloudPull({force=false,mirror=null,timeout=7000}={}){
-  const owner=!!getCfg().token, doMirror=mirror??!owner;
-  let man;
-  try{
-    const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),timeout);
-    const r=await fetch(cloudUrl(MANIFEST_PATH)+'?t='+Date.now(),{cache:'no-store',signal:ctl.signal});clearTimeout(tm);
-    if(!r.ok){setPubInfo('Chưa có bản công khai nào được xuất bản.');return {ok:false,reason:'none'}}
-    man=await r.json()
-  }catch(e){return {ok:false,reason:'offline'}}
-  if(man?.format!=='JrungPublic'||!Array.isArray(man.items))return {ok:false,reason:'bad'};
-  const label=`Bản công khai: ${man.items.length} mục · cập nhật ${man.rev?new Date(man.rev).toLocaleString('vi-VN'):'—'}`;
-  const local=await allItems(),byUid=new Map();for(const x of local)if(x.cloudUid)byUid.set(x.cloudUid,x);
-  if(!force&&localStorage.getItem(PUB_REV_KEY)===man.rev&&(!man.items.length||byUid.size)){setPubInfo(label);return {ok:true,unchanged:true}}
-  let added=0,updated=0,removed=0;const coverJobs=[],uids=new Set();
-  for(const e of man.items){
-    if(!e||!e.uid||!e.meta)continue;uids.add(e.uid);
-    const ex=byUid.get(e.uid),cloudBits={cloudUid:e.uid,cloudThumb:e.thumb||null,cloudCover:e.cover||null,cloudCover2:e.cover2||null};
-    if(!ex){
-      const rec={...e.meta,...cloudBits};delete rec.id;if(e.file){rec.cloudOnly=true;rec.cloudFile=e.file}
-      const id=await reqP(db.transaction(STORE,'readwrite').objectStore(STORE).add(rec));added++;
-      if(e.cover||e.cover2)coverJobs.push({id,e})
-    }else if(doMirror){
-      const merged={...ex,...e.meta,...cloudBits,id:ex.id};await reqP(db.transaction(STORE,'readwrite').objectStore(STORE).put(merged));updated++;
-      coverJobs.push({id:ex.id,e})
-    }
-  }
-  if(doMirror)for(const x of local)if(x.cloudUid&&!uids.has(x.cloudUid)){try{await del(x.id);removed++}catch(_){}}
-  const apply=(key,val)=>{try{if(doMirror||localStorage.getItem(key)===null)localStorage.setItem(key,val)}catch(_){}};
-  if(Array.isArray(man.notes))apply(NOTES_KEY,JSON.stringify(man.notes));
-  if(man.prefs){
-    if(Array.isArray(man.prefs.categoryOrder))apply(CAT_ORDER_KEY,JSON.stringify(man.prefs.categoryOrder));
-    if('bgUid' in man.prefs){
-      if(man.prefs.bgUid){const m=(await allItems()).find(x=>x.cloudUid===man.prefs.bgUid);if(m)apply(BG_VIDEO_KEY,String(m.id))}
-      else if(doMirror){const cur=Number(localStorage.getItem(BG_VIDEO_KEY));if(cur){const it=(await allItems()).find(x=>x.id===cur);if(it?.cloudUid)localStorage.removeItem(BG_VIDEO_KEY)}}
-    }
-  }
-  if(coverJobs.length)await downloadCovers(coverJobs);
-  try{localStorage.setItem(PUB_REV_KEY,man.rev||'')}catch(_){}
-  setPubInfo(label);
-  return {ok:true,added,updated,removed}
-}
-
-// ---------- Chủ web: xuất bản ----------
-class PubError extends Error{}
-function ghFail(status,text){
-  let msg='';try{msg=JSON.parse(text).message||''}catch(_){msg=String(text||'').slice(0,160)}
-  if(status===401)return new PubError('Token sai hoặc đã hết hạn. Hãy tạo token mới.');
-  if(status===403)return new PubError('Token không đủ quyền. Cần quyền "Contents: Read and write" cho repo này. ('+msg+')');
-  if(status===404)return new PubError('Không tìm thấy repo/nhánh, hoặc token không có quyền với repo này. Kiểm tra lại Owner, Repo, Branch.');
-  if(status===409||status===422)return new PubError('GitHub từ chối thao tác ('+status+'): '+msg+'. Nếu vừa có người/thiết bị khác xuất bản, hãy bấm lại.');
-  return new PubError('GitHub lỗi '+status+': '+msg)
-}
-async function gh(cfg,method,path,body,{allow404=false}={}){
-  for(let attempt=0;;attempt++){
-    let res;
-    try{res=await fetch('https://api.github.com'+path,{method,headers:{'Authorization':'Bearer '+cfg.token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined})}
-    catch(e){if(attempt<3){await sleep(1500*(attempt+1));continue}throw new PubError('Không kết nối được GitHub (mạng?).')}
-    if(res.ok)return res.status===204?null:await res.json();
-    if(allow404&&res.status===404)return null;
-    const text=await res.text().catch(()=>'');
-    const limited=(res.status===403||res.status===429)&&(res.headers.get('retry-after')||res.headers.get('x-ratelimit-remaining')==='0'||/rate limit|abuse/i.test(text));
-    if(limited&&attempt<8){
-      let wait=Number(res.headers.get('retry-after'))*1000;
-      if(!wait){const reset=Number(res.headers.get('x-ratelimit-reset'))*1000;wait=reset?Math.max(5000,reset-Date.now()+1000):60000}
-      wait=Math.min(wait,15*60*1000);pubSay(`GitHub giới hạn tốc độ, tự chờ ${Math.ceil(wait/1000)} giây rồi làm tiếp…`);await sleep(wait);continue
-    }
-    if((res.status>=500)&&attempt<3){await sleep(2000*(attempt+1));continue}
-    throw ghFail(res.status,text)
-  }
-}
-function pubSay(msg,pct){const s=pubEl('pubStatus');if(s)s.textContent=msg;if(pct!=null){const b=pubEl('pubBarFill');if(b)b.style.width=Math.max(0,Math.min(100,pct))+'%'}}
-function setPubBusy(v){['pubPublishBtn','pubPullBtn','pubForgetBtn'].forEach(id=>{const b=pubEl(id);if(b)b.disabled=v})}
-function readCfgFromUI(){
-  const cfg={owner:pubEl('pubOwner').value.trim(),repo:pubEl('pubRepo').value.trim(),branch:pubEl('pubBranch').value.trim(),token:pubEl('pubToken').value.trim()};
-  if(!cfg.owner||!cfg.repo)throw new PubError('Hãy điền Owner và Repo (ví dụ: kjrusagki / Website-).');
-  if(!cfg.token)throw new PubError('Hãy dán token GitHub.');
-  return cfg
-}
-async function publishLibrary(){
-  const cfg=readCfgFromUI();setCfg(cfg);syncPubDot();
-  const R=`/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}`;
-  pubSay('Đang kết nối GitHub…',2);
-  const repo=await gh(cfg,'GET',R);
-  if(repo.permissions&&repo.permissions.push===false)throw new PubError('Token chỉ có quyền đọc. Cần "Contents: Read and write".');
-  const branch=cfg.branch||repo.default_branch;
-  const ref=await gh(cfg,'GET',`${R}/git/ref/heads/${encodeURIComponent(branch)}`);
-  let headSha=ref.object.sha;
-  const headCommit=await gh(cfg,'GET',`${R}/git/commits/${headSha}`);
-  let baseTree=headCommit.tree.sha;
-  const listing=await gh(cfg,'GET',`${R}/git/trees/${baseTree}?recursive=1`);
-  if(listing.truncated)throw new PubError('Repo quá lớn để liệt kê hết file.');
-  const existing=new Map();for(const t of listing.tree)if(t.type==='blob'&&t.path.startsWith('data/'))existing.set(t.path,t.sha);
-  let oldMan=null;
-  if(existing.has(MANIFEST_PATH)){
-    try{const b=await gh(cfg,'GET',`${R}/git/blobs/${existing.get(MANIFEST_PATH)}`);oldMan=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(b.content.replace(/\s/g,'')),c=>c.charCodeAt(0))))}catch(e){console.warn('Manifest cũ không đọc được',e)}
-    if(oldMan?.format!=='JrungPublic')oldMan=null
-  }
-  const oldByUid=new Map((oldMan?.items||[]).map(e=>[e.uid,e]));
-  const local=await allItems();
-  const plan=local.map(raw=>({raw,uid:raw.cloudUid||newUid()}));
-  const localUids=new Set(plan.map(p=>p.uid));
-  const dropped=(oldMan?.items||[]).filter(e=>!localUids.has(e.uid));
-  if(dropped.length&&!confirm(`Có ${dropped.length} mục đang công khai nhưng không còn trong thư viện của thiết bị này. Xuất bản sẽ GỠ chúng khỏi web.\nNếu đây là thiết bị mới/chưa tải đủ thư viện, hãy bấm Hủy rồi bấm "Lấy bản công khai" trước.\n\nTiếp tục xuất bản?`))throw new PubError('Đã hủy xuất bản.');
-
-  const done=new Map(); // uid -> manifest entry đã chắc chắn có đủ file trên GitHub
-  const skipped=[];let pendingTree=[],pendingBytes=0,uploadedFiles=0;
-  const treeOf=t=>t.map(x=>({...x}));
-  async function uploadBlob(path,blob){
-    pubSay(`Đang tải lên ${path.split('/').pop()} (${formatSize(blob.size)})…`);
-    const b=await gh(cfg,'POST',`${R}/git/blobs`,{content:await blobToDataURL(blob),encoding:'base64'});
-    await sleep(350);pendingTree.push({path,mode:'100644',type:'blob',sha:b.sha});pendingBytes+=blob.size;uploadedFiles++;existing.set(path,b.sha);return b.sha
-  }
-  function manifestNow(final){
-    const items=[...done.values()];
-    if(!final)for(const e of oldMan?.items||[])if(!done.has(e.uid))items.push(e);
-    let notes=[];try{notes=getHomeNotes()}catch(_){}
-    const bgId=Number(localStorage.getItem(BG_VIDEO_KEY))||0,bgItem=plan.find(p=>p.raw.id===bgId);
-    let order=null;try{order=JSON.parse(localStorage.getItem(CAT_ORDER_KEY)||'null')}catch(_){}
-    return {format:'JrungPublic',version:1,rev:new Date().toISOString(),items,notes,prefs:{categoryOrder:Array.isArray(order)?order:null,bgUid:bgItem?bgItem.uid:null}}
-  }
-  async function flush(final,message){
-    const man=manifestNow(final);
-    const tree=treeOf(pendingTree);
-    if(final){
-      const keep=new Set();for(const e of man.items)for(const p of [e.file,e.thumb,e.cover,e.cover2])if(p)keep.add(p);
-      let removedFiles=0;
-      for(const p of existing.keys())if(/^data\/(media|thumb|cover)\//.test(p)&&!keep.has(p)){tree.push({path:p,mode:'100644',type:'blob',sha:null});removedFiles++}
-    }
-    const json=JSON.stringify(man);
-    tree.push({path:MANIFEST_PATH,mode:'100644',type:'blob',content:json});
-    pubSay('Đang tạo bản xuất bản (commit)…');
-    const nt=await gh(cfg,'POST',`${R}/git/trees`,{base_tree:baseTree,tree});
-    const c=await gh(cfg,'POST',`${R}/git/commits`,{message,tree:nt.sha,parents:[headSha]});
-    await gh(cfg,'PATCH',`${R}/git/refs/heads/${encodeURIComponent(branch)}`,{sha:c.sha,force:false});
-    headSha=c.sha;baseTree=nt.sha;pendingTree=[];pendingBytes=0;return man
-  }
-
-  let n=0;
-  for(const {raw,uid} of plan){
-    n++;pubSay(`Đang xử lý ${n}/${plan.length}: ${raw.name||'mục'}…`,5+n/plan.length*85);
-    const old=oldByUid.get(uid),type=raw.type||'application/octet-stream';
-    const entry={uid,file:null,thumb:null,cover:null,cover2:null,type,size:Number(raw.size)||0,meta:publicMeta(raw)};
-    const hasLocalMedia=!raw.cloudOnly&&!raw.remoteUrl&&!!(raw.blob||raw.opfsPath||raw.chunked);
-    if(old?.file&&existing.has(old.file)){entry.file=old.file;if(old.thumb&&existing.has(old.thumb))entry.thumb=old.thumb}
-    else if(hasLocalMedia){
-      if((Number(raw.size)||0)>MAX_PUB_FILE){skipped.push(`${raw.name||raw.id} (${formatSize(raw.size)} — quá lớn)`);continue}
-      const hyd=await hydrateItem({...raw});
-      if(!hyd.blob){skipped.push(`${raw.name||raw.id} (không đọc được)`);continue}
-      const path=`data/media/${uid}.${extFor(type,raw.name)}`;
-      await uploadBlob(path,hyd.blob);entry.file=path;
-      if(type.startsWith('image/')&&hyd.blob.size<=250*1024)entry.thumb=path;
-      else if(type.startsWith('image/')||type.startsWith('video/')){
-        const tb=type.startsWith('image/')?await makeImageThumb(hyd.blob):await makeVideoThumb(hyd.blob);
-        if(tb){const tp=`data/thumb/${uid}.jpg`;await uploadBlob(tp,tb);entry.thumb=tp}
-      }
-    }else if(raw.cloudOnly){skipped.push(`${raw.name||raw.id} (chưa tải về máy này nên không có file để xuất bản)`);continue}
-    for(const [k,pk,tk,sk] of [['coverBlob','cover','coverType','coverSig'],['coverBlob2','cover2','cover2Type','cover2Sig']]){
-      const cb=raw[k];if(!(cb instanceof Blob))continue;
-      const sha=await gitBlobSha(cb),path=`data/cover/${uid}${pk==='cover2'?'_2':''}.${extFor(cb.type||'image/jpeg')}`;
-      if(existing.get(path)!==sha)await uploadBlob(path,cb);
-      entry[pk]=path;entry[tk]=cb.type||'image/jpeg';entry[sk]=sha
-    }
-    done.set(uid,entry);
-    if(pendingBytes>=BATCH_BYTES||pendingTree.length>=BATCH_FILES){await flush(false,`Xuất bản thư viện (${done.size}/${plan.length})`)}
-  }
-  const finalMan=manifestNow(true);
-  const changed=uploadedFiles>0||!oldMan||dropped.length>0||JSON.stringify({...finalMan,rev:''})!==JSON.stringify({...oldMan,rev:''});
-  if(!changed){pubSay('Không có gì mới để xuất bản — bản công khai đã khớp với thiết bị này.',100);return {unchanged:true}}
-  const man=await flush(true,`Xuất bản thư viện (${done.size} mục)`);
-  // ghi nhớ uid + rev ở máy này
-  for(const {raw,uid} of plan){if(!raw.cloudUid&&done.has(uid)){try{await reqP(db.transaction(STORE,'readwrite').objectStore(STORE).put({...raw,cloudUid:uid}))}catch(_){}}}
-  try{localStorage.setItem(PUB_REV_KEY,man.rev)}catch(_){}
-  const total=man.items.reduce((s,e)=>s+(e.size||0),0);
-  let msg=`Đã xuất bản ${man.items.length} mục (${formatSize(total)}). GitHub Pages cần khoảng 1–2 phút để cập nhật; sau đó ai mở link cũng thấy.`;
-  if(total>900*1024*1024)msg+=' ⚠ Dung lượng đã gần 1 GB — mức khuyến nghị tối đa của GitHub Pages.';
-  if(skipped.length)msg+=`\nBỏ qua ${skipped.length} mục: ${skipped.slice(0,5).join('; ')}${skipped.length>5?'…':''}`;
-  setPubInfo(`Bản công khai: ${man.items.length} mục · cập nhật ${new Date(man.rev).toLocaleString('vi-VN')}`);
-  pubSay(msg,100);return {published:man.items.length}
-}
-function syncPubDot(){const d=pubEl('cloudStatusDot');if(d)d.classList.toggle('online',!!getCfg().token)}
-function initPublishUI(){
-  const card=pubEl('publishCard');if(!card)return;
-  const c=getCfg();pubEl('pubOwner').value=c.owner||'';pubEl('pubRepo').value=c.repo||'';pubEl('pubBranch').value=c.branch||'';pubEl('pubToken').value=c.token||'';
-  syncPubDot();
-  if(c.token)pubEl('pubOwnerBox').open=true;
-  pubEl('pubPublishBtn').onclick=async()=>{
-    setPubBusy(true);
-    try{await publishLibrary()}catch(e){console.error(e);pubSay((e instanceof PubError?'':'Xuất bản lỗi: ')+(e?.message||e),0)}
-    finally{setPubBusy(false)}
-  };
-  pubEl('pubPullBtn').onclick=async()=>{
-    if(!confirm('Cập nhật thiết bị này theo bản công khai. Các chỉnh sửa CHƯA xuất bản của các mục đã công khai sẽ bị ghi đè (mục chỉ có ở máy này được giữ nguyên). Tiếp tục?'))return;
-    setPubBusy(true);
-    try{
-      pubSay('Đang lấy bản công khai…',10);
-      const r=await cloudPull({force:true,mirror:true,timeout:20000});
-      if(!r.ok)pubSay(r.reason==='none'?'Chưa có bản công khai nào.':'Không lấy được bản công khai (mạng hoặc dữ liệu lỗi).',0);
-      else{pubSay(`Xong: thêm ${r.added||0}, cập nhật ${r.updated||0}, gỡ ${r.removed||0}.`,100);if(confirm('Tải lại website để cập nhật toàn bộ giao diện?'))location.reload()}
-    }catch(e){pubSay('Lỗi: '+(e?.message||e),0)}
-    finally{setPubBusy(false)}
-  };
-  pubEl('pubForgetBtn').onclick=()=>{
-    if(!confirm('Xóa token khỏi trình duyệt này? (Bạn vẫn có thể dán lại sau.)'))return;
-    const cur=getCfg();setCfg({...cur,token:''});pubEl('pubToken').value='';syncPubDot();pubSay('Đã xóa token khỏi trình duyệt này.',0)
-  }
-}
-
-initPublishUI();
+function routeHash(){const h=decodeURIComponent(location.hash.slice(1));if(!h)return; if(h==='home'){switchView('homeView');return}if(h==='search'){switchView('searchView');renderSearch();return}if(h==='music'){switchView('musicView');renderMusicList();return}if(h==='achievements'){switchView('achievementsView');renderAchievements();return}if(h==='you'){switchView('youView');return}if(h.startsWith('category:')){openCategory(h.slice(9));return}}window.addEventListener('hashchange',routeHash);(async()=>{syncMusicButton();await prepareStorage();await openDB();await syncAllSameNameMusic();await loadBackgroundVideo();if(sessionStorage.getItem('rezeUnlocked')==='1'){stopVideo1();login.classList.add('hidden');app.classList.remove('hidden');await ensureVideo2Playing();showRandomHomeQuote();setTimeout(routeHash,0)}else{startVideo1WithAudio();const reveal=()=>document.querySelector('.access')?.classList.add('show');setTimeout(reveal,3000);setTimeout(reveal,4200)}})();
 window.__jrungCloudApi={allItems,hydrateItem,storeFile,saveMeta,async getMeta(id){return reqP(db.transaction(STORE,'readonly').objectStore(STORE).get(id))},async refresh(){return true}};
 })();
 </script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import { getStorage, ref, uploadBytes, getDownloadURL, listAll, getMetadata } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js';
 
+// TODO: Replace every placeholder below with the values from Firebase Console > Project settings > Your apps.
+const firebaseConfig = {
+  apiKey: 'PASTE_API_KEY_HERE',
+  authDomain: 'PASTE_PROJECT_ID_HERE.firebaseapp.com',
+  projectId: 'PASTE_PROJECT_ID_HERE',
+  storageBucket: 'PASTE_STORAGE_BUCKET_HERE',
+  messagingSenderId: 'PASTE_MESSAGING_SENDER_ID_HERE',
+  appId: 'PASTE_APP_ID_HERE'
+};
+const $ = id => document.getElementById(id);
+const email=$('cloudEmail'), password=$('cloudPassword'), status=$('cloudStatus'), dot=$('cloudStatusDot');
+const signInBtn=$('cloudSignInBtn'), createBtn=$('cloudCreateBtn'), signOutBtn=$('cloudSignOutBtn'), syncBtn=$('cloudSyncBtn');
+let auth=null, storage=null, currentUser=null, busy=false;
+const configured = Object.values(firebaseConfig).every(v=>typeof v==='string' && v && !v.includes('PASTE_'));
+function say(msg){if(status)status.textContent=msg}
+function setBusy(v){busy=v;[signInBtn,createBtn,signOutBtn,syncBtn].forEach(b=>{if(b)b.disabled=v||(!currentUser&&b===syncBtn)});}
+function safeName(name){return String(name||'media').replace(/[^\w.() -]+/g,'_').slice(0,100)||'media'}
+function pathFor(uid,id,name){return `users/${uid}/media/${id}_${safeName(name)}`}
+async function syncLibrary(){
+  if(!currentUser||!window.__jrungCloudApi)throw new Error('Hãy đăng nhập cloud và chờ website tải xong.');
+  setBusy(true); let uploaded=0, downloaded=0, skipped=0;
+  try{
+    say('Đang đọc thư viện trên thiết bị này…');
+    const api=window.__jrungCloudApi; const local=await api.allItems();
+    for(let i=0;i<local.length;i++){
+      const raw=local[i];
+      if(raw.cloudPath){skipped++;continue;}
+      say(`Đang tải lên ${i+1}/${local.length}: ${raw.name||'file'}…`);
+      const item=await api.hydrateItem({...raw});
+      if(!item.blob)throw new Error('Không đọc được file '+(item.name||item.id));
+      const path=pathFor(currentUser.uid,item.id,item.name||'media');
+      const fileRef=ref(storage,path);
+      await uploadBytes(fileRef,item.blob,{contentType:item.type||item.blob.type||'application/octet-stream',customMetadata:{originalName:String(item.name||'media'),category:String(item.category||'Other')}});
+      const meta={}; for(const [k,v] of Object.entries(item)){if(['blob','coverBlob','opfsPath','chunked','chunkCount','storage','id'].includes(k))continue;if(v===null||['string','number','boolean'].includes(typeof v))meta[k]=v;}
+      const metaRef=ref(storage,path+'.meta.json');
+      await uploadBytes(metaRef,new Blob([JSON.stringify(meta)],{type:'application/json'}),{contentType:'application/json'});
+      await api.saveMeta({...raw,cloudPath:path}); uploaded++;
+    }
+    say('Đang kiểm tra các file trên cloud…');
+    const listing=await listAll(ref(storage,`users/${currentUser.uid}/media`));
+    const cloudFiles=listing.items.filter(x=>!x.name.endsWith('.meta.json'));
+    const localNow=await api.allItems(); const known=new Set(localNow.map(x=>x.cloudPath).filter(Boolean));
+    for(let i=0;i<cloudFiles.length;i++){
+      const f=cloudFiles[i]; if(known.has(f.fullPath))continue;
+      say(`Đang tải về ${i+1}/${cloudFiles.length}: ${f.name}…`);
+      const url=await getDownloadURL(f); const response=await fetch(url); if(!response.ok)throw new Error('Không tải được '+f.name);
+      const blob=await response.blob(); let meta={name:f.name,category:'Other',type:blob.type,size:blob.size};
+      try{const mr=ref(storage,f.fullPath+'.meta.json');const mu=await getDownloadURL(mr);const mj=await fetch(mu);if(mj.ok)meta={...meta,...await mj.json()}}catch(_){ }
+      const file=new File([blob],String(meta.name||f.name),{type:meta.type||blob.type||'application/octet-stream'});
+      const id=await api.storeFile(file,meta.category||'Other');
+      const saved=await api.getMeta(id); await api.saveMeta({...saved,...meta,id,cloudPath:f.fullPath}); downloaded++;
+    }
+    // Sync only the 'Những lời muốn nói' list alongside the existing media sync.
+    // Keep notes in the same Firebase Storage account, in a separate file from media.
+    say('Đang đồng bộ Những lời muốn nói…');
+    const notesRef=ref(storage,`users/${currentUser.uid}/notes.json`);
+    const notesKey='reze_home_notes_v1';
+    const readLocalNotes=()=>{try{const v=JSON.parse(localStorage.getItem(notesKey)||'[]');return Array.isArray(v)?v.filter(x=>typeof x==='string'&&x.trim()).slice(0,100):[]}catch(_){return []}};
+    let cloudNotes=[];
+    try{
+      const notesUrl=await getDownloadURL(notesRef);
+      const notesResponse=await fetch(notesUrl);
+      if(notesResponse.ok){const data=await notesResponse.json();if(Array.isArray(data.notes))cloudNotes=data.notes.filter(x=>typeof x==='string'&&x.trim());}
+    }catch(e){if(e?.code!=='storage/object-not-found')throw e;}
+    const localNotes=readLocalNotes();
+    const mergedNotes=[...new Set([...cloudNotes,...localNotes])].slice(0,100);
+    localStorage.setItem(notesKey,JSON.stringify(mergedNotes));
+    await uploadBytes(notesRef,new Blob([JSON.stringify({format:'JrungHomeNotes',version:1,updatedAt:new Date().toISOString(),notes:mergedNotes})],{type:'application/json'}),{contentType:'application/json'});
+    try{if(typeof renderHomeNotes==='function')renderHomeNotes();if(typeof showRandomHomeQuote==='function')showRandomHomeQuote()}catch(_){}
+    say(`Đồng bộ xong. Ảnh/video: tải lên ${uploaded}, tải về ${downloaded}, bỏ qua ${skipped}. Những lời muốn nói: ${mergedNotes.length} câu đã đồng bộ.`);
+    if(uploaded||downloaded) setTimeout(()=>{if(confirm('Đồng bộ xong. Tải lại website để cập nhật toàn bộ ảnh/video?'))location.reload()},250);
+  } finally {setBusy(false); if(currentUser&&syncBtn)syncBtn.disabled=false;}
+}
+if(!configured){say('Firebase chưa được cấu hình. Mở index.html, tìm firebaseConfig và điền thông tin dự án Firebase trước khi dùng.');[signInBtn,createBtn,syncBtn].forEach(b=>{if(b)b.disabled=true});}
+else try{
+  const app=initializeApp(firebaseConfig); auth=getAuth(app); storage=getStorage(app);
+  onAuthStateChanged(auth,user=>{currentUser=user; if(user){dot?.classList.add('online');say(`Đã đăng nhập: ${user.email||user.uid}. Bấm “Đồng bộ ngay” để chuyển thư viện giữa các thiết bị.`);signInBtn?.classList.add('hidden');createBtn?.classList.add('hidden');signOutBtn?.classList.remove('hidden');if(syncBtn)syncBtn.disabled=false;}else{dot?.classList.remove('online');say('Chưa đăng nhập Firebase. Hãy đăng nhập cùng một tài khoản trên các thiết bị.');signInBtn?.classList.remove('hidden');createBtn?.classList.remove('hidden');signOutBtn?.classList.add('hidden');if(syncBtn)syncBtn.disabled=true;}});
+  signInBtn?.addEventListener('click',async()=>{try{setBusy(true);await signInWithEmailAndPassword(auth,email.value.trim(),password.value);say('Đăng nhập thành công.')}catch(e){say('Đăng nhập lỗi: '+(e.code||e.message))}finally{setBusy(false);if(currentUser)syncBtn.disabled=false}});
+  createBtn?.addEventListener('click',async()=>{try{if(password.value.length<6)throw new Error('Mật khẩu Firebase cần ít nhất 6 ký tự.');setBusy(true);await createUserWithEmailAndPassword(auth,email.value.trim(),password.value);say('Đã tạo tài khoản và đăng nhập.')}catch(e){say('Tạo tài khoản lỗi: '+(e.code||e.message))}finally{setBusy(false);if(currentUser)syncBtn.disabled=false}});
+  signOutBtn?.addEventListener('click',async()=>{try{await signOut(auth)}catch(e){say('Đăng xuất lỗi: '+e.message)}});
+  syncBtn?.addEventListener('click',async()=>{try{await syncLibrary()}catch(e){console.error(e);say('Đồng bộ lỗi: '+(e.code||e.message)+' — kiểm tra cấu hình, Storage và Rules Firebase.')}finally{if(currentUser)syncBtn.disabled=false}});
+}catch(e){console.error(e);say('Không khởi tạo được Firebase: '+e.message)}
+</script>
 
 </body></html>
 
@@ -1312,8 +1098,4 @@ window.__jrungCloudApi={allItems,hydrateItem,storeFile,saveMeta,async getMeta(id
 
 <style>
 .backup-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}.backup-tools .primary{min-height:40px;padding:0 14px;border-radius:11px;border:1px solid rgba(255,255,255,.18);background:#eee;color:#111;font-size:11px;font-weight:800}.backup-tools .round-btn{min-height:40px;padding:0 14px;border-radius:11px}.backup-tools p{flex-basis:100%;margin:2px 0 0;color:#999;font-size:10px;line-height:1.5}
-</style>
-
-<style>
-.pub-box{margin-top:12px}.pub-box>summary,.pub-help>summary{cursor:pointer;color:#c6b9ff;font-size:11px;font-weight:700;padding:6px 0;list-style:none}.pub-box>summary::-webkit-details-marker,.pub-help>summary::-webkit-details-marker{display:none}.pub-box>summary::before,.pub-help>summary::before{content:"▸ "}.pub-box[open]>summary::before,.pub-help[open]>summary::before{content:"▾ "}.pub-help{margin-top:6px}.pub-help ol{margin:6px 0 0;padding-left:18px;color:#a7a3b3;font-size:11px;line-height:1.6}.pub-help li{margin:3px 0}#pubBarFill{height:100%;width:0}
 </style>
