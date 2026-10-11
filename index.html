@@ -753,17 +753,20 @@ const cv=$('class3dStars'),ctx=cv?.getContext('2d');let W=0,H=0,dpr=1,shoot=null
 const rnd=Math.random,layers=[0,1,2].map(l=>Array.from({length:[90,60,35][l]},()=>({x:rnd(),y:rnd(),r:[.6,.9,1.4][l]*(.6+rnd()*.8),a:.3+rnd()*.7,p:rnd()*6.28})));
 const neb=[[.2,.25,'120,80,255'],[.8,.7,'60,140,255'],[.7,.15,'190,90,230']];
 function fit(){const st=$('class3dStage');if(!st||!cv)return;dpr=Math.min(2,devicePixelRatio||1);W=st.clientWidth;H=st.clientHeight;cv.width=W*dpr;cv.height=H*dpr}
+function proj(x,y,z){const cm=class3dCamera,sc=cm.scale,a=cm.ry*Math.PI/180,b=cm.rx*Math.PI/180;x*=sc;y*=sc;
+  const x1=x*Math.cos(a)+z*Math.sin(a),z1=-x*Math.sin(a)+z*Math.cos(a),y2=y*Math.cos(b)-z1*Math.sin(b),z2=y*Math.sin(b)+z1*Math.cos(b),f=1800/(1800-z2);
+  return[W/2+x1*f,H/2+y2*f]}
 function drawSolar(){
-  const sc=class3dCamera.scale,sy=Math.abs(Math.sin(class3dCamera.rx*Math.PI/180)),g=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,150*sc);
+  const sc=class3dCamera.scale,g=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,150*sc);
   g.addColorStop(0,'rgba(255,230,160,.9)');g.addColorStop(.25,'rgba(255,170,80,.4)');g.addColorStop(1,'rgba(255,120,40,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-  ctx.strokeStyle='rgba(170,180,255,.2)';ctx.lineWidth=1;
-  for(const r of solarRings){ctx.beginPath();ctx.ellipse(W/2,H/2,r*sc,Math.max(2,r*sc*sy),0,0,6.283);ctx.stroke()}
+  ctx.strokeStyle='rgba(170,180,255,.22)';ctx.lineWidth=1;
+  for(const r of solarRings){ctx.beginPath();for(let k=0;k<=72;k++){const t=k/72*6.2832,[x,y]=proj(r*Math.cos(t),0,r*Math.sin(t));k?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()}
 }
 function drawBg(now){
   if(!ctx)return;if(cv.width!==Math.round(($('class3dStage').clientWidth||0)*dpr))fit();
   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);if(class3dLayout==='warp'){drawWarp();return}ctx.globalCompositeOperation='lighter';
   neb.forEach(([x,y,c])=>{const r=Math.max(W,H)*.55,g=ctx.createRadialGradient(x*W,y*H,0,x*W,y*H,r);g.addColorStop(0,`rgba(${c},.13)`);g.addColorStop(1,`rgba(${c},0)`);ctx.fillStyle=g;ctx.fillRect(0,0,W,H)});
-  if(class3dLayout==='solar')drawSolar();else if(class3dLayout==='planet'){const R=Rs*class3dCamera.scale,g=ctx.createRadialGradient(W/2,H/2,R*.2,W/2,H/2,R*1.3);g.addColorStop(0,'rgba(40,60,170,.42)');g.addColorStop(.75,'rgba(70,110,255,.3)');g.addColorStop(.82,'rgba(130,180,255,.28)');g.addColorStop(1,'rgba(80,120,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H)}
+  if(class3dLayout==='solar')drawSolar();else if(class3dLayout==='planet'){const R0=Rs*class3dCamera.scale,R=R0*1800/Math.sqrt(1800*1800-R0*R0),g=ctx.createRadialGradient(W/2,H/2,R*.2,W/2,H/2,R*1.3);g.addColorStop(0,'rgba(40,60,170,.42)');g.addColorStop(.75,'rgba(70,110,255,.3)');g.addColorStop(.82,'rgba(130,180,255,.28)');g.addColorStop(1,'rgba(80,120,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H)}
   else{const cg=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.min(W,H)*.35);cg.addColorStop(0,'rgba(255,240,210,.85)');cg.addColorStop(.15,'rgba(255,205,140,.4)');cg.addColorStop(.5,'rgba(150,115,255,.14)');cg.addColorStop(1,'rgba(80,60,200,0)');ctx.fillStyle=cg;ctx.fillRect(0,0,W,H)}
   ctx.globalCompositeOperation='source-over';ctx.fillStyle='#fff';
   layers.forEach((L,l)=>L.forEach(s=>{s.x=(s.x-[.00004,.00009,.00018][l]*16+1)%1;ctx.globalAlpha=s.a*(.7+.3*Math.sin(now/700+s.p));ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.r,0,6.283);ctx.fill()}));
@@ -1634,7 +1637,7 @@ window.__jrungCloudApi={allItems,hydrateItem,storeFile,saveMeta,async getMeta(id
 .class3d-stage>.class3d-stars{display:none;position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .class3d-stage.galaxy>.class3d-stars{display:block}
 .class3d-stage.galaxy{background:radial-gradient(120% 90% at 50% 45%,#150f33 0%,#07061a 60%,#030310 100%)}
-.class3d-stage.galaxy .class3d-card{width:60px;height:86px;pointer-events:none;border-radius:9px;transition:none;box-shadow:0 0 14px 2px rgba(170,140,255,.55),0 0 2px 1px rgba(255,255,255,.5)}
+.class3d-stage.galaxy .class3d-card{margin:0;width:60px;height:86px;pointer-events:none;border-radius:9px;transition:none;box-shadow:0 0 14px 2px rgba(170,140,255,.55),0 0 2px 1px rgba(255,255,255,.5)}
 .class3d-stage.galaxy .class3d-card img{width:100%;height:100%;object-fit:cover;border-radius:9px;display:block}
 .c3d-viewer{position:fixed;inset:0;z-index:99999;background:rgba(3,3,16,.86);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;touch-action:none}
 .c3d-viewer.show{opacity:1}
