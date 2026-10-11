@@ -179,7 +179,7 @@
           <button id="class3dExitBtn" class="class3d-exit-btn" type="button"><i data-ico="arrow_left"></i> Thoát</button>
           <span id="class3dCount">0 ảnh</span>
         </div>
-        <div class="class3d-hint">Chạm ảnh để xem · kéo để xoay · 2 ngón để zoom · bấm nút ✦ để đổi Thiên hà / Hành tinh / Tự do.</div>
+        <div class="class3d-hint">Chạm ảnh để xem · kéo để xoay · 2 ngón để zoom · bấm nút ✦ để đổi Thiên hà / Hành tinh / Đường hầm / Tự do. Ở Đường hầm: vuốt lên hoặc cuộn để bay.</div>
         <div id="class3dStage" class="class3d-stage galaxy"><canvas id="class3dStars" class="class3d-stars" aria-hidden="true"></canvas>
           <div class="class3d-camera" id="class3dCamera"><div class="class3d-grid"></div><div class="class3d-empty">Chưa có ảnh.<br><b>Bấm <i data-ico="plus"></i> Thêm ảnh</b> để đưa ảnh của mày vào không gian 3D.</div></div>
           <div class="class3d-camera-tip"><i data-ico="move_h"></i> trái / phải · <i data-ico="move_v"></i> trên / dưới · 360°</div>
@@ -261,7 +261,7 @@ let currentView='homeView',currentCat='',editMode=false,rankMode=false,rankFilte
 const musicCoverUrls=new Set();
 let musicEnabled=localStorage.getItem(MUSIC_KEY)!=='0';
 let pendingCover=null, viewerVideo=null, viewerObjectUrl=null, musicEditId=null, pendingMusicCover1=null, pendingMusicCover2=null, musicQueue=[], musicPlayed=new Set(), musicRandom=false, musicCurrentId=null, draggingCat=null;
-let class3dUrls=new Set(), class3dAuto=false, class3dSpaceOnly=false, class3dPointers=new Map(), class3dGesture=null, class3dSelectedId=null, class3dDeleteMode=false, class3dCamera={rx:0,ry:0,scale:1}, class3dCameraGesture=null, class3dLayout=(['free','planet'].includes(localStorage.getItem('reze_class3d_layout'))?localStorage.getItem('reze_class3d_layout'):'galaxy');
+let class3dUrls=new Set(), class3dAuto=false, class3dSpaceOnly=false, class3dPointers=new Map(), class3dGesture=null, class3dSelectedId=null, class3dDeleteMode=false, class3dCamera={rx:0,ry:0,scale:1}, class3dCameraGesture=null, class3dLayout=(['free','planet','warp'].includes(localStorage.getItem('reze_class3d_layout'))?localStorage.getItem('reze_class3d_layout'):'galaxy');
 function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB_NAME,3);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id',autoIncrement:true});if(!d.objectStoreNames.contains(CHUNKS))d.createObjectStore(CHUNKS,{keyPath:['itemId','index']})};r.onsuccess=()=>{db=r.result;res(db)};r.onerror=()=>rej(r.error)})}
 async function getOPFSFile(path){
   if(!path||!navigator.storage?.getDirectory)return null;
@@ -727,7 +727,7 @@ bindClass3DCamera();bindClass3D();
 const G_R=330,G_ARMS=3,G_TWIST=1.6*Math.PI,$=id=>document.getElementById(id),sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const sp=()=>class3dLayout!=='free',cardsOf=()=>[...document.querySelectorAll('#class3dCamera .class3d-card')];
 let Rs=260;
-const preset=()=>{const w=$('class3dStage')?.clientWidth||390;return class3dLayout==='planet'?{rx:-12,ry:0,scale:Math.max(.5,Math.min(1,w/700))}:{rx:-55,ry:0,scale:Math.max(.5,Math.min(1,w/620))}};
+const preset=()=>{const w=$('class3dStage')?.clientWidth||390;if(class3dLayout==='warp')return{rx:0,ry:0,scale:1};return class3dLayout==='planet'?{rx:-12,ry:0,scale:Math.max(.5,Math.min(1,w/700))}:{rx:-55,ry:0,scale:Math.max(.5,Math.min(1,w/620))}};
 window.galaxyPreset=preset;
 async function makeThumbs(){for(const c of cardsOf()){if(c._thumb)continue;c._thumb=1;const im=c.querySelector('img');if(!im)continue;
   try{const bmp=await createImageBitmap(await (await fetch(c._full)).blob(),{resizeWidth:200,resizeQuality:'medium'});const k=document.createElement('canvas');k.width=bmp.width;k.height=bmp.height;k.getContext('2d').drawImage(bmp,0,0);
@@ -736,6 +736,7 @@ window.placeGalaxyCards=()=>{
   const cs=cardsOf(),n=cs.length;
   cs.forEach((c,i)=>{const im=c.querySelector('img');if(!c._full)c._full=im.src;
     if(class3dLayout==='planet'){Rs=Math.min(280,110+n*14);const y=1-2*(i+.5)/n,r=Math.sqrt(1-y*y),ph=i*2.39996;c._gx=Math.cos(ph)*r*Rs;c._gz=Math.sin(ph)*r*Rs;c._gy=y*Rs}
+    else if(class3dLayout==='warp'){c._gx=0;c._gy=0;c._gz=0}
     else{const Rm=Math.min(G_R,170+n*12),per=Math.ceil(n/G_ARMS),arm=i%G_ARMS,k=Math.floor(i/G_ARMS),t=per>1?k/(per-1):.3,rr=70+t*(Rm-70),phi=arm*2*Math.PI/G_ARMS+t*G_TWIST+(((i*7919)%100)/100-.5)*.25;
       c._gx=rr*Math.cos(phi);c._gz=rr*Math.sin(phi);c._gy=(((i*104729)%100)/100-.5)*24}
     if(c._thumbUrl)im.src=c._thumbUrl});
@@ -748,7 +749,7 @@ const neb=[[.2,.25,'120,80,255'],[.8,.7,'60,140,255'],[.7,.15,'190,90,230']];
 function fit(){const st=$('class3dStage');if(!st||!cv)return;dpr=Math.min(2,devicePixelRatio||1);W=st.clientWidth;H=st.clientHeight;cv.width=W*dpr;cv.height=H*dpr}
 function drawBg(now){
   if(!ctx)return;if(cv.width!==Math.round(($('class3dStage').clientWidth||0)*dpr))fit();
-  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation='lighter';
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);if(class3dLayout==='warp'){drawWarp();return}ctx.globalCompositeOperation='lighter';
   neb.forEach(([x,y,c])=>{const r=Math.max(W,H)*.55,g=ctx.createRadialGradient(x*W,y*H,0,x*W,y*H,r);g.addColorStop(0,`rgba(${c},.13)`);g.addColorStop(1,`rgba(${c},0)`);ctx.fillStyle=g;ctx.fillRect(0,0,W,H)});
   if(class3dLayout==='planet'){const R=Rs*class3dCamera.scale,g=ctx.createRadialGradient(W/2,H/2,R*.2,W/2,H/2,R*1.3);g.addColorStop(0,'rgba(40,60,170,.42)');g.addColorStop(.75,'rgba(70,110,255,.3)');g.addColorStop(.82,'rgba(130,180,255,.28)');g.addColorStop(1,'rgba(80,120,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H)}
   else{const cg=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.min(W,H)*.35);cg.addColorStop(0,'rgba(255,240,210,.85)');cg.addColorStop(.15,'rgba(255,205,140,.4)');cg.addColorStop(.5,'rgba(150,115,255,.14)');cg.addColorStop(1,'rgba(80,60,200,0)');ctx.fillStyle=cg;ctx.fillRect(0,0,W,H)}
@@ -763,6 +764,7 @@ function frame(now){
   requestAnimationFrame(frame);const st=$('class3dStage');
   if(!st||!sp()||!st.offsetParent)return;
   const dt=Math.min(50,now-last);last=now,planet=class3dLayout==='planet';
+  if(class3dLayout==='warp'){warpFrame(dt,now);return}
   if(!window.__c3dDown&&!window.__c3dViewerOpen)class3dCamera.ry+=dt*(planet?.006:.004);
   applyClass3DCamera();
   const a=class3dCamera.ry*Math.PI/180,b=class3dCamera.rx*Math.PI/180,ca=Math.cos(a),sa=Math.sin(a),cb=Math.cos(b),sb=Math.sin(b),R=planet?Rs:G_R;
@@ -809,16 +811,42 @@ st?.addEventListener('pointerdown',e=>{act.add(e.pointerId);tp=act.size===1?{id:
 st?.addEventListener('pointercancel',e=>{act.delete(e.pointerId);tp=null});
 st?.addEventListener('pointerup',e=>{act.delete(e.pointerId);
   if(tp&&tp.id===e.pointerId&&sp()&&Math.hypot(e.clientX-tp.x,e.clientY-tp.y)<9&&performance.now()-tp.t<550){
-    let best=null;for(const c of cardsOf()){const r=c.getBoundingClientRect();if(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom&&(class3dLayout!=='planet'||c._depth>=-20)&&(!best||c._depth>best._depth))best=c}
+    let best=null;for(const c of cardsOf()){const r=c.getBoundingClientRect();if(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom&&(+c.style.opacity>.3)&&(!best||c._depth>best._depth))best=c}
     if(best){if(class3dDeleteMode){if(confirm('Xóa ảnh này khỏi Class?'))del(Number(best.dataset.id)).then(()=>renderClass3D()).catch(()=>alert('Không thể xóa ảnh này.'))}else openViewer(best)}}
   tp=null});
-/* cycle: galaxy -> planet -> free */
-const btn=$('class3dLayoutBtn'),names={galaxy:'Thiên hà',planet:'Hành tinh',free:'Tự do'};
+/* warp tunnel */
+let wTravel=0,wVel=0,wDown=null;const wStars=Array.from({length:150},()=>({a:rnd()*6.283,r:rnd(),s:.5+rnd()}));
+function drawWarp(){
+  const R=Math.hypot(W,H)/2,v=.9+wVel,g=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,R);
+  g.addColorStop(0,'rgba(120,90,255,.38)');g.addColorStop(.35,'rgba(40,40,140,.2)');g.addColorStop(1,'rgba(0,0,10,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='#cfd8ff';ctx.lineCap='round';
+  for(const s of wStars){s.r+=v*.0007*(.5+s.r*2.5)*s.s;if(s.r>1)s.r=rnd()*.05+.01;if(s.r<.005)s.r=1;
+    const len=Math.min(.3,Math.abs(v)*.004*(.3+s.r))*(v>0?1:-1),c=Math.cos(s.a),n=Math.sin(s.a);
+    ctx.globalAlpha=.25+.75*s.r;ctx.lineWidth=.6+s.r*1.6;ctx.beginPath();ctx.moveTo(W/2+c*(s.r-len)*R,H/2+n*(s.r-len)*R);ctx.lineTo(W/2+c*s.r*R,H/2+n*s.r*R);ctx.stroke()}
+  ctx.globalAlpha=1;
+}
+function warpFrame(dt,now){
+  const k=dt/16.7;class3dCamera.rx=0;class3dCamera.ry=0;class3dCamera.scale=1;applyClass3DCamera();
+  if(!wDown&&!window.__c3dViewerOpen){wTravel+=(.9+wVel)*k;wVel*=Math.pow(.94,k)}
+  const cs=cardsOf(),n=cs.length,gap=170,L=Math.max(1400,n*gap);
+  cs.forEach((c,i)=>{
+    const z=((((wTravel-i*gap)%L)+L)%L)-L+300,phi=i*1.3+wTravel*.0006,rho=85+(i%3)*28;
+    const far=Math.max(0,Math.min(1,(z+L-300)/500)),near=Math.max(0,Math.min(1,(300-z)/140));
+    c._depth=z;c.style.opacity=(far*near*(1-.5*Math.max(0,Math.min(1,-z/L)))).toFixed(2);
+    c.style.transform=`translate3d(calc(-50% + ${(Math.cos(phi)*rho).toFixed(1)}px),calc(-50% + ${(Math.sin(phi)*rho*1.25).toFixed(1)}px),${z.toFixed(1)}px) rotateZ(${(Math.sin(i*2.1)*9).toFixed(1)}deg)`});
+  drawBg(now);
+}
+st?.addEventListener('pointerdown',e=>{if(class3dLayout==='warp')wDown={x:e.clientX,y:e.clientY}});
+st?.addEventListener('pointermove',e=>{if(class3dLayout!=='warp'||!wDown||act.size>1)return;const d=(wDown.y-e.clientY)*2.4+(e.clientX-wDown.x)*1.2;wTravel+=d;wVel=d;wDown={x:e.clientX,y:e.clientY}});
+st?.addEventListener('pointerup',()=>{wDown=null});st?.addEventListener('pointercancel',()=>{wDown=null});
+st?.addEventListener('wheel',e=>{if(class3dLayout==='warp')wVel+=-e.deltaY*.5},{passive:true});
+/* cycle: galaxy -> planet -> warp -> free */
+const btn=$('class3dLayoutBtn'),names={galaxy:'Thiên hà',planet:'Hành tinh',warp:'Đường hầm',free:'Tự do'};
 const label=()=>{if(!btn)return;btn.textContent='✦ '+names[class3dLayout];btn.classList.toggle('class3d-mode-on',sp());btn.setAttribute('aria-pressed',sp())};
-const setCls=()=>{st.classList.toggle('galaxy',sp());st.classList.toggle('planet',class3dLayout==='planet')};
+const setCls=()=>{st.classList.toggle('galaxy',sp());st.classList.toggle('planet',class3dLayout==='planet');st.classList.toggle('warp',class3dLayout==='warp')};
 btn?.addEventListener('click',()=>{
   window.__c3dCloseViewer(true);
-  class3dLayout={galaxy:'planet',planet:'free',free:'galaxy'}[class3dLayout];localStorage.setItem('reze_class3d_layout',class3dLayout);setCls();
+  class3dLayout={galaxy:'planet',planet:'warp',warp:'free',free:'galaxy'}[class3dLayout];localStorage.setItem('reze_class3d_layout',class3dLayout);setCls();
   if(sp()){placeGalaxyCards();class3dCamera=preset()}
   else{cardsOf().forEach(c=>{c.style.opacity='';if(c._full)c.querySelector('img').src=c._full;applyClass3DTransform(c)});class3dCamera={rx:0,ry:0,scale:1}}
   window.__c3dResetZoom?.();applyClass3DCamera();label();
