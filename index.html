@@ -173,14 +173,14 @@
       <section id="class3dPanel" class="class3d-panel hidden" aria-label="Class 3D">
         <div class="class3d-toolbar">
           <button id="class3dAddBtn" class="class3d-main-btn" type="button"><i data-ico="plus"></i> Thêm ảnh</button>
-          <button id="class3dSpaceBtn" type="button"><i data-ico="orbit"></i> Chỉ không gian</button>
+          <button id="class3dLayoutBtn" type="button"></button><button id="class3dSpaceBtn" type="button"><i data-ico="orbit"></i> Chỉ không gian</button>
           <button id="class3dAutoBtn" type="button"><i data-ico="rotate3d"></i> Xoay</button>
           <button id="class3dDeleteModeBtn" type="button" aria-pressed="false"><i data-ico="x"></i> Xóa ảnh</button>
           <button id="class3dExitBtn" class="class3d-exit-btn" type="button"><i data-ico="arrow_left"></i> Thoát</button>
           <span id="class3dCount">0 ảnh</span>
         </div>
-        <div class="class3d-hint">Kéo trúng ảnh để di chuyển theo hướng riêng · kéo nền để xoay không gian · bật <i data-ico="orbit"></i> Chỉ không gian để khóa ảnh · 2 ngón để zoom.</div>
-        <div id="class3dStage" class="class3d-stage">
+        <div class="class3d-hint">Chạm ảnh để xem · kéo để xoay thiên hà · 2 ngón để zoom · tắt Thiên hà để tự kéo từng ảnh.</div>
+        <div id="class3dStage" class="class3d-stage galaxy"><canvas id="class3dStars" class="class3d-stars" aria-hidden="true"></canvas>
           <div class="class3d-camera" id="class3dCamera"><div class="class3d-grid"></div><div class="class3d-empty">Chưa có ảnh.<br><b>Bấm <i data-ico="plus"></i> Thêm ảnh</b> để đưa ảnh của mày vào không gian 3D.</div></div>
           <div class="class3d-camera-tip"><i data-ico="move_h"></i> trái / phải · <i data-ico="move_v"></i> trên / dưới · 360°</div>
         </div>
@@ -261,7 +261,7 @@ let currentView='homeView',currentCat='',editMode=false,rankMode=false,rankFilte
 const musicCoverUrls=new Set();
 let musicEnabled=localStorage.getItem(MUSIC_KEY)!=='0';
 let pendingCover=null, viewerVideo=null, viewerObjectUrl=null, musicEditId=null, pendingMusicCover1=null, pendingMusicCover2=null, musicQueue=[], musicPlayed=new Set(), musicRandom=false, musicCurrentId=null, draggingCat=null;
-let class3dUrls=new Set(), class3dAuto=false, class3dSpaceOnly=false, class3dPointers=new Map(), class3dGesture=null, class3dSelectedId=null, class3dDeleteMode=false, class3dCamera={rx:0,ry:0,scale:1}, class3dCameraGesture=null;
+let class3dUrls=new Set(), class3dAuto=false, class3dSpaceOnly=false, class3dPointers=new Map(), class3dGesture=null, class3dSelectedId=null, class3dDeleteMode=false, class3dCamera={rx:0,ry:0,scale:1}, class3dCameraGesture=null, class3dLayout=(localStorage.getItem('reze_class3d_layout')==='free'?'free':'galaxy');
 function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB_NAME,3);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id',autoIncrement:true});if(!d.objectStoreNames.contains(CHUNKS))d.createObjectStore(CHUNKS,{keyPath:['itemId','index']})};r.onsuccess=()=>{db=r.result;res(db)};r.onerror=()=>rej(r.error)})}
 async function getOPFSFile(path){
   if(!path||!navigator.storage?.getDirectory)return null;
@@ -480,6 +480,7 @@ async function renderClass3D(){
   if(window.__c3dSeq!==renderSeq)return;
   oldCards.forEach(x=>x.remove());
   camera.appendChild(frag);
+  if(class3dLayout==='galaxy')window.placeGalaxyCards();
   oldUrls.forEach(u=>{try{URL.revokeObjectURL(u)}catch(_){}});
 }
 function applyClass3DTransform(card){card.style.transform=`translate3d(calc(-50% + ${card._x}px),calc(-50% + ${card._y}px),${card._z}px) rotateX(${card._rx}deg) rotateY(${card._ry}deg) scale(${card._scale})`}
@@ -487,7 +488,7 @@ function class3DDefaultState(i,total){const stage=document.getElementById('class
 let class3dSaveTimer=0;
 function queueClass3DSave(card){clearTimeout(class3dSaveTimer);class3dSaveTimer=setTimeout(async()=>{try{const item=await getItem(Number(card.dataset.id));if(!item)return;item.class3d={x:card._x,y:card._y,z:card._z,rx:card._rx,ry:card._ry,scale:card._scale,dirX:card._dirX,dirY:card._dirY,spinX:card._spinX,spinY:card._spinY,dirAngle:Math.atan2(card._dirY,card._dirX),order:item.class3d?.order??item.createdAt};await put(item)}catch(e){console.warn('Class 3D save failed',e)}},180)}
 function applyClass3DCamera(){const camera=document.getElementById('class3dCamera');if(!camera)return;camera.style.transform=`rotateX(${class3dCamera.rx}deg) rotateY(${class3dCamera.ry}deg) scale(${class3dCamera.scale})`}
-function resetClass3DCamera(){class3dCamera={rx:0,ry:0,scale:1};window.__c3dResetZoom?.();applyClass3DCamera()}
+function resetClass3DCamera(){class3dCamera=class3dLayout==='galaxy'?window.galaxyPreset():{rx:0,ry:0,scale:1};window.__c3dResetZoom?.();applyClass3DCamera()}
 function bindClass3DCamera(){
   const stage=document.getElementById('class3dStage');
   if(!stage||stage.dataset.cameraBound)return;
@@ -709,6 +710,7 @@ function bindClass3D(){
     if(class3dDeleteMode){class3dGesture=null;class3dPointers.clear();document.querySelectorAll('.class3d-card.selected').forEach(x=>x.classList.remove('selected'));class3dSelectedId=null;}
   });
   exit?.addEventListener('click',()=>{
+    window.__c3dCloseViewer?.(true);
     class3dGesture=null; class3dPointers.clear(); class3dAuto=false;
     stage?.classList.remove('class3d-auto','space-only','class3d-delete-mode');
     if(space){space.setAttribute('aria-pressed','false');space.classList.remove('class3d-mode-on');setBtn(space,'orbit','Chỉ không gian')}
@@ -720,6 +722,96 @@ function bindClass3D(){
 
 async function clearOldClass3DOnce(){ /* V61: intentionally disabled; never auto-delete user media. */ return; }
 bindClass3DCamera();bindClass3D();
+/* ===== GALAXY LAYOUT ===== */
+(()=>{
+const G_R=330,G_ARMS=3,G_TWIST=1.6*Math.PI,$=id=>document.getElementById(id);
+const cardsOf=()=>[...document.querySelectorAll('#class3dCamera .class3d-card')];
+const preset=()=>({rx:-55,ry:0,scale:Math.max(.5,Math.min(1,($('class3dStage')?.clientWidth||390)/620))});
+window.galaxyPreset=preset;
+window.placeGalaxyCards=()=>{
+  const cs=cardsOf(),n=cs.length,Rm=Math.min(G_R,170+n*12),per=Math.ceil(n/G_ARMS);
+  cs.forEach((c,i)=>{const arm=i%G_ARMS,k=Math.floor(i/G_ARMS),t=per>1?k/(per-1):.3,r=70+t*(Rm-70);
+    const phi=arm*2*Math.PI/G_ARMS+t*G_TWIST+(((i*7919)%100)/100-.5)*.25;
+    c._gx=r*Math.cos(phi);c._gz=r*Math.sin(phi);c._gy=(((i*104729)%100)/100-.5)*24});
+  if(!window.__c3dGInit){window.__c3dGInit=true;if(class3dLayout==='galaxy'){class3dCamera=preset();window.__c3dResetZoom?.()}}
+};
+/* stars */
+const cv=$('class3dStars'),ctx=cv?.getContext('2d');let W=0,H=0,dpr=1,shoot=null;
+const rnd=Math.random,layers=[0,1,2].map(l=>Array.from({length:[90,60,35][l]},()=>({x:rnd(),y:rnd(),r:[.6,.9,1.4][l]*(.6+rnd()*.8),a:.3+rnd()*.7,p:rnd()*6.28})));
+const neb=[[.2,.25,'120,80,255'],[.8,.7,'60,140,255'],[.7,.15,'190,90,230']];
+function fit(){const st=$('class3dStage');if(!st||!cv)return;dpr=Math.min(2,devicePixelRatio||1);W=st.clientWidth;H=st.clientHeight;cv.width=W*dpr;cv.height=H*dpr}
+function drawBg(now){
+  if(!ctx)return;if(cv.width!==Math.round(($('class3dStage').clientWidth||0)*dpr))fit();
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation='lighter';
+  neb.forEach(([x,y,c])=>{const r=Math.max(W,H)*.55,g=ctx.createRadialGradient(x*W,y*H,0,x*W,y*H,r);g.addColorStop(0,`rgba(${c},.13)`);g.addColorStop(1,`rgba(${c},0)`);ctx.fillStyle=g;ctx.fillRect(0,0,W,H)});
+  const cg=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.min(W,H)*.35);cg.addColorStop(0,'rgba(255,240,210,.85)');cg.addColorStop(.15,'rgba(255,205,140,.4)');cg.addColorStop(.5,'rgba(150,115,255,.14)');cg.addColorStop(1,'rgba(80,60,200,0)');ctx.fillStyle=cg;ctx.fillRect(0,0,W,H);
+  ctx.globalCompositeOperation='source-over';ctx.fillStyle='#fff';
+  layers.forEach((L,l)=>L.forEach(s=>{s.x=(s.x-[.00004,.00009,.00018][l]*16+1)%1;ctx.globalAlpha=s.a*(.7+.3*Math.sin(now/700+s.p));ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.r,0,6.283);ctx.fill()}));
+  if(!shoot&&rnd()<.004)shoot={x:rnd()*W,y:rnd()*H*.5,vx:7+rnd()*4,vy:3+rnd()*2,life:1};
+  if(shoot){const s=shoot;ctx.globalAlpha=s.life;ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(s.x-s.vx*6,s.y-s.vy*6);ctx.stroke();s.x+=s.vx;s.y+=s.vy;s.life-=.02;if(s.life<=0)shoot=null}
+  ctx.globalAlpha=1;
+}
+/* frame loop */
+let last=0;
+function frame(now){
+  requestAnimationFrame(frame);const st=$('class3dStage');
+  if(!st||class3dLayout!=='galaxy'||!st.offsetParent)return;
+  const dt=Math.min(50,now-last);last=now;
+  if(!window.__c3dDown&&!window.__c3dViewerOpen)class3dCamera.ry+=dt*.004;
+  applyClass3DCamera();
+  const a=class3dCamera.ry*Math.PI/180,b=class3dCamera.rx*Math.PI/180,ca=Math.cos(a),sa=Math.sin(a),cb=Math.cos(b),sb=Math.sin(b);
+  for(const c of cardsOf()){
+    if(c._gx===undefined)continue;
+    const z1=-c._gx*sa+c._gz*ca;c._depth=c._gy*sb+z1*cb;
+    c.style.opacity=(.4+.6*Math.max(0,Math.min(1,(c._depth+G_R)/(2*G_R)))).toFixed(2);
+    c.style.transform=`translate3d(calc(-50% + ${c._gx}px),calc(-50% + ${c._gy}px),${c._gz}px) rotateY(${-class3dCamera.ry}deg) rotateX(${-class3dCamera.rx}deg)`;
+  }
+  drawBg(now);
+}
+requestAnimationFrame(frame);
+/* viewer */
+let viewer=null;
+window.__c3dCloseViewer=(instant)=>{const v=viewer;if(!v)return;viewer=null;window.__c3dViewerOpen=false;v.classList.remove('show');setTimeout(()=>v.remove(),instant?0:280)};
+function openViewer(card){
+  window.__c3dCloseViewer(true);
+  const cs=cardsOf(),n=cs.length;let idx=cs.indexOf(card);
+  const v=document.createElement('div');v.className='c3d-viewer';v.id='c3dViewer';
+  v.innerHTML='<img alt=""><div class="c3d-v-count"></div><button class="c3d-v-close" type="button" aria-label="Đóng">✕</button>';
+  document.body.appendChild(v);viewer=v;window.__c3dViewerOpen=true;
+  const img=v.querySelector('img'),cnt=v.querySelector('.c3d-v-count');
+  const show=i=>{idx=(i+n)%n;img.src=cs[idx].querySelector('img').src;cnt.textContent=(idx+1)+' / '+n};
+  v._go=d=>show(idx+d);show(idx);
+  let p0=null;
+  v.addEventListener('pointerdown',e=>{p0={x:e.clientX,y:e.clientY}});
+  v.addEventListener('pointerup',e=>{if(!p0)return;const dx=e.clientX-p0.x,dy=e.clientY-p0.y;p0=null;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))show(idx+(dx<0?1:-1));
+    else if(dy>70)window.__c3dCloseViewer();
+    else if(Math.hypot(dx,dy)<9&&e.target!==img)window.__c3dCloseViewer()});
+  v.querySelector('.c3d-v-close').addEventListener('click',()=>window.__c3dCloseViewer());
+  requestAnimationFrame(()=>requestAnimationFrame(()=>v.classList.add('show')));
+}
+/* tap on a card */
+const st=$('class3dStage');let tp=null;const act=new Set();
+st?.addEventListener('pointerdown',e=>{act.add(e.pointerId);tp=act.size===1?{id:e.pointerId,x:e.clientX,y:e.clientY,t:performance.now()}:null});
+st?.addEventListener('pointercancel',e=>{act.delete(e.pointerId);tp=null});
+st?.addEventListener('pointerup',e=>{act.delete(e.pointerId);
+  if(tp&&tp.id===e.pointerId&&class3dLayout==='galaxy'&&!class3dDeleteMode&&Math.hypot(e.clientX-tp.x,e.clientY-tp.y)<9&&performance.now()-tp.t<550){
+    let best=null;for(const c of cardsOf()){const r=c.getBoundingClientRect();if(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom&&(!best||c._depth>best._depth))best=c}
+    if(best)openViewer(best)}
+  tp=null});
+/* toggle */
+const btn=$('class3dLayoutBtn');
+const label=()=>{if(!btn)return;btn.textContent='✦ Thiên hà: '+(class3dLayout==='galaxy'?'BẬT':'TẮT');btn.classList.toggle('class3d-mode-on',class3dLayout==='galaxy');btn.setAttribute('aria-pressed',class3dLayout==='galaxy')};
+btn?.addEventListener('click',()=>{
+  window.__c3dCloseViewer(true);
+  class3dLayout=class3dLayout==='galaxy'?'free':'galaxy';localStorage.setItem('reze_class3d_layout',class3dLayout);
+  st.classList.toggle('galaxy',class3dLayout==='galaxy');
+  if(class3dLayout==='galaxy'){placeGalaxyCards();class3dCamera=preset()}
+  else{cardsOf().forEach(c=>{c.style.opacity='';applyClass3DTransform(c)});class3dCamera={rx:0,ry:0,scale:1}}
+  window.__c3dResetZoom?.();applyClass3DCamera();label();
+});
+st?.classList.toggle('galaxy',class3dLayout==='galaxy');label();
+})();
 async function renderCategory(){
   revokeLiveUrls();
   const isClass=currentCat==='Class';
@@ -1480,6 +1572,20 @@ window.__jrungCloudApi={allItems,hydrateItem,storeFile,saveMeta,async getMeta(id
 .category-grid.sorting .category-card.drag-placeholder{visibility:visible;opacity:.15;filter:blur(.2px);transform:none;transition:none;min-height:88px;border:1px dashed rgba(255,255,255,.3);background:rgba(255,255,255,.045);box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
 .sort-ghost{position:fixed!important;margin:0;z-index:10000;pointer-events:none!important;touch-action:none;opacity:.78;transform:none;filter:none;transition:none!important;box-shadow:0 24px 70px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.22)}
 .sort-ghost::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(120deg,rgba(255,255,255,.11),transparent 45%,rgba(255,255,255,.04));pointer-events:none}
+</style>
+<style id="galaxyCss">
+.class3d-stage.galaxy .class3d-grid{display:none}
+.class3d-stage>.class3d-stars{display:none;position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.class3d-stage.galaxy>.class3d-stars{display:block}
+.class3d-stage.galaxy{background:radial-gradient(120% 90% at 50% 45%,#150f33 0%,#07061a 60%,#030310 100%)}
+.class3d-stage.galaxy .class3d-card{width:60px;height:86px;pointer-events:none;border-radius:9px;transition:none;box-shadow:0 0 14px 2px rgba(170,140,255,.55),0 0 2px 1px rgba(255,255,255,.5)}
+.class3d-stage.galaxy .class3d-card img{width:100%;height:100%;object-fit:cover;border-radius:9px;display:block}
+.c3d-viewer{position:fixed;inset:0;z-index:99999;background:rgba(3,3,16,.86);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;touch-action:none}
+.c3d-viewer.show{opacity:1}
+.c3d-viewer img{max-width:92vw;max-height:84vh;border-radius:12px;box-shadow:0 0 40px 6px rgba(150,120,255,.45);transform:scale(.7);transition:transform .3s cubic-bezier(.2,.9,.2,1);user-select:none;-webkit-user-drag:none}
+.c3d-viewer.show img{transform:none}
+.c3d-v-count{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:#cfc8ff;font:600 13px system-ui}
+.c3d-v-close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:18px}
 </style>
 </body></html>
 
