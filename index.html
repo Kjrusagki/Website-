@@ -171,7 +171,7 @@
       <section id="class3dPanel" class="class3d-panel hidden" aria-label="Class 3D">
         <div class="class3d-toolbar">
           <button id="class3dAddBtn" class="class3d-main-btn" type="button"><i data-ico="plus"></i> Thêm ảnh</button>
-          <button id="class3dLayoutBtn" type="button"></button><button id="class3dSpaceBtn" type="button"><i data-ico="orbit"></i> Chỉ không gian</button>
+          <button id="class3dLayoutBtn" type="button"></button><button id="class3dCodeBtn" type="button">&lt;/&gt; Code</button><button id="class3dSpaceBtn" type="button"><i data-ico="orbit"></i> Chỉ không gian</button>
           <button id="class3dAutoBtn" type="button"><i data-ico="rotate3d"></i> Xoay</button>
           <button id="class3dDeleteModeBtn" type="button" aria-pressed="false"><i data-ico="x"></i> Xóa ảnh</button>
           <button id="class3dExitBtn" class="class3d-exit-btn" type="button"><i data-ico="arrow_left"></i> Thoát</button>
@@ -1642,6 +1642,80 @@ window.__jrungCloudApi={allItems,hydrateItem,storeFile,saveMeta,async getMeta(id
 .c3d-v-count{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:#cfc8ff;font:600 13px system-ui}
 .c3d-v-close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:18px}
 </style>
+<style id="codeCss">
+.cx{position:fixed;inset:0;z-index:99990;background:#1e1e1e;display:flex;flex-direction:column;color:#d4d4d4;font:13px system-ui;padding-top:env(safe-area-inset-top,0px)}
+.cx *{box-sizing:border-box}
+.cx-bar{display:flex;gap:6px;align-items:center;padding:8px;background:#252526;border-bottom:1px solid #333}
+.cx-bar button{border:0;border-radius:7px;padding:8px 11px;background:#333;color:#ddd;font:600 13px system-ui}
+.cx-bar .on{background:#0e639c;color:#fff}.cx-bar .run{background:#16825d;color:#fff;margin-left:auto}.cx-bar .stop{background:#a1260d;color:#fff}
+.cx-ed{position:relative;flex:1.2;min-height:120px;display:flex;overflow:hidden}
+.cx-g,.cx-pre,.cx-ta{font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre;tab-size:2}
+.cx-g{padding:10px 8px;text-align:right;color:#6e7681;user-select:none;overflow:hidden;min-width:36px;background:#1e1e1e}
+.cx-w{position:relative;flex:1;overflow:hidden}
+.cx-pre{position:absolute;left:0;top:0;margin:0;padding:10px;pointer-events:none}
+.cx-ta{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:10px;border:0;outline:0;resize:none;background:transparent;color:transparent;caret-color:#fff;overflow:auto}
+.cx-ta::selection{background:rgba(38,79,120,.6)}
+.cx-keys{display:flex;gap:5px;padding:6px;overflow-x:auto;background:#252526;border-top:1px solid #333}
+.cx-keys button{flex:none;min-width:38px;border:0;border-radius:6px;padding:8px 6px;background:#3a3a3c;color:#ddd;font:600 14px ui-monospace,monospace}
+.cx-out{flex:1;display:flex;flex-direction:column;border-top:2px solid #007acc;min-height:0}
+.cx-tabs{display:flex;gap:4px;padding:5px 8px;background:#252526}
+.cx-tabs button{border:0;border-radius:6px;padding:6px 10px;background:#333;color:#ccc;font:600 12px system-ui}.cx-tabs .on{background:#3c3c3c;color:#fff;box-shadow:inset 0 -2px #007acc}
+.cx-con{flex:1;overflow:auto;padding:8px;font:13px/1.45 ui-monospace,Menlo,monospace}
+.cx-con div{white-space:pre-wrap;word-break:break-word;border-bottom:1px solid #2a2a2a;padding:2px 0}
+.cx-con .error{color:#f48771}.cx-con .warn{color:#cca700}.cx-con .info{color:#75beff}.cx-con .hint{color:#6e7681}
+.cx-fr{flex:1;border:0;background:#fff;width:100%}
+.cx .k{color:#569cd6}.cx .c{color:#6a9955}.cx .s{color:#ce9178}.cx .n{color:#b5cea8}.cx .f{color:#dcdcaa}.cx .t{color:#4ec9b0}.cx .tg{color:#569cd6}.cx .at{color:#9cdcfe}.cx .pr{color:#9cdcfe}
+</style>
+<script>
+(()=>{
+const $=(s,r=document)=>r.querySelector(s),esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;'),wrap=(c,t)=>'<span class="'+c+'">'+esc(t)+'</span>';
+const KW='break|case|catch|class|const|continue|default|delete|do|else|export|extends|finally|for|from|function|if|import|in|instanceof|let|new|of|return|super|switch|this|throw|try|typeof|var|void|while|async|await|yield';
+const JSRE=new RegExp(/(\/\/[^\n]*|\/\*[\s\S]*?(?:\*\/|$))|("(?:\\.|[^"\\\n])*"?|'(?:\\.|[^'\\\n])*'?|`(?:\\[\s\S]|[^`\\])*`?)|(\b\d[\d_.]*\b)|(\b(?:KW)\b)|(\b(?:true|false|null|undefined|NaN|Infinity)\b)|(\b[A-Z][\w$]*)|(\b[A-Za-z_$][\w$]*)(?=\s*\()/.source.replace('KW',KW),'g');
+const CSSRE=/(\/\*[\s\S]*?(?:\*\/|$))|("[^"\n]*"?|'[^'\n]*'?)|(#[0-9a-fA-F]{3,8}\b|-?\b\d[\d.]*(?:px|em|rem|%|vh|vw|ms|s|deg)?)|([\w-]+)(?=\s*:)|([.#][A-Za-z_][\w-]*|@[\w-]+)/g;
+const TAGRE=/(<\/?)([\w:-]*)|("[^"]*"?|'[^']*'?)|([\w:@.-]+)(?==)|(\/?>)/g;
+const mk=(re,map)=>code=>{let o='',i=0,m;re.lastIndex=0;while((m=re.exec(code))){const t=m[0];if(!t){re.lastIndex++;continue}o+=esc(code.slice(i,m.index))+wrap(map(m),t);i=m.index+t.length}return o+esc(code.slice(i))};
+const hlJS=mk(JSRE,m=>m[1]?'c':m[2]?'s':m[3]?'n':m[4]||m[5]?'k':m[6]?'t':'f'),hlCSS=mk(CSSRE,m=>m[1]?'c':m[2]?'s':m[3]?'n':m[4]?'pr':'t'),hlTag=mk(TAGRE,m=>m[1]?'tg':m[3]?'s':m[4]?'at':'tg');
+function hlHTML(code){let o='',i=0,m;const re=/<!-{2}[\s\S]*?(?:-{2}>|$)|(<(script|style)\b[^>]*>)([\s\S]*?)(?=<\/\2|$)|<\/?[A-Za-z][^>]*>?/gi;
+  while((m=re.exec(code))){const t=m[0];if(!t){re.lastIndex++;continue}o+=esc(code.slice(i,m.index));
+    if(m[1])o+=hlTag(m[1])+(m[2].toLowerCase()==='script'?hlJS(m[3]):hlCSS(m[3]));else o+=t.startsWith('<!-')?wrap('c',t):hlTag(t);i=m.index+t.length}
+  return o+esc(code.slice(i))}
+const BOOT="(function(){var id=window.name,P=function(k,a){parent.postMessage({cx:id,k:k,a:a},'*')};function f(v){if(typeof v==='string')return v;if(v instanceof Error)return v.stack||String(v);if(typeof v==='function')return String(v);try{var r=function(k,x){return typeof x==='undefined'?'undefined':x},t=JSON.stringify(v,r);return t&&t.length>70?JSON.stringify(v,r,2):String(t)}catch(e){return String(v)}}['log','info','warn','error','debug'].forEach(function(k){var o=console[k];console[k]=function(){P(k,[].map.call(arguments,f));o.apply(console,arguments)}});addEventListener('error',function(e){P('error',[e.message+(e.lineno?' (dòng '+e.lineno+')':'')])});addEventListener('unhandledrejection',function(e){P('error',['Promise lỗi: '+f(e.reason)])})})();";
+const SC='<script>',EC='<\/script>';
+const SAMPLE={js:"// Bấm ▶ Chạy để thử\nconst nums = [1, 2, 3, 4, 5];\nconsole.log('Bình phương:', nums.map(n => n * n));\n\nclass Dog {\n  bark() { return 'Gâu gâu!'; }\n}\nconsole.log(new Dog().bark());\nconsole.warn('Đây là cảnh báo');\n",
+html:"<!doctype html>\n<html>\n<head>\n<style>\n  body { font-family: sans-serif; text-align: center; padding: 30px; }\n  h1 { color: #e91e63; }\n  button { padding: 10px 18px; font-size: 16px; }\n</style>\n</head>\n<body>\n  <h1 id=\"t\">Xin chào!</h1>\n  <button onclick=\"hi()\">Bấm thử</button>\n"+SC+"\n  let n = 0;\n  function hi() {\n    n++;\n    document.getElementById('t').textContent = 'Đã bấm ' + n + ' lần';\n    console.log('click', n);\n  }\n"+EC+"\n</body>\n</html>\n"};
+const buildDoc=(code,lang)=>{const B=SC+BOOT+EC;if(lang==='js')return '<!doctype html><meta charset="utf-8"><body style="margin:0;padding:10px;font:14px system-ui">'+B+SC+code.replace(/<\/script/gi,'<\\/script')+EC;const m=code.match(/^\s*<!doctype[^>]*>/i);return m?m[0]+B+code.slice(m[0].length):B+code};
+function openCode(){
+  if($('.cx'))return;
+  let st={};try{st=JSON.parse(localStorage.getItem('reze_code_v1')||'{}')}catch(_){}
+  let lang=st.lang==='html'?'html':'js',runId='',fr=null,view='con';const codes={js:st.js??SAMPLE.js,html:st.html??SAMPLE.html};
+  const el=document.createElement('div');el.className='cx';
+  el.innerHTML='<div class="cx-bar"><button data-l="js">JS</button><button data-l="html">HTML</button><button class="stop" data-a="stop">■</button><button class="run" data-a="run">▶ Chạy</button><button data-a="close">✕</button></div>'
+   +'<div class="cx-ed"><div class="cx-g"><div></div></div><div class="cx-w"><pre class="cx-pre"></pre><textarea class="cx-ta" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off"></textarea></div></div>'
+   +'<div class="cx-keys"></div><div class="cx-out"><div class="cx-tabs"><button data-v="fr">Kết quả</button><button data-v="con">Console</button><button data-a="clear" style="margin-left:auto">Xóa</button></div><div class="cx-con"></div><div class="cx-frw" style="display:none;flex:1;min-height:0;flex-direction:column"></div></div>';
+  document.body.appendChild(el);
+  const ta=$('.cx-ta',el),pre=$('.cx-pre',el),gut=$('.cx-g div',el),con=$('.cx-con',el),frw=$('.cx-frw',el),keys=$('.cx-keys',el);
+  const save=()=>{try{localStorage.setItem('reze_code_v1',JSON.stringify({lang,js:codes.js,html:codes.html}))}catch(_){}};
+  const render=()=>{const c=ta.value;pre.innerHTML=(lang==='js'?hlJS(c):hlHTML(c))+'\n ';let g='',n=c.split('\n').length;for(let i=1;i<=n;i++)g+=i+'\n';gut.textContent=g;sync()};
+  const sync=()=>{pre.style.transform='translate('+(-ta.scrollLeft)+'px,'+(-ta.scrollTop)+'px)';gut.style.transform='translateY('+(-ta.scrollTop)+'px)'};
+  const setLang=l=>{codes[lang]=ta.value;lang=l;ta.value=codes[l];$$('[data-l]').forEach(b=>b.classList.toggle('on',b.dataset.l===l));render();setView(l==='html'?'fr':'con');save()};
+  const $$=s=>[...el.querySelectorAll(s)];
+  const setView=v=>{view=v;con.style.display=v==='con'?'block':'none';frw.style.display=v==='fr'?'flex':'none';$$('[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v))};
+  const say=(k,t)=>{if(con.childElementCount>500)return;const d=document.createElement('div');d.className=k;d.textContent=(k==='error'?'✖ ':'')+t;con.appendChild(d);con.scrollTop=1e9};
+  const stop=()=>{if(fr){fr.src='about:blank';fr.remove();fr=null}runId=''};
+  const run=()=>{stop();con.innerHTML='';runId='r'+Date.now();fr=document.createElement('iframe');fr.className='cx-fr';fr.name=runId;fr.setAttribute('sandbox','allow-scripts allow-modals allow-forms');fr.srcdoc=buildDoc(ta.value,lang);frw.innerHTML='';frw.appendChild(fr);say('hint','▶ Đang chạy… (console.log sẽ hiện ở đây)')};
+  const onMsg=e=>{const d=e.data;if(d&&d.cx&&d.cx===runId&&fr&&e.source===fr.contentWindow)say(d.k==='debug'?'log':d.k,(d.a||[]).join(' '))};
+  addEventListener('message',onMsg);
+  const ins=t=>{ta.focus();ta.setRangeText(t,ta.selectionStart,ta.selectionEnd,'end');ta.dispatchEvent(new Event('input'))};
+  ta.addEventListener('input',()=>{codes[lang]=ta.value;render();save()});
+  ta.addEventListener('scroll',sync);
+  ta.addEventListener('keydown',e=>{if(e.key==='Tab'){e.preventDefault();ins('  ')}else if(e.key==='Enter'){const v=ta.value,s=ta.selectionStart,ls=v.lastIndexOf('\n',s-1)+1,ind=v.slice(ls,s).match(/^\s*/)[0];e.preventDefault();ins('\n'+ind+(/[{(\[]/.test(v[s-1]||'')?'  ':''))}});
+  ['Tab','{','}','(',')','[',']',';','"',"'",'<','>','=','/','`','$','.',','].forEach(k=>{const b=document.createElement('button');b.textContent=k==='Tab'?'⇥':k;b.addEventListener('pointerdown',e=>e.preventDefault());b.addEventListener('click',()=>ins(k==='Tab'?'  ':k));keys.appendChild(b)});
+  el.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.l)setLang(b.dataset.l);else if(b.dataset.v)setView(b.dataset.v);else if(b.dataset.a==='run'){run();setView(lang==='html'?'fr':'con')}else if(b.dataset.a==='stop'){stop();say('hint','■ Đã dừng')}else if(b.dataset.a==='clear')con.innerHTML='';else if(b.dataset.a==='close'){stop();removeEventListener('message',onMsg);el.remove()}});
+  ta.value=codes[lang];$$('[data-l]').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));render();setView(lang==='html'?'fr':'con');say('hint','Viết code rồi bấm ▶ Chạy. Chế độ HTML hiện trang ở tab "Kết quả".');
+}
+document.addEventListener('click',e=>{if(e.target.closest('#class3dCodeBtn')){e.stopPropagation();openCode()}},true);
+})();
+</script>
 </body></html>
 
 <style>
