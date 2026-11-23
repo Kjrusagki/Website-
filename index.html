@@ -2,6 +2,20 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script id="we-boot">
+/* Trình chỉnh sửa code web: nạp bản đã sửa (nếu có) TRƯỚC khi trang gốc chạy. Mở ?safe để khôi phục bản gốc. */
+(function(){var K='reze_webedit_src_v1',F='reze_webedit_boot_v1',w=window;
+try{
+if(w.__WE_OV){w.addEventListener('load',function(){setTimeout(function(){try{
+if(w.__WE_READY){localStorage.removeItem(F);return}
+localStorage.removeItem(K);localStorage.removeItem(F);location.reload()}catch(e){}},400)});return}
+if(/[?&#]safe\b/.test(location.search+location.hash)){localStorage.removeItem(K);localStorage.removeItem(F);return}
+var s=localStorage.getItem(K);if(!s)return;
+if(localStorage.getItem(F)){localStorage.removeItem(K);localStorage.removeItem(F);return}
+localStorage.setItem(F,String(Date.now()));w.__WE_OV=1;
+document.write(s+'<plaintext style="display:none">');
+}catch(e){}})();
+</script>
 <meta name="theme-color" content="#050507"><title>Reze</title>
 <style>@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap");
 :root{--bg:#050507;--fg:#f4f4f6;--muted:#92929d;--line:rgba(255,255,255,.11);--panel:rgba(255,255,255,.045);--red:#ff4d5f;--yellow:#ffd44d;--orange:#ff9f43;--blue:#4f9cff;--green:#48d483}
@@ -163,6 +177,7 @@
         <button class="category-card" draggable="false" data-cat="Manhwa - Manhua"><div class="topic-icon"><i data-ico="book_open"></i></div><div class="topic-text"><b>Manhwa - Manhua</b><span>Comics & chapters</span></div></button>
         <button class="category-card" draggable="false" data-cat="Class"><div class="topic-icon"><i data-ico="grad_cap"></i></div><div class="topic-text"><b>Class</b><span>Class collection</span></div></button>
         <button class="category-card" draggable="false" data-cat="Basic"><div class="topic-icon"><i data-ico="square"></i></div><div class="topic-text"><b>Basic</b><span>General archive</span></div></button>
+        <button class="category-card" draggable="false" data-cat="Test"><div class="topic-icon"><i data-ico="flame"></i></div><div class="topic-text"><b>Test</b><span>Thử nghiệm &amp; bản mẫu</span></div></button>
       </nav>
     </section>
     <section id="categoryView" class="view">
@@ -214,7 +229,7 @@
     </section>
 
     <section id="achievementsView" class="view"><div class="view-head"><div><div class="eyebrow">ACHIEVEMENTS</div><h1>Achievements</h1><p>Kho riêng cho những nội dung thành tích.</p></div></div><div id="achievementGrid" class="media-grid"></div><div id="achievementEmpty" class="empty">Chưa có nội dung.</div></section>
-    <section id="youView" class="view"><div class="view-head"><div><div class="eyebrow">YOU</div><h1>You</h1><p>Cài đặt nhanh cho trải nghiệm của mày.</p></div></div><div class="category-card" style="cursor:default"><div class="topic-icon"><i data-ico="music2"></i></div><div class="topic-text"><b>Âm thanh nền</b><span id="musicStateText">Nhạc nền đang bật · Chuyển mục không làm nhạc dừng.</span></div><button id="musicToggle" class="round-btn" style="margin-left:auto" title="Tắt nhạc nền"><i data-ico="volume"></i></button></div><div class="you-sort-card"><div class="storage-top"><div><div class="eyebrow">HOME LAYOUT</div><h3>Sắp xếp vị trí</h3><p>Bấm nút rồi kéo 4 mục ở Home lên hoặc xuống để đổi vị trí. Chỉ các mục này di chuyển.</p></div><button id="categorySortBtn" class="primary" type="button"><i data-ico="sort"></i> Sắp xếp</button></div></div><div class="background-card"><div class="storage-top"><div><div class="eyebrow">BACKGROUND</div><h3>Video nền</h3><p>Thay video Reze Yên Bình bằng video của mày. Âm thanh gốc của video mới cũng sẽ trở thành nhạc nền khi chưa chọn Music.</p></div></div><div class="background-actions"><button class="primary" id="backgroundPickBtn" type="button"><i data-ico="clapper"></i> Chọn video nền</button><button id="backgroundResetBtn" type="button"><i data-ico="rotate_ccw"></i> Khôi phục video gốc</button></div><div id="backgroundFileName" class="background-file-name">Đang dùng Reze Yên Bình</div><input id="backgroundInput" type="file" accept="video/*" class="hidden"></div><div class="notes-card" id="notesCard"><div class="storage-top"><div><div class="eyebrow">NHỮNG LỜI MUỐN NÓI</div><h3>Những lời muốn nói</h3><p>Thêm những câu mày muốn giữ lại. Mỗi lần chuyển sang một đề mục, website sẽ chọn ngẫu nhiên một câu và hiện dưới video nền.</p></div><button id="notesViewBtn" class="notes-view-btn" type="button">Xem</button></div><div id="notesSavedPanel" class="notes-saved-panel hidden"><div id="notesList" class="notes-list"></div></div><div class="notes-add"><textarea id="noteInput" rows="3" placeholder="Viết một câu bất kỳ..."></textarea><button class="primary" id="noteAddBtn" type="button"><i data-ico="plus"></i> Thêm câu</button></div><div class="notes-sync-row"><span id="notesSyncStatus" class="notes-sync-status">Chưa đồng bộ.</span><button id="notesSyncBtn" class="notes-view-btn" type="button"><i data-ico="refresh"></i> Đồng bộ</button></div></div><div class="cloud-card" id="publishCard"><div class="storage-top"><div><div class="eyebrow">PUBLISH · GITHUB PAGES</div><h3>Xuất bản thư viện</h3><p>Đưa ảnh, video, nhạc và văn bản lên web để bất kỳ ai mở link cũng thấy, không chỉ nằm trong trình duyệt của một máy.</p></div><span class="cloud-status-dot" id="cloudStatusDot"></span></div><p id="pubPublicInfo" class="cloud-status">Đang kiểm tra bản công khai…</p><details id="pubOwnerBox" class="pub-box"><summary>Chế độ chủ web — xuất bản (cần token GitHub)</summary><div class="cloud-auth-grid"><input id="pubOwner" type="text" autocomplete="off" placeholder="Owner (tài khoản GitHub)"><input id="pubRepo" type="text" autocomplete="off" placeholder="Repo (tên repository)"><input id="pubBranch" type="text" autocomplete="off" placeholder="Branch (để trống = mặc định)"><input id="pubToken" type="password" autocomplete="off" placeholder="Token GitHub (chỉ lưu trong trình duyệt này)" style="grid-column:1/-1"></div><div class="cloud-actions"><button class="primary" id="pubPublishBtn" type="button" style="grid-column:1/-1"><i data-ico="cloud_up"></i> Xuất bản lên web</button><button id="pubPullBtn" type="button"><i data-ico="download"></i> Lấy bản công khai</button><button id="pubForgetBtn" type="button">Xóa token</button></div><div class="storage-bar"><div id="pubBarFill"></div></div><p id="pubStatus" class="cloud-status" role="status" aria-live="polite" style="white-space:pre-line">Điền token rồi bấm Xuất bản. Mọi file sẽ được đưa vào thư mục data/ của repo.</p><details class="pub-help"><summary>Cách lấy token (1 lần)</summary><ol><li>Vào GitHub → ảnh đại diện → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token.</li><li>Repository access: Only select repositories → chọn repo của website này.</li><li>Permissions → Repository permissions → Contents: <b>Read and write</b>. Bấm Generate rồi sao chép token vào ô trên.</li></ol></details><p class="cloud-warning">Token cho phép sửa repo, hãy giữ kín và không gửi cho ai. Token chỉ nằm trong trình duyệt này, không nằm trong file sao lưu và không được đưa lên web. Lưu ý: ảnh/video đã xuất bản là công khai — ai biết đường dẫn trong thư mục data/ đều xem được, mật khẩu mở trang chỉ che giao diện.</p></details></div><div class="storage-card" id="storageCard"><div class="storage-top"><div><div class="eyebrow">STORAGE</div><h3>Bộ nhớ website</h3><p id="storageSub">Đang kiểm tra dung lượng…</p></div><button id="storageRefresh" class="round-btn" title="Cập nhật dung lượng"><i data-ico="rotate_cw"></i></button></div><div class="storage-bar"><div id="storageBarFill"></div></div><div class="storage-stats"><span>Đã dùng <b id="storageUsed">—</b></span><span>Còn khoảng <b id="storageFree">—</b></span><span>Quota <b id="storageQuota">—</b></span></div><div class="storage-breakdown"><span>Ảnh <b id="storageImages">0 B</b></span><span>Video <b id="storageVideos">0 B</b></span><span>File <b id="storageFiles">0 B</b></span></div><div class="backup-tools"><button id="backupExportBtn" type="button" class="primary"><i data-ico="download"></i> Sao lưu thư viện</button><button id="backupImportBtn" type="button"><i data-ico="upload"></i> Khôi phục</button><input id="backupFileInput" type="file" accept="application/json,.json" hidden><p id="backupStatus" role="status" aria-live="polite">Bản sao lưu bao gồm nội dung đã tải lên và tùy chọn website.</p><div class="storage-sync-note"><span class="sync-symbol">i</span><span><b>Lưu ý:</b> ảnh/video thêm vào sẽ nằm trong bộ nhớ của trình duyệt này. Muốn người khác/thiết bị khác cũng thấy, hãy dùng thẻ “Xuất bản thư viện” ở trên; file sao lưu chỉ giúp chuyển dữ liệu thủ công.</span></div></div></div></section>
+    <section id="youView" class="view"><div class="view-head"><div><div class="eyebrow">YOU</div><h1>You</h1><p>Cài đặt nhanh cho trải nghiệm của mày.</p></div></div><div class="category-card" style="cursor:default"><div class="topic-icon"><i data-ico="music2"></i></div><div class="topic-text"><b>Âm thanh nền</b><span id="musicStateText">Nhạc nền đang bật · Chuyển mục không làm nhạc dừng.</span></div><button id="musicToggle" class="round-btn" style="margin-left:auto" title="Tắt nhạc nền"><i data-ico="volume"></i></button></div><div class="you-sort-card"><div class="storage-top"><div><div class="eyebrow">HOME LAYOUT</div><h3>Sắp xếp vị trí</h3><p>Bấm nút rồi kéo 5 mục ở Home lên hoặc xuống để đổi vị trí. Chỉ các mục này di chuyển.</p></div><button id="categorySortBtn" class="primary" type="button"><i data-ico="sort"></i> Sắp xếp</button></div></div><div class="background-card"><div class="storage-top"><div><div class="eyebrow">BACKGROUND</div><h3>Video nền</h3><p>Thay video Reze Yên Bình bằng video của mày. Âm thanh gốc của video mới cũng sẽ trở thành nhạc nền khi chưa chọn Music.</p></div></div><div class="background-actions"><button class="primary" id="backgroundPickBtn" type="button"><i data-ico="clapper"></i> Chọn video nền</button><button id="backgroundResetBtn" type="button"><i data-ico="rotate_ccw"></i> Khôi phục video gốc</button></div><div id="backgroundFileName" class="background-file-name">Đang dùng Reze Yên Bình</div><input id="backgroundInput" type="file" accept="video/*" class="hidden"></div><div class="notes-card" id="notesCard"><div class="storage-top"><div><div class="eyebrow">NHỮNG LỜI MUỐN NÓI</div><h3>Những lời muốn nói</h3><p>Thêm những câu mày muốn giữ lại. Mỗi lần chuyển sang một đề mục, website sẽ chọn ngẫu nhiên một câu và hiện dưới video nền.</p></div><button id="notesViewBtn" class="notes-view-btn" type="button">Xem</button></div><div id="notesSavedPanel" class="notes-saved-panel hidden"><div id="notesList" class="notes-list"></div></div><div class="notes-add"><textarea id="noteInput" rows="3" placeholder="Viết một câu bất kỳ..."></textarea><button class="primary" id="noteAddBtn" type="button"><i data-ico="plus"></i> Thêm câu</button></div><div class="notes-sync-row"><span id="notesSyncStatus" class="notes-sync-status">Chưa đồng bộ.</span><button id="notesSyncBtn" class="notes-view-btn" type="button"><i data-ico="refresh"></i> Đồng bộ</button></div></div><div class="cloud-card" id="publishCard"><div class="storage-top"><div><div class="eyebrow">PUBLISH · GITHUB PAGES</div><h3>Xuất bản thư viện</h3><p>Đưa ảnh, video, nhạc và văn bản lên web để bất kỳ ai mở link cũng thấy, không chỉ nằm trong trình duyệt của một máy.</p></div><span class="cloud-status-dot" id="cloudStatusDot"></span></div><p id="pubPublicInfo" class="cloud-status">Đang kiểm tra bản công khai…</p><details id="pubOwnerBox" class="pub-box"><summary>Chế độ chủ web — xuất bản (cần token GitHub)</summary><div class="cloud-auth-grid"><input id="pubOwner" type="text" autocomplete="off" placeholder="Owner (tài khoản GitHub)"><input id="pubRepo" type="text" autocomplete="off" placeholder="Repo (tên repository)"><input id="pubBranch" type="text" autocomplete="off" placeholder="Branch (để trống = mặc định)"><input id="pubToken" type="password" autocomplete="off" placeholder="Token GitHub (chỉ lưu trong trình duyệt này)" style="grid-column:1/-1"></div><div class="cloud-actions"><button class="primary" id="pubPublishBtn" type="button" style="grid-column:1/-1"><i data-ico="cloud_up"></i> Xuất bản lên web</button><button id="pubPullBtn" type="button"><i data-ico="download"></i> Lấy bản công khai</button><button id="pubForgetBtn" type="button">Xóa token</button></div><div class="storage-bar"><div id="pubBarFill"></div></div><p id="pubStatus" class="cloud-status" role="status" aria-live="polite" style="white-space:pre-line">Điền token rồi bấm Xuất bản. Mọi file sẽ được đưa vào thư mục data/ của repo.</p><details class="pub-help"><summary>Cách lấy token (1 lần)</summary><ol><li>Vào GitHub → ảnh đại diện → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token.</li><li>Repository access: Only select repositories → chọn repo của website này.</li><li>Permissions → Repository permissions → Contents: <b>Read and write</b>. Bấm Generate rồi sao chép token vào ô trên.</li></ol></details><p class="cloud-warning">Token cho phép sửa repo, hãy giữ kín và không gửi cho ai. Token chỉ nằm trong trình duyệt này, không nằm trong file sao lưu và không được đưa lên web. Lưu ý: ảnh/video đã xuất bản là công khai — ai biết đường dẫn trong thư mục data/ đều xem được, mật khẩu mở trang chỉ che giao diện.</p></details></div><div class="storage-card" id="storageCard"><div class="storage-top"><div><div class="eyebrow">STORAGE</div><h3>Bộ nhớ website</h3><p id="storageSub">Đang kiểm tra dung lượng…</p></div><button id="storageRefresh" class="round-btn" title="Cập nhật dung lượng"><i data-ico="rotate_cw"></i></button></div><div class="storage-bar"><div id="storageBarFill"></div></div><div class="storage-stats"><span>Đã dùng <b id="storageUsed">—</b></span><span>Còn khoảng <b id="storageFree">—</b></span><span>Quota <b id="storageQuota">—</b></span></div><div class="storage-breakdown"><span>Ảnh <b id="storageImages">0 B</b></span><span>Video <b id="storageVideos">0 B</b></span><span>File <b id="storageFiles">0 B</b></span></div><div class="backup-tools"><button id="backupExportBtn" type="button" class="primary"><i data-ico="download"></i> Sao lưu thư viện</button><button id="backupImportBtn" type="button"><i data-ico="upload"></i> Khôi phục</button><input id="backupFileInput" type="file" accept="application/json,.json" hidden><p id="backupStatus" role="status" aria-live="polite">Bản sao lưu bao gồm nội dung đã tải lên và tùy chọn website.</p><div class="storage-sync-note"><span class="sync-symbol">i</span><span><b>Lưu ý:</b> ảnh/video thêm vào sẽ nằm trong bộ nhớ của trình duyệt này. Muốn người khác/thiết bị khác cũng thấy, hãy dùng thẻ “Xuất bản thư viện” ở trên; file sao lưu chỉ giúp chuyển dữ liệu thủ công.</span></div></div></div></section>
   </main>
   <nav class="bottom-nav"><button class="active" data-view="homeView"><span class="nav-icon"><i data-ico="home"></i></span><span>Home</span></button><button data-view="searchView"><span class="nav-icon"><i data-ico="search"></i></span><span>Search</span></button><button data-view="musicView"><span class="nav-icon"><i data-ico="music"></i></span><span>Music</span></button><button data-view="achievementsView"><span class="nav-icon"><i data-ico="trophy"></i></span><span>Achievements</span></button><button data-view="youView"><span class="nav-icon"><i data-ico="user"></i></span><span>You</span></button></nav>
 </section>
@@ -224,7 +239,7 @@
 <div id="musicUploadModal" class="modal"><button class="close-x" data-close="musicUploadModal"><i data-ico="x"></i></button><div class="panel"><h2>Thêm nhạc</h2><p style="margin:0 0 14px;color:#888;font-size:10px">Chọn một hoặc nhiều file audio. Các bài được lưu trong bộ nhớ website.</p><button class="choice" id="musicFileChoice" type="button"><b><i data-ico="music"></i> Chọn bài hát</b><span>MP3 · M4A · WAV · OGG…</span></button><div id="musicUploadStatus" style="margin-top:12px;color:#888;font-size:9px;min-height:14px"></div><input id="musicInput" type="file" accept="audio/*" multiple class="hidden"></div></div>
 <div id="musicEditModal" class="modal"><button class="close-x" data-close="musicEditModal"><i data-ico="x"></i></button><div class="panel"><h2>Chỉnh sửa bài hát</h2><div class="field"><label>Tên bài hát</label><input id="musicEditName" placeholder="Tên bài hát"></div><div class="field"><label>Tác giả</label><input id="musicEditAuthor" placeholder="Tên tác giả"></div><div class="field"><label>Lyric</label><div class="lyric-tools"><button type="button" class="secondary" id="musicEditAutoLyric"><i data-ico="wand"></i> Tự tạo lyric</button><span>Nhập/sửa lyric bên dưới.</span></div><textarea id="musicEditLyrics" placeholder="Mỗi câu một dòng. Có thể dùng [00:12] Câu hát để căn thời gian chính xác."></textarea></div><div class="field"><label>Ảnh bìa chính</label><img id="musicCover1Preview" class="cover-preview hidden" alt=""><div class="cover-actions"><button type="button" class="secondary" id="musicCover1Pick">Chọn ảnh</button><button type="button" class="secondary" id="musicCover1Remove">Bỏ ảnh</button></div><input id="musicCover1Input" type="file" accept="image/*" class="hidden"></div><div class="field"><label>Ảnh bìa phụ</label><img id="musicCover2Preview" class="cover-preview hidden" alt=""><div class="cover-actions"><button type="button" class="secondary" id="musicCover2Pick">Chọn ảnh</button><button type="button" class="secondary" id="musicCover2Remove">Bỏ ảnh</button></div><input id="musicCover2Input" type="file" accept="image/*" class="hidden"></div><div class="panel-actions"><button type="button" class="danger" id="musicDeleteEdit"><i data-ico="trash"></i> Xóa bài</button><span style="flex:1"></span><button class="secondary" data-close="musicEditModal">Hủy</button><button id="musicSaveEdit">Lưu</button></div></div></div>
 <div id="uploadModal" class="modal"><button class="close-x" data-close="uploadModal"><i data-ico="x"></i></button><div class="panel"><h2>Thêm nội dung</h2><p style="margin:0 0 14px;color:#888;font-size:10px">Thêm vào <b id="uploadCategoryLabel">danh mục hiện tại</b>. Có thể chọn nhiều mục cùng lúc.</p><div class="panel-row"><button class="choice" id="mediaChoice" type="button"><b>Ảnh / Video</b><span>Chọn nhiều ảnh hoặc video cùng lúc.</span></button><button class="choice" id="fileChoice" type="button"><b>File khác</b><span>PDF · ZIP · TXT · DOC · APK…</span></button></div><div id="uploadStatus" style="margin-top:12px;color:#888;font-size:9px;min-height:14px"></div><input id="mediaInput" type="file" accept="image/*,video/*" multiple class="hidden"><input id="fileInput" type="file" multiple class="hidden"></div></div>
-<div id="editModal" class="modal"><button class="close-x" data-close="editModal"><i data-ico="x"></i></button><div class="panel"><h2 id="editHeading">Chỉnh sửa</h2><div class="field"><label>Tên hiển thị</label><input id="editName" placeholder="Tên nội dung"></div><div class="field"><label>Mô tả / ghi chú</label><textarea id="editDesc" placeholder="Mô tả ngắn cho ảnh, video hoặc file…"></textarea></div><div class="field"><label>Danh mục</label><select id="editCategory" style="width:100%;padding:11px;border-radius:12px;background:#111;color:#fff;border:1px solid var(--line)"><option>NSFW</option><option>Manhwa - Manhua</option><option>Class</option><option>Basic</option><option>Achievements</option><option>Music</option></select></div><div class="field" id="rankEditField"><label>Rank NSFW</label><select id="editRank" style="width:100%;padding:11px;border-radius:12px;background:#111;color:#fff;border:1px solid var(--line)"><option value="">Không xếp hạng</option><option>SSR</option><option>S</option><option>A</option><option>B</option><option>C</option></select></div><div class="field"><label>Ảnh bìa</label><img id="coverPreview" class="cover-preview hidden" alt="Xem trước ảnh bìa"><div class="cover-actions"><button type="button" class="secondary" id="coverPickBtn">Chọn ảnh bìa</button><button type="button" class="secondary" id="coverRemoveBtn">Bỏ ảnh bìa</button></div><div class="cover-note">Ảnh bìa chỉ dùng làm thumbnail trong kho, không thay đổi video/ảnh gốc.</div><input id="coverInput" type="file" accept="image/*" class="hidden"></div><div class="panel-actions"><button class="secondary" data-close="editModal">Hủy</button><button id="saveEditBtn">Lưu</button></div></div></div>
+<div id="editModal" class="modal"><button class="close-x" data-close="editModal"><i data-ico="x"></i></button><div class="panel"><h2 id="editHeading">Chỉnh sửa</h2><div class="field"><label>Tên hiển thị</label><input id="editName" placeholder="Tên nội dung"></div><div class="field"><label>Mô tả / ghi chú</label><textarea id="editDesc" placeholder="Mô tả ngắn cho ảnh, video hoặc file…"></textarea></div><div class="field"><label>Danh mục</label><select id="editCategory" style="width:100%;padding:11px;border-radius:12px;background:#111;color:#fff;border:1px solid var(--line)"><option>NSFW</option><option>Manhwa - Manhua</option><option>Class</option><option>Basic</option><option>Test</option><option>Achievements</option><option>Music</option></select></div><div class="field" id="rankEditField"><label>Rank NSFW</label><select id="editRank" style="width:100%;padding:11px;border-radius:12px;background:#111;color:#fff;border:1px solid var(--line)"><option value="">Không xếp hạng</option><option>SSR</option><option>S</option><option>A</option><option>B</option><option>C</option></select></div><div class="field"><label>Ảnh bìa</label><img id="coverPreview" class="cover-preview hidden" alt="Xem trước ảnh bìa"><div class="cover-actions"><button type="button" class="secondary" id="coverPickBtn">Chọn ảnh bìa</button><button type="button" class="secondary" id="coverRemoveBtn">Bỏ ảnh bìa</button></div><div class="cover-note">Ảnh bìa chỉ dùng làm thumbnail trong kho, không thay đổi video/ảnh gốc.</div><input id="coverInput" type="file" accept="image/*" class="hidden"></div><div class="panel-actions"><button class="secondary" data-close="editModal">Hủy</button><button id="saveEditBtn">Lưu</button></div></div></div>
 <div id="viewerModal" class="modal"><button class="close-x" data-close="viewerModal"><i data-ico="x"></i></button><div id="viewer" class="viewer"></div></div><div id="musicMini" class="mini-player hidden"><div class="mini-swipe-glow"></div><img id="miniCover" alt=""><div class="mini-info"><div class="mini-title" id="miniTitle">—</div><div class="mini-author" id="miniAuthor">—</div></div><div class="mini-actions"><button id="miniPlay" title="Phát / dừng"><i data-ico="play"></i></button></div></div><audio id="musicAudio" preload="auto"></audio>
 
 <script>
@@ -1818,6 +1833,147 @@ function openFlash(){
   el.addEventListener('click',onClick);document.addEventListener('keydown',onKey);decks('fwd');requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('show')));
 }
 document.addEventListener('click',e=>{if(e.target.closest('[data-tool=flash]')){e.stopPropagation();openFlash()}},true);
+})();
+</script>
+<style id="webedit-style">
+#we-fab{display:none;position:fixed;left:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:60;width:38px;height:38px;padding:0;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(15,15,20,.72);color:#fff;font:700 12px ui-monospace,Menlo,monospace;letter-spacing:-.02em;opacity:.62;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.4);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:opacity .2s,transform .2s}
+#we-fab:active{transform:scale(.93);opacity:1}#we-fab.on::after{content:"";position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:#ffd44d}
+.we{position:fixed;left:0;right:0;top:0;height:100%;z-index:99995;display:flex;flex-direction:column;background:#1e1e1e;color:#d4d4d4;font:13px system-ui,sans-serif;padding-top:env(safe-area-inset-top,0px)}
+.we *{box-sizing:border-box}
+.we button{border:0;border-radius:8px;padding:8px 11px;background:#333;color:#ddd;font:600 13px system-ui,sans-serif;letter-spacing:0;white-space:nowrap;flex:none;cursor:pointer}
+.we button:active{filter:brightness(1.25)}.we button:disabled{opacity:.45}
+.we-bar{display:flex;gap:6px;align-items:center;padding:8px;background:#252526;border-bottom:1px solid #333;overflow-x:auto;scrollbar-width:none}.we-bar::-webkit-scrollbar{display:none}
+.we-bar .on{background:#0e639c;color:#fff}.we-bar .we-warn{color:#f0a070}.we-bar .we-go{margin-left:auto;background:#0e8a3c;color:#fff;padding:8px 14px}
+.we-find{display:flex;gap:6px;align-items:center;padding:6px 8px;background:#252526;border-bottom:1px solid #333}
+.we .we-find input{flex:1;min-width:0;background:#3c3c3c;border:0;outline:0;border-radius:8px;color:#fff;font-size:16px;letter-spacing:0;text-align:left;padding:7px 10px}
+.we-cnt{min-width:34px;text-align:center;color:#9aa;font-size:12px}
+.we-note{display:none;padding:6px 10px;background:#4d3b00;color:#ffd98a;font-size:12px;line-height:1.4}.we-note.show{display:block}
+.we-ed{flex:1;min-height:0;display:flex;background:#1e1e1e}
+.we-g{margin:0;flex:none;min-width:46px;padding:10px 8px 60px 6px;overflow:hidden;text-align:right;color:#6e7681;background:#1a1a1a;border-right:1px solid #2d2d2d;font:13px/19px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;user-select:none;-webkit-user-select:none}
+.we-w{position:relative;flex:1;min-width:0}
+.we-ta{display:block;width:100%;height:100%;margin:0;padding:10px 10px 60px;border:0;outline:0;resize:none;overflow:auto;background:transparent;color:#d4d4d4;caret-color:#fff;font:13px/19px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;tab-size:2;white-space:pre;-webkit-text-size-adjust:100%;border-radius:0}
+.we.wrap .we-ta{white-space:pre-wrap;overflow-wrap:anywhere}.we.wrap .we-g{display:none}
+.we-hit{display:none;position:absolute;height:19px;pointer-events:none;background:rgba(255,213,77,.35);outline:1px solid rgba(255,213,77,.9);border-radius:2px}
+.we-st{display:flex;justify-content:space-between;gap:10px;padding:6px 10px calc(6px + env(safe-area-inset-bottom,0px));background:#007acc;color:#fff;font-size:11px}
+.we-st .d{color:#fff3b0;font-weight:700}
+.we-toast{position:absolute;left:50%;bottom:48px;transform:translateX(-50%);padding:8px 14px;border-radius:10px;background:rgba(0,0,0,.85);color:#fff;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s}.we-toast.show{opacity:1}
+</style>
+<script id="webedit-module">
+(()=>{
+const K='reze_webedit_src_v1',F='reze_webedit_boot_v1',$=(s,r=document)=>r.querySelector(s);
+const LH=19,PAD=10,FONT='13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace';
+let CW=0;const cw=()=>CW||(CW=(()=>{const c=document.createElement('canvas').getContext('2d');c.font=FONT;return c.measureText('M'.repeat(50)).width/50})());
+const store={get:k=>{try{return localStorage.getItem(k)}catch(_){return null}},set:(k,v)=>{try{localStorage.setItem(k,v);return true}catch(_){return false}},del:k=>{try{localStorage.removeItem(k)}catch(_){}}};
+
+/* Nút riêng mở trình chỉnh sửa (chỉ hiện sau khi đã đăng nhập) */
+const fab=document.createElement('button');fab.id='we-fab';fab.type='button';fab.title='Sửa code trang web';fab.setAttribute('aria-label','Sửa code trang web');fab.textContent='</>';
+if(store.get(K))fab.classList.add('on');
+document.body.appendChild(fab);fab.addEventListener('click',openEditor);
+const appEl=$('#app'),syncFab=()=>{fab.style.display=(!appEl||!appEl.classList.contains('hidden'))?'flex':'none'};
+if(appEl)new MutationObserver(syncFab).observe(appEl,{attributes:true,attributeFilter:['class']});syncFab();
+
+async function loadSource(){
+  const ov=store.get(K);if(ov)return{src:ov,from:'ov'};
+  try{const r=await fetch(location.href.split('#')[0],{cache:'no-store'});if(r.ok){const t=await r.text();if(/<\/html>/i.test(t))return{src:t,from:'file'}}}catch(_){}
+  const c=document.documentElement.cloneNode(true);c.querySelectorAll('#we-root,#we-fab,plaintext').forEach(n=>n.remove());
+  return{src:'<!DOCTYPE html>\n'+c.outerHTML,from:'dom'};
+}
+
+async function openEditor(){
+  if($('#we-root'))return;
+  const root=document.createElement('div');root.id='we-root';root.className='we';
+  root.innerHTML='<div class="we-bar"><button data-a="close" aria-label="Đóng">✕</button><button data-a="wrap">Wrap</button><button data-a="copy">Sao chép</button><button data-a="dl">Tải về</button><button data-a="reset" class="we-warn">Gốc</button><button data-a="apply" class="we-go">▶ Update</button></div>'
+   +'<div class="we-find"><input id="we-q" type="text" enterkeyhint="search" placeholder="Tìm… hoặc :123 để tới dòng" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"><span class="we-cnt"></span><button data-a="prev">‹</button><button data-a="next">›</button></div>'
+   +'<div class="we-note"></div>'
+   +'<div class="we-ed"><pre class="we-g"></pre><div class="we-w"><textarea class="we-ta" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off" disabled>Đang tải mã nguồn…</textarea><div class="we-hit"></div></div></div>'
+   +'<div class="we-st"><span class="pos"></span><span class="sv"></span></div><div class="we-toast"></div>';
+  document.body.appendChild(root);
+
+  /* chống tự phóng to khi bấm vào ô nhập trên iOS + bàn phím không che editor */
+  const vpm=$('meta[name=viewport]'),vp0=vpm&&vpm.content;if(vpm)vpm.content=vp0+',maximum-scale=1';
+  const bodyOv=document.body.style.overflow;document.body.style.overflow='hidden';
+  const vv=window.visualViewport,fit=()=>{if(!vv)return;root.style.height=vv.height+'px';root.style.top=vv.offsetTop+'px'};
+  if(vv){vv.addEventListener('resize',fit);vv.addEventListener('scroll',fit);fit()}
+
+  const ta=$('.we-ta',root),gut=$('.we-g',root),hitEl=$('.we-hit',root),q=$('#we-q',root),cnt=$('.we-cnt',root),note=$('.we-note',root),pos=$('.pos',root),sv=$('.sv',root),toastEl=$('.we-toast',root);
+  let orig='',wrap=false,hit=null,lines=0,ms=[],mi=-1,mkey='',ver=0,tt;
+  const toast=t=>{toastEl.textContent=t;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('show'),1800)};
+  const dirty=()=>ta.value!==orig;
+
+  function gutter(){const n=ta.value.split('\n').length;if(n===lines)return;lines=n;let s='';for(let i=1;i<=n;i++)s+=i+'\n';gut.textContent=s}
+  function status(){
+    const v=ta.value,p=ta.selectionStart;let ln=1;for(let i=v.indexOf('\n');i>=0&&i<p;i=v.indexOf('\n',i+1))ln++;
+    pos.textContent='Dòng '+ln+', Cột '+(p-v.lastIndexOf('\n',p-1))+' · '+lines.toLocaleString('vi')+' dòng · '+Math.round(new Blob([v]).size/1024)+' KB';
+    if(dirty()){sv.textContent='● Chưa update';sv.className='sv d'}else{sv.className='sv';sv.textContent=store.get(K)?'Đang chạy bản đã sửa':'Bản gốc'}
+  }
+  function placeHit(){
+    if(!hit||wrap){hitEl.style.display='none';return}
+    const x=PAD+hit.col*cw()-ta.scrollLeft,y=PAD+hit.line*LH-ta.scrollTop;
+    if(y<-LH||y>ta.clientHeight||x>ta.clientWidth){hitEl.style.display='none';return}
+    hitEl.style.cssText='display:block;left:'+x+'px;top:'+y+'px;width:'+Math.max(4,hit.len*cw())+'px';
+  }
+  function go(p,len){
+    const v=ta.value;let line=0;for(let i=v.indexOf('\n');i>=0&&i<p;i=v.indexOf('\n',i+1))line++;
+    const col=p-(v.lastIndexOf('\n',p-1)+1);
+    ta.setSelectionRange(p,p+len);
+    ta.scrollTop=Math.max(0,PAD+line*LH-ta.clientHeight/3);
+    if(!wrap)ta.scrollLeft=Math.max(0,PAD+col*cw()-ta.clientWidth/3);
+    hit={line,col,len};placeHit();if(wrap){ta.focus()}status();
+  }
+  function search(dir){
+    const t=q.value;if(!t){ms=[];hit=null;cnt.textContent='';placeHit();return}
+    const m=t.match(/^:(\d+)$/);
+    if(m){const n=Math.max(1,+m[1]);let p=0;for(let i=1;i<n;i++){const j=ta.value.indexOf('\n',p);if(j<0)break;p=j+1}go(p,0);hit=null;placeHit();cnt.textContent='L'+n;return}
+    const key=t+'\0'+ver;
+    if(key!==mkey){
+      mkey=key;ms=[];const hay=ta.value.toLowerCase(),nd=t.toLowerCase();
+      for(let i=hay.indexOf(nd);i>=0&&ms.length<5000;i=hay.indexOf(nd,i+nd.length))ms.push(i);
+      const s=ta.selectionStart;mi=ms.findIndex(x=>x>=s);if(mi<0)mi=0;
+      if(dir<0)mi=(mi-1+ms.length)%ms.length;
+    }else if(ms.length)mi=(mi+dir+ms.length)%ms.length;
+    if(!ms.length){cnt.textContent='0';hit=null;placeHit();return}
+    cnt.textContent=(mi+1)+'/'+ms.length+(ms.length>=5000?'+':'');go(ms[mi],t.length);
+  }
+
+  function apply(){
+    const src=ta.value;
+    if(!src.trim()){toast('Code đang trống');return}
+    if(!/id=["']webedit-module["']/.test(src)&&!confirm('Code mới không còn trình chỉnh sửa này. Nếu trang bị lỗi, mở lại trang với đuôi ?safe để khôi phục bản gốc.\nTiếp tục update?'))return;
+    if(!store.set(K,src)){alert('Không lưu được: bộ nhớ trình duyệt đã đầy.');return}
+    store.del(F);$('[data-a=apply]',root).textContent='Đang update…';$('[data-a=apply]',root).disabled=true;
+    setTimeout(()=>location.reload(),60);
+  }
+  function reset(){
+    if(store.get(K)){if(!confirm('Bỏ toàn bộ chỉnh sửa và quay về bản gốc của trang?'))return;store.del(K);store.del(F);location.reload();return}
+    if(dirty()){if(!confirm('Hoàn tác các thay đổi chưa update?'))return;ta.value=orig;ver++;gutter();status();return}
+    toast('Đang là bản gốc');
+  }
+  async function copy(){try{await navigator.clipboard.writeText(ta.value)}catch(_){ta.select();document.execCommand('copy')}toast('Đã sao chép toàn bộ code')}
+  function download(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ta.value],{type:'text/html'}));a.download='index.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+  function close(){
+    if(dirty()&&!confirm('Bạn có thay đổi chưa update. Đóng và bỏ chúng?'))return;
+    if(vv){vv.removeEventListener('resize',fit);vv.removeEventListener('scroll',fit)}
+    if(vpm)vpm.content=vp0;document.body.style.overflow=bodyOv;root.remove();
+  }
+  function toggleWrap(){wrap=!wrap;root.classList.toggle('wrap',wrap);$('[data-a=wrap]',root).classList.toggle('on',wrap);hit=null;placeHit()}
+
+  root.addEventListener('click',e=>{
+    const b=e.target.closest('button[data-a]');if(!b)return;
+    ({close,wrap:toggleWrap,copy,dl:download,reset,apply,prev:()=>search(-1),next:()=>search(1)})[b.dataset.a]?.();
+  });
+  q.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();search(e.shiftKey?-1:1)}});
+  ta.addEventListener('scroll',()=>{gut.scrollTop=ta.scrollTop;placeHit()});
+  ta.addEventListener('input',()=>{ver++;hit=null;placeHit();gutter();status()});
+  ['keyup','click','select'].forEach(ev=>ta.addEventListener(ev,status));
+  ta.addEventListener('keydown',e=>{
+    if(e.key==='Tab'&&!e.shiftKey){e.preventDefault();if(!document.execCommand('insertText',false,'  ')){ta.setRangeText('  ',ta.selectionStart,ta.selectionEnd,'end');ta.dispatchEvent(new Event('input'))}}
+    else if((e.ctrlKey||e.metaKey)&&(e.key==='Enter'||e.key==='s'||e.key==='S')){e.preventDefault();apply()}
+  });
+
+  const r=await loadSource();orig=r.src;ta.value=orig;ta.disabled=false;gutter();status();
+  if(r.from==='dom'){note.textContent='Không tải được file gốc (có thể đang mở bằng file://) nên đang dùng bản DOM hiện tại — trạng thái trang có thể lệch so với file thật.';note.classList.add('show')}
+}
+window.__WE_READY=true;
 })();
 </script>
 </body></html>
