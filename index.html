@@ -183,7 +183,7 @@ document.write(s+'<plaintext style="display:none">');
     <section id="categoryView" class="view">
       <div class="view-head"><div><div class="eyebrow" id="catEyebrow">CATEGORY</div><h1 id="catTitle">NSFW</h1><p id="catDesc">Kho nội dung.</p></div><div class="small-actions"><button class="round-btn" id="addBtn" title="Thêm"><i data-ico="plus"></i></button><button class="round-btn" id="editBtn" title="Chỉnh sửa"><i data-ico="pencil"></i></button></div></div>
       <div id="rankTabs" class="rank-tabs hidden"><button class="rank-tab ssr" data-rank="SSR">SSR</button><button class="rank-tab s" data-rank="S">S</button><button class="rank-tab a" data-rank="A">A</button><button class="rank-tab b" data-rank="B">B</button><button class="rank-tab c" data-rank="C">C</button></div>
-      <div id="basicHub" class="basic-hub hidden"><button class="bh-tile" type="button" data-tool="code"><i>&lt;/&gt;</i><b>Code</b><span>Viết &amp; chạy JS / HTML</span></button><button class="bh-tile" type="button" data-tool="flash"><i>🗂</i><b>Flashcard</b><span>Học thẻ ghi nhớ</span></button></div>
+      <div id="basicHub" class="basic-hub hidden"><button class="bh-tile" type="button" data-tool="code"><i>&lt;/&gt;</i><b>Code</b><span>Viết &amp; chạy JS / HTML</span></button><button class="bh-tile" type="button" data-tool="flash"><i>🗂</i><b>Flashcard</b><span>Học thẻ ghi nhớ</span></button></div><div id="testHub" class="basic-hub hidden"><button class="bh-tile" type="button" data-tool="zestwell" style="grid-column:1/-1"><i>🍋</i><b>Zestwell · Citrus Season</b><span>Phòng tranh 3D — cuộn / kéo để đi dạo, chạm tranh để xem</span></button></div>
       <section id="class3dPanel" class="class3d-panel hidden" aria-label="Class 3D">
         <div class="class3d-toolbar">
           <button id="class3dAddBtn" class="class3d-main-btn" type="button"><i data-ico="plus"></i> Thêm ảnh</button>
@@ -885,7 +885,7 @@ setCls();label();
 })();
 async function renderCategory(){
   revokeLiveUrls();
-  document.getElementById('basicHub')?.classList.toggle('hidden',currentCat!=='Basic');
+  document.getElementById('basicHub')?.classList.toggle('hidden',currentCat!=='Basic');document.getElementById('testHub')?.classList.toggle('hidden',currentCat!=='Test');
   const isClass=currentCat==='Class';
   document.getElementById('categoryView')?.classList.toggle('category-view-class',isClass);
   document.getElementById('class3dPanel')?.classList.toggle('hidden',!isClass);
@@ -1843,7 +1843,7 @@ document.addEventListener('click',e=>{if(e.target.closest('[data-tool=flash]')){
 .we button{border:0;border-radius:8px;padding:8px 11px;background:#333;color:#ddd;font:600 13px system-ui,sans-serif;letter-spacing:0;white-space:nowrap;flex:none;cursor:pointer}
 .we button:active{filter:brightness(1.25)}.we button:disabled{opacity:.45}
 .we-bar{display:flex;gap:6px;align-items:center;padding:8px;background:#252526;border-bottom:1px solid #333;overflow-x:auto;scrollbar-width:none}.we-bar::-webkit-scrollbar{display:none}
-.we-bar .on{background:#0e639c;color:#fff}.we-bar .we-warn{color:#f0a070}.we-bar .we-go{margin-left:auto;background:#0e8a3c;color:#fff;padding:8px 14px}
+.we-bar .on{background:#0e639c;color:#fff}.we-bar .we-warn{color:#f0a070}.we-bar .we-push{margin-left:auto;background:#6b4fbb;color:#fff}.we-bar .we-go{background:#0e8a3c;color:#fff;padding:8px 14px}
 .we-find{display:flex;gap:6px;align-items:center;padding:6px 8px;background:#252526;border-bottom:1px solid #333}
 .we .we-find input{flex:1;min-width:0;background:#3c3c3c;border:0;outline:0;border-radius:8px;color:#fff;font-size:16px;letter-spacing:0;text-align:left;padding:7px 10px}
 .we-cnt{min-width:34px;text-align:center;color:#9aa;font-size:12px}
@@ -1882,7 +1882,7 @@ async function loadSource(){
 async function openEditor(){
   if($('#we-root'))return;
   const root=document.createElement('div');root.id='we-root';root.className='we';
-  root.innerHTML='<div class="we-bar"><button data-a="close" aria-label="Đóng">✕</button><button data-a="wrap">Wrap</button><button data-a="copy">Sao chép</button><button data-a="dl">Tải về</button><button data-a="reset" class="we-warn">Gốc</button><button data-a="apply" class="we-go">▶ Update</button></div>'
+  root.innerHTML='<div class="we-bar"><button data-a="close" aria-label="Đóng">✕</button><button data-a="wrap">Wrap</button><button data-a="copy">Sao chép</button><button data-a="dl">Tải về</button><button data-a="reset" class="we-warn">Gốc</button><button data-a="push" class="we-push">☁ Lên web</button><button data-a="apply" class="we-go">▶ Update</button></div>'
    +'<div class="we-find"><input id="we-q" type="text" enterkeyhint="search" placeholder="Tìm… hoặc :123 để tới dòng" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"><span class="we-cnt"></span><button data-a="prev">‹</button><button data-a="next">›</button></div>'
    +'<div class="we-note"></div>'
    +'<div class="we-ed"><pre class="we-g"></pre><div class="we-w"><textarea class="we-ta" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off" disabled>Đang tải mã nguồn…</textarea><div class="we-hit"></div></div></div>'
@@ -1943,6 +1943,27 @@ async function openEditor(){
     store.del(F);$('[data-a=apply]',root).textContent='Đang update…';$('[data-a=apply]',root).disabled=true;
     setTimeout(()=>location.reload(),60);
   }
+  async function push(){
+    let c={};try{c=JSON.parse(localStorage.getItem('jrung_publish_cfg')||'{}')}catch(_){}
+    const host=location.hostname,seg=location.pathname.split('/').filter(Boolean)[0]||'',gp=/\.github\.io$/i.test(host);
+    const owner=c.owner||(gp?host.split('.')[0]:''),repo=c.repo||(gp?(seg&&!/\.html?$/i.test(seg)?seg:owner+'.github.io'):'');
+    if(!c.token||!owner||!repo){alert('Chưa có token GitHub. Vào tab You → Xuất bản thư viện → dán token (quyền Contents: Read and write), rồi thử lại.');return}
+    const src=ta.value;if(!src.trim()){toast('Code đang trống');return}
+    if(!/id=["']webedit-module["']/.test(src)&&!confirm('Code mới không còn trình chỉnh sửa này. Vẫn ghi lên GitHub?'))return;
+    if(!confirm('Ghi code này lên GitHub ('+owner+'/'+repo+')?\nMọi người sẽ thấy sau khoảng 1 phút.'))return;
+    const last=location.pathname.split('/').pop(),path=/\.html?$/i.test(last)?last:'index.html';
+    const api='https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,H={Authorization:'Bearer '+c.token,Accept:'application/vnd.github+json'};
+    const btn=$('[data-a=push]',root);btn.disabled=true;btn.textContent='Đang gửi…';
+    try{
+      const g=await fetch(api+(c.branch?'?ref='+encodeURIComponent(c.branch):''),{headers:H});let sha;
+      if(g.ok)sha=(await g.json()).sha;else if(g.status!==404)throw new Error('GitHub '+g.status);
+      const by=new TextEncoder().encode(src);let bin='';for(let i=0;i<by.length;i+=0x8000)bin+=String.fromCharCode.apply(null,by.subarray(i,i+0x8000));
+      const r=await fetch(api,{method:'PUT',headers:{...H,'Content-Type':'application/json'},body:JSON.stringify({message:'Cập nhật '+path+' từ trình chỉnh sửa web',content:btoa(bin),sha,...(c.branch?{branch:c.branch}:{})})});
+      if(!r.ok)throw new Error('GitHub '+r.status+(r.status===401||r.status===403?' (token sai hoặc thiếu quyền Contents)':''));
+      store.set(K,src);store.del(F);toast('Đã đưa lên GitHub ✓');setTimeout(()=>location.reload(),900);
+    }catch(e){alert('Không đưa lên được: '+e.message)}
+    btn.disabled=false;btn.textContent='☁ Lên web';
+  }
   function reset(){
     if(store.get(K)){if(!confirm('Bỏ toàn bộ chỉnh sửa và quay về bản gốc của trang?'))return;store.del(K);store.del(F);location.reload();return}
     if(dirty()){if(!confirm('Hoàn tác các thay đổi chưa update?'))return;ta.value=orig;ver++;gutter();status();return}
@@ -1959,7 +1980,7 @@ async function openEditor(){
 
   root.addEventListener('click',e=>{
     const b=e.target.closest('button[data-a]');if(!b)return;
-    ({close,wrap:toggleWrap,copy,dl:download,reset,apply,prev:()=>search(-1),next:()=>search(1)})[b.dataset.a]?.();
+    ({close,wrap:toggleWrap,copy,dl:download,reset,apply,push,prev:()=>search(-1),next:()=>search(1)})[b.dataset.a]?.();
   });
   q.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();search(e.shiftKey?-1:1)}});
   ta.addEventListener('scroll',()=>{gut.scrollTop=ta.scrollTop;placeHit()});
@@ -1974,6 +1995,165 @@ async function openEditor(){
   if(r.from==='dom'){note.textContent='Không tải được file gốc (có thể đang mở bằng file://) nên đang dùng bản DOM hiện tại — trạng thái trang có thể lệch so với file thật.';note.classList.add('show')}
 }
 window.__WE_READY=true;
+})();
+</script>
+<style id="zw-style">.zw-ov{position:fixed;inset:0;z-index:99990;background:#FFF9EC;opacity:0;transition:opacity .3s}.zw-ov.on{opacity:1}.zw-ov iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.zw-x{position:absolute;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2;width:38px;height:38px;padding:0;border-radius:50%;background:#3A3550;color:#fff;font:16px system-ui;display:grid;place-items:center}</style>
+<script type="text/plain" id="zw-src"><!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zestwell — Citrus Season</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Oswald:wght@500;600&display=swap">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}<\/script>
+<style>
+:root{--wall:#FFF9EC;--ink:#3A3550;--i60:rgba(58,53,80,.6);--i35:rgba(58,53,80,.35);--i15:rgba(58,53,80,.15);--chip:#FCEB93;--drawer:#F9E3DF;--page:#FFF9EF;--u:min(100vw/1440,100vh/900);--w:calc(100vw/1440);--se:"Newsreader",Georgia,serif;--mo:"DM Mono",ui-monospace,monospace;--co:"Oswald","Arial Narrow",sans-serif}
+@media(max-width:819px),(orientation:portrait) and (max-width:1100px),(orientation:landscape) and (max-height:500px){:root{--u:1px;--w:1px}}
+*{box-sizing:border-box}html,body{height:100%;margin:0;overflow:hidden;background:var(--wall);color:var(--ink);-webkit-font-smoothing:antialiased;font-family:var(--se)}button{all:unset;cursor:pointer;box-sizing:border-box;font:inherit}a{text-decoration:none;color:inherit}
+.nav{position:fixed;top:0;left:0;right:0;height:calc(58*var(--u));display:flex;align-items:center;padding:0 calc(27*var(--u));z-index:30;transition:background .3s}body.pg .nav,body.ls .nav{background:var(--page);box-shadow:0 1px var(--i15)}
+.logo{font-weight:500;font-size:max(14px,calc(21*var(--u)));letter-spacing:-.01em;margin-right:calc(36*var(--u))}.nav a.l{font-size:max(11px,calc(13.5*var(--u)));margin-right:calc(22*var(--u));opacity:.85;min-height:24px;display:flex;align-items:center;cursor:pointer}.nav a.l:hover{opacity:1}
+.rt{margin-left:auto;display:flex;align-items:center;gap:calc(14*var(--u))}.srch,.cur{height:max(24px,calc(27*var(--u)));border:1px solid var(--i35);border-radius:99px;display:flex;align-items:center;padding:0 calc(10*var(--u));font:max(11px,calc(10.5*var(--u))) var(--mo);color:var(--i60)}.srch{width:calc(159*var(--u))}.srch kbd{margin-left:auto;font:max(11px,calc(9*var(--u))) var(--mo);border:1px solid var(--i15);border-radius:4px;padding:0 3px}
+.ic{width:max(24px,calc(26*var(--u)));height:max(24px,calc(26*var(--u)));display:grid;place-items:center;position:relative;color:var(--ink)}.ic svg{width:max(16px,calc(18*var(--u)));height:max(16px,calc(18*var(--u)));fill:none;stroke:currentColor;stroke-width:1.6}.bd{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;border-radius:9px;background:var(--ink);color:#fff;font:10px/16px var(--mo);text-align:center;display:none}
+#gal{position:fixed;inset:0;touch-action:none;cursor:grab}#gal.dg{cursor:grabbing}#gal.po{cursor:pointer}#gal canvas{display:block;transition:opacity .3s}body.pg #gal canvas,body.ls #gal canvas{opacity:0}#veil{position:absolute;inset:0;background:var(--wall);transition:opacity 1s;pointer-events:none}
+.gui{position:fixed;inset:0;z-index:20;pointer-events:none;transition:opacity .3s,visibility .3s}body.pg .gui,body.ls .gui{opacity:0;visibility:hidden}.gui>*{pointer-events:auto}
+.arr{position:absolute;left:calc(27*var(--u));top:calc(262*var(--u));display:flex;flex-direction:column;gap:calc(10*var(--u))}.arr button{width:calc(50*var(--u));height:calc(50*var(--u));min-width:36px;min-height:36px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:max(16px,calc(20*var(--u)));transition:.25s}.arr button:hover{background:var(--ink);color:var(--wall)}
+.hint{position:absolute;right:calc(27*var(--u));bottom:calc(229*var(--u));text-align:right;font:max(11px,calc(10*var(--u)))/1.65 var(--mo);letter-spacing:.12em;text-transform:uppercase}
+.tg{position:absolute;right:calc(29*var(--u));bottom:calc(174*var(--u));display:flex;gap:2px;padding:2px;border:1px solid var(--i35);border-radius:99px}.tg button{height:max(24px,calc(22*var(--u)));padding:0 calc(14*var(--u));border-radius:99px;font:max(11px,calc(9.5*var(--u))) var(--mo);letter-spacing:.12em;display:flex;align-items:center}.tg .on{background:var(--ink);color:var(--wall)}
+.cap{position:absolute;left:calc(25*var(--u));bottom:calc(30*var(--u))}.kick{font:max(11px,calc(11.5*var(--u))) var(--mo);letter-spacing:.14em;width:max-content;margin:0 0 calc(10*var(--u)) calc(3*var(--u))}
+.cap h1{margin:0;font:600 calc(170*var(--u))/.82 var(--co);letter-spacing:.005em;white-space:nowrap;transform:scaleX(.855);transform-origin:0 100%}
+.enter{position:absolute;left:calc(946*var(--u));bottom:0;font:max(11px,calc(11*var(--u))) var(--mo);letter-spacing:.12em;border-bottom:1px solid var(--ink);padding-bottom:calc(2*var(--u));margin-bottom:calc(9*var(--u));min-height:24px;white-space:nowrap;cursor:pointer}
+.mk{display:block;overflow:hidden}.mk>span{display:block;animation:rise .9s cubic-bezier(.2,.7,.2,1) both}@keyframes rise{from{transform:translateY(105%)}}
+#pill{position:fixed;z-index:25;background:#1e1b2b;color:#fff;font:max(11px,calc(10*var(--u))) var(--mo);letter-spacing:.14em;padding:calc(7*var(--u)) calc(13*var(--u));border-radius:99px;opacity:0;pointer-events:none;transition:opacity .12s;transform:translate(-50%,-50%);white-space:nowrap}
+.ov{position:fixed;inset:0;background:var(--page);overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}.ov.on{opacity:1;visibility:visible}#page{z-index:15}#list{z-index:14}
+.pw{padding-top:calc(96*var(--w));display:grid;grid-template-columns:calc(712*var(--w)) calc(638*var(--w))}@media(max-width:819px),(orientation:portrait) and (max-width:1100px){.pw{grid-template-columns:1fr;padding:76px 20px 0}}
+.lc{position:sticky;top:calc(96*var(--w));padding-left:calc(184*var(--w));width:calc(544*var(--w));align-self:start}@media(max-width:819px),(orientation:portrait) and (max-width:1100px){.lc{position:static;padding:0;width:auto}}
+.big{width:calc(360*var(--w));aspect-ratio:3/4.08;box-shadow:0 0 0 calc(10*var(--w)) #F6EAD8,0 calc(2*var(--w)) calc(10*var(--w)) calc(10*var(--w)) rgba(58,53,80,.06);max-width:70vw;margin:calc(10*var(--w))}.meta{display:flex;justify-content:space-between;width:calc(360*var(--w));margin-top:calc(34*var(--w));font:max(11px,calc(11*var(--w))) var(--mo)}
+.rc{padding-bottom:calc(40*var(--w))}.rc h2{margin:0;font:600 max(28px,calc(46*var(--w)))/1 var(--co);text-transform:uppercase}.ar{font-style:italic;font-size:max(14px,calc(19*var(--w)));margin-top:calc(6*var(--w))}.ds{font-size:max(14px,calc(14.5*var(--w)));line-height:1.55;color:var(--i60);max-width:calc(560*var(--w));margin:calc(14*var(--w)) 0}
+.pr{font:max(13px,calc(15*var(--w))) var(--mo)}.tx{font:max(11px,calc(10*var(--w))) var(--mo);color:var(--i60);margin-top:calc(24*var(--w))}.og{margin-top:calc(21*var(--w))}.og>div:first-child{font:max(11px,calc(10*var(--w))) var(--mo);letter-spacing:.1em;text-transform:uppercase}.og>div:first-child span{color:var(--i60)}.chs{display:flex;flex-wrap:wrap;gap:calc(13*var(--w));margin-top:calc(10*var(--w))}
+.ch{min-height:max(28px,calc(32*var(--w)));padding:0 calc(14*var(--w));border:1px solid var(--i35);border-radius:99px;font:max(11px,calc(10.5*var(--w))) var(--mo);display:flex;align-items:center}.ch.on{background:var(--chip);border-color:var(--ink)}
+.fr{width:calc(121*var(--w));min-width:84px;height:calc(126*var(--w));min-height:88px;flex-direction:column;justify-content:center;gap:6px;border:1px solid var(--i15);border-radius:6px;background:rgba(255,255,255,.35);display:flex;align-items:center;font:max(11px,calc(10*var(--w))) var(--mo)}.fr.on{border-color:var(--ink);background:var(--chip)}.fr i{display:block;width:calc(38*var(--w));min-width:28px;aspect-ratio:3/4.08}.fr .f1{box-shadow:0 0 0 calc(4*var(--w)) #C99A63}.fr .f2{box-shadow:0 0 0 calc(5*var(--w)) #1d1b24}
+.buy{display:flex;gap:calc(26*var(--w));margin-top:calc(42*var(--w))}.qty{width:calc(100*var(--w));min-width:96px;height:max(44px,calc(50*var(--w)));border:1px solid var(--i35);display:flex;align-items:center;justify-content:space-between;padding:0 12px;font:max(12px,calc(13*var(--w))) var(--mo)}.qty button{min-width:24px;min-height:24px;display:grid;place-items:center}
+.add{flex:1;height:max(44px,calc(50*var(--w)));background:var(--ink);color:#fff;display:grid;place-items:center;font:500 max(14px,calc(16*var(--w))) var(--co);letter-spacing:.12em}.add:hover{background:#2a2640}
+.acc{margin-top:calc(36*var(--w));border-top:1px solid var(--i35)}.acc>div{border-bottom:1px solid var(--i35)}.acc .h{min-height:max(32px,calc(40*var(--w)));display:flex;justify-content:space-between;align-items:center;width:100%;font-size:max(14px,calc(15*var(--w)))}.acc .h b{font:400 15px var(--mo);transition:transform .3s}.acc .o .h b{transform:rotate(45deg)}.acc .bdy{height:0;overflow:hidden;transition:height .3s;font-size:max(13px,calc(14*var(--w)));line-height:1.55;color:var(--i60)}.acc .bdy p{margin:0 0 14px}
+.col{margin-top:calc(70*var(--w));background:#FBF3E4;padding:calc(36*var(--w)) 20px calc(80*var(--w)) calc(48*var(--w));grid-column:1/-1}.col h3{margin:0 0 20px calc(-15*var(--w));font:600 max(24px,calc(38*var(--w))) var(--co)}.cr{display:flex;gap:calc(87*var(--w));flex-wrap:wrap}
+.cd{width:max(120px,calc(168*var(--w)));cursor:pointer}.cd .im{aspect-ratio:3/4;box-shadow:0 0 0 calc(7*var(--w)) #F6EAD8;transition:transform .35s cubic-bezier(.2,.7,.2,1);margin:calc(7*var(--w))}.cd:hover .im{transform:translateY(calc(-4*var(--w)))}.cd b{display:block;font-weight:500;font-size:max(13px,calc(14*var(--w)));margin-top:14px}.cd i{display:block;font-size:max(12px,calc(13.5*var(--w)))}.cd span{font:max(11px,calc(11*var(--w))) var(--mo)}
+#list{padding:calc(110*var(--w)) calc(48*var(--w)) calc(80*var(--w))}#list h2{margin:0 0 30px;font:500 max(24px,calc(38*var(--w))) var(--co)}#list .cr{gap:calc(46*var(--w)) calc(46*var(--w))}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(100vw,calc(387*var(--w)));min-width:min(100vw,320px);background:var(--drawer);z-index:40;padding:calc(28*var(--w)) calc(28*var(--w)) calc(28*var(--w)) calc(32*var(--w));display:flex;flex-direction:column;transform:translateX(100%);transition:transform .45s cubic-bezier(.2,.7,.2,1)}.drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;font:600 max(20px,calc(26*var(--w))) var(--co)}.di{flex:1;overflow:auto;margin-top:20px}.it{display:flex;gap:14px;margin-bottom:18px}.it .im{width:max(56px,calc(66*var(--w)));aspect-ratio:3/4;flex:none}.it b{font-weight:500;font-size:14px}.it i{display:block;font-size:13px}.it span{font:11px var(--mo)}.em{text-align:center;margin-top:calc(120*var(--w));font:12px var(--mo);letter-spacing:.1em}
+.df{border-top:1px solid var(--i35);padding-top:14px}.df p{display:flex;justify-content:space-between;margin:0 0 14px;font:13px var(--mo)}.df .add{width:100%;font-size:17px}
+</style></head><body>
+<header class="nav"><a class="logo" href="#">Zestwell</a><a class="l" id="nI">Index</a><a class="l" id="nS">Shop</a><a class="l">Info</a><a class="l">Auctions</a><a class="l">Help</a>
+<div class="rt"><div class="srch">Search… <kbd>⌘K</kbd></div><div class="cur">USD ⌄</div>
+<button class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 15-5 16 0"/></svg></button><button class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2 4.5 4.5 0 0 1 8 2c0 6-8 11-8 11z"/></svg></button>
+<button class="ic" id="bagB"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0"/></svg><span class="bd" id="bd">0</span></button></div></header>
+<main id="gal"><div id="veil"></div></main>
+<div class="gui"><div class="arr"><button id="pv">←</button><button id="nx">→</button></div>
+<div class="hint"><span class="mk"><span id="h1">Scroll or drag to walk round</span></span><span class="mk"><span id="h2">Click a painting to look closer</span></span></div>
+<div class="tg"><button id="tG" class="on">GALLERY</button><button id="tL">LIST</button></div>
+<div class="cap"><div class="kick mk"><span>YOU ARE WALKING PAST</span></div><div class="mk"><h1><span>CITRUS SEASON</span></h1></div><a class="enter mk" id="en"><span>ENTER THE COLLECTION →</span></a></div></div>
+<div id="pill">OPEN THE PRINT</div><section id="page" class="ov"></section><section id="list" class="ov"></section>
+<aside class="drawer" id="dr"><div class="dh"><span>YOUR BAG</span><button id="dx" class="ic">✕</button></div><div class="di" id="di"></div><div class="df" id="df"></div></aside>
+<script type="module">
+import*as T from 'three';
+const SRC='https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261120_071134_02d2d6ba-ed91-4c3f-87c4-1354b61b5882.png&w=1744&q=85';
+const SW=1744,SH=2336,CX=[[0,575],[585,1158],[1168,1743]],RY=[[0,769],[779,1545],[1555,2335]],TAIL=', painted in flat gouache tones. Printed on archival paper with a soft matte finish.';
+const P=[['Lemons on Gingham','Tova Lindqvist',2024,60,'A sunny tabletop of lemons, a striped jug and blue gingham'],['Oranges & Stripe','Elise Marten',2024,60,'A striped bowl heaped with oranges on a candy-stripe cloth'],['Pink Blooms','Soren Vale',2023,55,'Pink garden flowers in a cobalt striped jug against warm yellow'],['Citrus Jug','Nora Feldt',2024,60,'Leafy lemon branches in a striped jug on a sunlit table'],['Teacup & Lemon','Ada Kerrow',2023,50,'A blue-patterned teacup with a slice of lemon, all morning light'],['Blood Orange Bowl','Pim Halden',2024,60,'Halved blood oranges glowing in a white bowl on deep blue'],['Lemon Tree, Window','Ines Morrow',2022,65,'A potted lemon tree by an open window on a gingham table'],['Grapefruit Halves','Juno Basset',2024,55,'Pink grapefruit halves on a hand-painted checked plate'],['Daisies in Stripes','Wren Calloway',2023,55,'White daisies in a tall striped pitcher against blush pink']];
+const crop=i=>{const c=CX[i%3],r=RY[i/3|0];return{x:c[0]+6,y:r[0]+6,w:c[1]-c[0]-12,h:r[1]-r[0]-12}};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const small=matchMedia('(max-width:819px), (orientation:portrait) and (max-width:1100px), (orientation:landscape) and (max-height:500px)'),portrait=()=>innerWidth<innerHeight;
+/* DOM crops */
+const paint=()=>$$('[data-i]').forEach(e=>{const k=crop(+e.dataset.i),sx=e.clientWidth/k.w,sy=e.clientHeight/k.h;Object.assign(e.style,{backgroundImage:`url("${SRC}")`,backgroundRepeat:'no-repeat',backgroundSize:`${SW*sx}px ${SH*sy}px`,backgroundPosition:`${-k.x*sx}px ${-k.y*sy}px`})});
+/* ---------- three.js ---------- */
+const R=18,RIN=12.2,H=6.2,PW=1.36,PH=PW*763/567,PY=1.95,STEP=Math.PI*2/36;
+const gal=$('#gal'),rd=new T.WebGLRenderer({antialias:true});rd.setPixelRatio(Math.min(devicePixelRatio,2));rd.outputColorSpace=T.SRGBColorSpace;gal.prepend(rd.domElement);
+const sc=new T.Scene();sc.background=new T.Color('#FFF9EC');sc.fog=new T.Fog('#FFF9EC',10,46);
+const cam=new T.PerspectiveCamera(56,1,.05,100);
+const cvs=(w,h,f)=>{const c=document.createElement('canvas');c.width=w;c.height=h;f(c.getContext('2d'),w,h);const t=new T.CanvasTexture(c);t.colorSpace=T.SRGBColorSpace;return t};
+const grad=(st)=>cvs(4,256,(g,w,h)=>{const q=g.createLinearGradient(0,0,0,h);st.forEach(s=>q.addColorStop(s[0],s[1]));g.fillStyle=q;g.fillRect(0,0,w,h)});
+const rad=(w,st)=>cvs(256,256,(g)=>{const q=g.createRadialGradient(128,128,0,128,128,128);st.forEach(s=>q.addColorStop(s[0],s[1]));g.fillStyle=q;g.fillRect(0,0,256,256)});
+const B=(o)=>new T.MeshBasicMaterial(o);
+const ow=new T.Mesh(new T.CylinderGeometry(R,R,H,160,1,true),B({map:grad([[0,'#F5EBD8'],[.2,'#FBF3E3'],[.6,'#FBF3E3'],[.86,'#F8EDD9'],[1,'#EFDFC4']]),side:T.BackSide}));ow.position.y=H/2;
+const iw=new T.Mesh(new T.CylinderGeometry(RIN,RIN,H,120,1,true),B({map:grad([[0,'#F7EEDD'],[.3,'#FFFAF0'],[.8,'#FDF5E6'],[1,'#F1E1C6']])}));iw.position.y=H/2;
+const fl=new T.Mesh(new T.CircleGeometry(R,160),B({map:cvs(1024,1024,g=>{const q=g.createRadialGradient(512,512,512*RIN/R,512,512,512);[[0,'#EDD6B0'],[.55,'#F3E1C3'],[1,'#EFDAB8']].forEach(s=>q.addColorStop(s[0],s[1]));g.fillStyle=q;g.fillRect(0,0,1024,1024)})}));fl.rotation.x=-Math.PI/2;
+const ce=new T.Mesh(new T.CircleGeometry(R,160),B({color:'#FAF1E0',side:T.BackSide}));ce.rotation.x=-Math.PI/2;ce.position.y=H;sc.add(ow,iw,fl,ce);
+sc.add(new T.HemisphereLight(0xfffdf6,0xe9cfa6,1.55),new T.AmbientLight(0xfff6e6,.55));
+const halo=B({map:rad(0,[[0,'rgba(255,255,255,.95)'],[.35,'rgba(255,255,255,.95)'],[1,'rgba(255,255,255,0)']]),transparent:true,depthWrite:false}),shad=B({map:rad(0,[[0,'rgba(120,90,50,.28)'],[.25,'rgba(120,90,50,.28)'],[1,'rgba(120,90,50,0)']]),transparent:true,depthWrite:false});
+const pls=[],labels=[];let sheet;
+const lab=i=>labels[i]||(labels[i]=B({transparent:true,depthWrite:false,map:cvs(640,260,g=>{g.fillStyle='#3A3550';g.font='500 58px Newsreader,serif';g.fillText(P[i][1],30,82);g.font='italic 400 54px Newsreader,serif';g.fillText(P[i][0],30,150);g.globalAlpha=.7;g.font='400 30px "DM Mono",monospace';g.fillText(P[i][2]+' · PRINT',30,215)})}));
+function frame(i,ang,rad_,outer){const g=new T.Group(),m=(w,h,mt,x,y,z)=>{const o=new T.Mesh(new T.PlaneGeometry(w,h),mt);o.position.set(x,y,z);g.add(o);return o};
+ m(2.1*PW,1.75*PH,halo,0,PY+.05,.005);m(1.25*PW,1.18*PH,shad,.05,PY-.06,.01);
+ const f=new T.Mesh(new T.BoxGeometry(PW+.07,PH+.07,.06),B({color:'#D3AA72'}));f.position.set(0,PY,.045);g.add(f);
+ const mt=B({fog:true}),p=m(PW,PH,mt,0,PY,.077);p.userData={i,ang,outer};pls.push(p);mt.userData=i;
+ m(.92,.92*260/640,lab(i),-PW/2+.46,PY-PH/2-.42,.02);
+ const x=Math.cos(ang)*rad_,z=Math.sin(ang)*rad_;g.position.set(x,0,z);g.lookAt(outer?0:x*2,0,outer?0:z*2);sc.add(g)}
+for(let s=0;s<36;s++)frame(s%9,s*STEP,17.98,true);
+for(let k=0;k<24;k++)frame((k+4)%9,(k+.5)*Math.PI*2/24,12.22,false);
+const applyTex=()=>pls.forEach(p=>{const k=crop(p.userData.i),t=sheet.clone();t.needsUpdate=true;t.repeat.set(k.w/SW,k.h/SH);t.offset.set(k.x/SW,1-(k.y+k.h)/SH);t.colorSpace=T.SRGBColorSpace;t.anisotropy=rd.capabilities.getMaxAnisotropy();p.material.map=t;p.material.needsUpdate=true});
+new T.TextureLoader().setCrossOrigin('anonymous').load(SRC,t=>{sheet=t;applyTex();$('#veil').style.opacity=0});
+document.fonts.ready.then(()=>{labels.length=0;pls.forEach(()=>{});sc.traverse(o=>{if(o.isMesh&&o.geometry.type==='PlaneGeometry'&&o.material.map&&o.material.map.image&&o.material.map.image.width===640){}})});
+/* camera poses */
+const D=()=>.14+(small.matches&&portrait()?.9*STEP:0);
+const walk=th=>small.matches&&portrait()?{th,r:15.4,yaw:-.42,y:1.9,p:-.1}:{th,r:15.6,yaw:-.3,y:1.92,p:-.12};
+const focus=(th,o)=>{const q=small.matches&&portrait(),d=q?5.2:4.26;return{th,r:o?R-d:RIN+d,yaw:o?Math.PI/2:-Math.PI/2,y:PY-(q?1.05:.52),p:0}};
+let cur=walk(D()),tgt=cur.th,mode='walk',foc=null,gl=null;
+function put(p){const c=Math.cos(p.th),s=Math.sin(p.th);cam.position.set(p.r*c,p.y,p.r*s);const tx=Math.sin(p.th),tz=-Math.cos(p.th),d=[Math.cos(p.yaw)*tx+Math.sin(p.yaw)*c,Math.cos(p.yaw)*tz+Math.sin(p.yaw)*s];cam.lookAt(cam.position.x+d[0],cam.position.y+p.p,cam.position.z+d[1])}
+function size(){const w=gal.clientWidth,h=gal.clientHeight;rd.setSize(w,h);cam.aspect=w/h;cam.fov=w>=h?56:70;cam.updateProjectionMatrix();paint()}
+addEventListener('resize',size);size();
+const e4=t=>1-(1-t)**4,e2=t=>1-(1-t)**2,e3=t=>1-(1-t)**3,lp=(a,b,k)=>a+(b-a)*k;
+function glide(to,done){gl={a:{...cur},b:to,t:0,done}}
+function setHint(f){$('#h1').textContent=f?'Click the painting to open it':'Scroll or drag to walk round';$('#h2').textContent=f?'Esc or click away to step back':'Click a painting to look closer'}
+function back(){if(mode==='walk')return;const th=cur.th+D();foc=null;mode='glide';setHint(0);glide(walk(th),()=>{mode='walk';tgt=th;cur=walk(th)})}
+function toPrint(p){const{ang,outer}=p.userData,a=ang+Math.PI*2*Math.round((cur.th-ang)/(Math.PI*2));foc=p;mode='glide';setHint(1);glide(focus(a,outer),()=>{mode='focus'})}
+let last=performance.now();
+rd.setAnimationLoop(now=>{const dt=Math.min(.1,(now-last)/1e3);last=now;
+ if(gl){gl.t=Math.min(1,gl.t+dt/.95);const t=gl.t,a=gl.a,b=gl.b;cur={th:lp(a.th,b.th,e4(t)),yaw:lp(a.yaw,b.yaw,e2(t)),r:lp(a.r,b.r,e3(t)),y:lp(a.y,b.y,e3(t)),p:lp(a.p,b.p,e3(t))};if(t>=1){const d=gl.done;gl=null;d&&d()}}
+ else if(mode==='walk'){cur.th+=(tgt-cur.th)*(1-Math.exp(-dt/.36))}
+ put(cur);rd.render(sc,cam)});
+/* input */
+const hide=()=>mode==='glide'||document.body.classList.contains('pg')||document.body.classList.contains('ls');
+let dn=null,mv=false;const ray=new T.Raycaster(),pt=new T.Vector2();
+const pick=(x,y)=>{const r=gal.getBoundingClientRect();pt.set((x-r.left)/r.width*2-1,-((y-r.top)/r.height)*2+1);ray.setFromCamera(pt,cam);const h=ray.intersectObjects(pls)[0];return h&&h.object};
+gal.addEventListener('wheel',e=>{e.preventDefault();if(hide())return;if(mode==='focus'){back();return}tgt+=-e.deltaY*(e.deltaMode===1?33:1)*.0016},{passive:false});
+gal.addEventListener('pointerdown',e=>{dn={x:e.clientX,y:e.clientY,t:tgt};mv=false});
+addEventListener('pointermove',e=>{const pl=$('#pill');if(dn){const dx=e.clientX-dn.x,dy=e.clientY-dn.y;if(!mv&&Math.hypot(dx,dy)>6){mv=true;if(mode==='focus')back();gal.classList.add('dg')}if(mv&&mode==='walk')tgt=dn.t+(Math.abs(dx)>Math.abs(dy)?dx:dy)*(small.matches?.0042:.0022)}
+ if(mode==='focus'&&!hide()&&!small.matches){const h=pick(e.clientX,e.clientY),on=h&&h===foc;pl.style.left=e.clientX+'px';pl.style.top=e.clientY+'px';pl.style.opacity=on?1:0;gal.classList.toggle('po',!!h)}else if(!small.matches)pl.style.opacity=0});
+addEventListener('pointerup',e=>{gal.classList.remove('dg');if(!dn)return;const was=mv;dn=null;if(was||hide()||e.target.closest('.gui button,.gui a'))return;const h=pick(e.clientX,e.clientY);
+ if(mode==='walk'){if(h)toPrint(h)}else if(mode==='focus'){if(h===foc)openPage(foc.userData.i);else if(h)toPrint(h);else back()}});
+const step=d=>{if(hide())return;if(mode==='focus'){back();return}tgt=(Math.round((tgt-D())/STEP)-d)*STEP+D()};
+$('#nx').onclick=()=>step(1);$('#pv').onclick=()=>step(-1);
+addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#dr').classList.contains('on'))return drawer(0);if(document.body.classList.contains('pg')||document.body.classList.contains('ls'))return view('g');back()}else if(/^Arrow(Right|Down)$/.test(e.key))step(1);else if(/^Arrow(Left|Up)$/.test(e.key))step(-1)});
+const pillS=()=>{const p=$('#pill');if(small.matches&&mode==='focus'&&!hide()){p.style.left=innerWidth/2+'px';p.style.top=innerHeight*.55+'px';p.style.opacity=1}else if(small.matches)p.style.opacity=0};setInterval(pillS,250);
+/* ---------- views ---------- */
+let bag=[],cp=0;const opts={Paper:['Art Paper','Fine Art Paper','Recycled Paper'],Size:['11.7 × 16.5" (A3)','16.5 × 23.4" (A2)','23.4 × 33.1" (A1)','33.1 × 46.8" (A0)'],Signature:['Unsigned','Signed and Numbered']},sel={Paper:0,Size:0,Signature:0,Frame:0},fr=['Unframed','Classic Frame','Framed Canvas'];
+const card=i=>`<div class="cd" data-open="${i}"><div class="im" data-i="${i}"></div><b>${P[i][0]}</b><i>${P[i][1]}</i><span>$ ${P[i][3]}.00</span></div>`;
+function view(v){const b=document.body.classList;b.toggle('pg',v==='p');b.toggle('ls',v==='l');$('#page').classList.toggle('on',v==='p');$('#list').classList.toggle('on',v==='l');$('#tG').classList.toggle('on',v==='g');$('#tL').classList.toggle('on',v==='l');if(v==='g'){}else if(mode!=='walk'&&v!=='p')back();if(v==='l')paint()}
+function openPage(i){cp=i;const p=P[i],acc=[['Paper & Sizes','Art Paper is a smooth 200 gsm matte stock. Fine Art Paper is a 310 gsm cotton rag with a soft texture. Recycled Paper is 100% post-consumer fibre.'],['Delivery Info','Prints are made to order and ship rolled in a tube within 3–5 working days. Framed pieces ship flat within 7–10 working days.'],['Returns Policy','Unframed prints can be returned within 30 days in their original tube. Signed editions are final sale.']];
+ $('#page').innerHTML=`<div class="pw"><div class="lc"><div class="big" data-i="${i}"></div><div class="meta"><span>1/1</span><span>⬡ View in room</span><span>⚑</span></div></div><div class="rc"><h2>${p[0]}</h2><div class="ar">${p[1]}</div><div class="ds">${p[4]}${TAIL}</div><div class="pr">$ ${p[3]}.00</div><div class="tx">Prices include VAT. Shipping calculated at checkout.</div>
+ ${Object.keys(opts).map(k=>`<div class="og"><div>${k}: <span>${opts[k][sel[k]]}</span></div><div class="chs">${opts[k].map((o,j)=>`<button class="ch${sel[k]===j?' on':''}" data-o="${k}|${j}">${o}</button>`).join('')}</div></div>`).join('')}
+ <div class="og"><div>Frame: <span>${fr[sel.Frame]}</span></div><div class="chs">${fr.map((o,j)=>`<button class="fr${sel.Frame===j?' on':''}" data-o="Frame|${j}"><i data-i="${i}" class="${j?'f'+j:''}"></i>${o}</button>`).join('')}</div></div>
+ <div class="buy"><div class="qty"><button data-q="-1">−</button><span id="qv">1</span><button data-q="1">+</button></div><button class="add" id="ad">ADD TO BAG</button></div>
+ <div class="acc">${acc.map(a=>`<div><button class="h">${a[0]}<b>+</b></button><div class="bdy"><p>${a[1]}</p></div></div>`).join('')}</div></div>
+ <div class="col"><h3>GET THE COLLECTION</h3><div class="cr">${[0,1,2,3].map(k=>card((i+k)%9)).join('')}</div></div></div>`;view('p');$('#page').scrollTop=0;paint()}
+$('#page').addEventListener('click',e=>{const t=e.target,o=t.closest('[data-o]'),q=t.closest('[data-q]'),h=t.closest('.acc .h'),c=t.closest('[data-open]');
+ if(o){const[k,j]=o.dataset.o.split('|');sel[k]=+j;const s=$('#page').scrollTop,qv=$('#qv').textContent;openPage(cp);$('#page').scrollTop=s;$('#qv').textContent=qv}
+ else if(q){const v=Math.max(1,+$('#qv').textContent+ +q.dataset.q);$('#qv').textContent=v}
+ else if(h){const d=h.parentNode,b=d.querySelector('.bdy'),on=d.classList.toggle('o');b.style.height=on?b.scrollHeight+'px':0}
+ else if(c)openPage(+c.dataset.open);
+ else if(t.id==='ad'){const it=bag.find(b=>b.i===cp&&b.o===JSON.stringify(sel));const n=+$('#qv').textContent;it?it.q+=n:bag.push({i:cp,q:n,o:JSON.stringify(sel),sz:opts.Size[sel.Size]});bagR();drawer(1)}});
+$('#list').innerHTML=`<h2>CITRUS SEASON — ALL PRINTS</h2><div class="cr">${P.map((_,i)=>card(i)).join('')}</div>`;$('#list').addEventListener('click',e=>{const c=e.target.closest('[data-open]');if(c)openPage(+c.dataset.open)});
+const drawer=on=>$('#dr').classList.toggle('on',!!on);$('#bagB').onclick=()=>drawer(1);$('#dx').onclick=()=>drawer(0);
+function bagR(){const n=bag.reduce((a,b)=>a+b.q,0),t=bag.reduce((a,b)=>a+b.q*P[b.i][3],0);$('#bd').style.display=n?'block':'none';$('#bd').textContent=n;
+ $('#di').innerHTML=bag.length?bag.map((b,k)=>`<div class="it"><div class="im" data-i="${b.i}"></div><div><b>${P[b.i][0]}</b><i>${P[b.i][1]}</i><span>${b.sz}</span><div class="qty" style="width:90px;height:32px;margin-top:8px"><button data-k="${k}|-1">−</button>${b.q}<button data-k="${k}|1">+</button></div></div><button data-k="${k}|x" style="margin-left:auto">🗑</button></div>`).join(''):'<div class="em">YOUR BAG IS EMPTY</div>';
+ $('#df').innerHTML=bag.length?`<p><span>Subtotal</span><span>$ ${t}.00</span></p><button class="add">CHECKOUT →</button>`:'';paint()}
+$('#di').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;const[k,d]=b.dataset.k.split('|'),it=bag[+k];if(d==='x')bag.splice(+k,1);else{it.q+=+d;if(it.q<1)bag.splice(+k,1)}bagR()});
+$('#tG').onclick=$('#nI').onclick=()=>view('g');$('#tL').onclick=$('#nS').onclick=$('#en').onclick=()=>view('l');
+bagR();
+<\/script></body></html>
+</script>
+<script id="zw-module">
+(()=>{const $=s=>document.querySelector(s),hub=$('#testHub'),t=$('#catTitle');
+const sync=()=>{if(hub)hub.classList.toggle('hidden',!t||t.textContent.trim()!=='Test')};
+if(t)new MutationObserver(sync).observe(t,{childList:true,characterData:true,subtree:true});sync();
+function open(){if($('.zw-ov'))return;const o=document.createElement('div');o.className='zw-ov';const f=document.createElement('iframe');f.allow='fullscreen';f.srcdoc=$('#zw-src').textContent.replace(/<\\\/script>/g,'</scr'+'ipt>');
+const x=document.createElement('button');x.className='zw-x';x.textContent='✕';x.setAttribute('aria-label','Đóng');
+const close=()=>{removeEventListener('keydown',k);o.classList.remove('on');setTimeout(()=>o.remove(),300)},k=e=>{if(e.key==='Escape')close()};
+x.onclick=close;addEventListener('keydown',k);o.append(f,x);document.body.appendChild(o);requestAnimationFrame(()=>o.classList.add('on'))}
+document.addEventListener('click',e=>{if(e.target.closest('[data-tool=zestwell]')){e.stopPropagation();open()}},true);
 })();
 </script>
 </body></html>
