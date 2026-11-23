@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cổng làng</title>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cyan:#79dce8;--bg:#050507;--ink:#fff;--mute:rgba(255,255,255,.62);--line:rgba(255,255,255,.14);--red:#ff6b7a}
+html,body{height:100%}
+body{background:radial-gradient(120% 90% at 50% 0%,#0d1b33 0%,var(--bg) 62%);color:var(--ink);font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100dvh}
+.page{display:none;min-height:100dvh;padding:max(20px,env(safe-area-inset-top)) 20px max(20px,env(safe-area-inset-bottom))}
+.page.on{display:flex}
+/* trang 1 */
+#p1{align-items:center;justify-content:center}
+.card{width:min(100%,400px);padding:32px 26px 26px;border-radius:24px;background:rgba(14,22,40,.72);border:1px solid var(--line);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:0 24px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08)}
+.card h1{font-family:'Prata',Georgia,serif;font-weight:400;font-size:30px;text-align:center;letter-spacing:.5px}
+.card .sub{margin:8px 0 26px;text-align:center;color:var(--mute);font-size:14px;line-height:1.5}
+.field{position:relative;margin-bottom:14px}
+.field svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--mute);fill:none;stroke-width:1.8;pointer-events:none}
+.field input{width:100%;height:54px;padding:0 16px 0 46px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;font:500 16px 'Hanken Grotesk',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}
+.field input::placeholder{color:rgba(255,255,255,.45);font-weight:400;font-size:14px;letter-spacing:.3px}
+.field input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(121,220,232,.18)}
+.or{display:flex;align-items:center;gap:12px;margin:2px 0 14px;color:var(--mute);font-size:12px}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.btn{width:100%;height:54px;margin-top:6px;border:0;border-radius:27px;cursor:pointer;font:700 16px 'Hanken Grotesk',sans-serif;color:#071227;background:linear-gradient(180deg,#fff,#d9ecfe 72%,#fff);box-shadow:0 10px 18px -8px rgba(255,255,255,.5)}
+.btn:active{transform:scale(.99)}
+.err{min-height:20px;margin-top:12px;text-align:center;color:var(--red);font-size:13.5px}
+.shake{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.hint{margin-top:6px;text-align:center;color:var(--mute);font-size:12px}
+/* trang 2 */
+#p2{flex-direction:column;max-width:760px;margin:0 auto;width:100%}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0 18px;border-bottom:1px solid var(--line)}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:20px;background:rgba(121,220,232,.12);border:1px solid rgba(121,220,232,.35);font-size:13.5px;font-weight:600}
+.badge.guest{background:rgba(255,255,255,.07);border-color:var(--line)}
+.ghost{padding:9px 14px;border-radius:18px;border:1px solid var(--line);background:none;color:#fff;font:500 13.5px 'Hanken Grotesk',sans-serif;cursor:pointer}
+#p2 h2{font-family:'Prata',Georgia,serif;font-weight:400;font-size:28px;margin:24px 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.tile{position:relative;text-align:left;padding:18px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;font-family:inherit}
+.tile b{display:block;font-size:17px;margin-bottom:4px}
+.tile span{color:var(--mute);font-size:13.5px}
+.tile .lk{position:absolute;right:14px;top:14px;width:16px;height:16px;stroke:var(--mute);fill:none;stroke-width:1.8;display:none}
+body.guest .tile.restricted .lk{display:block}
+.add{margin-top:18px;align-self:flex-start;padding:12px 20px;border-radius:22px;border:1px dashed var(--cyan);background:none;color:var(--cyan);font:600 14px 'Hanken Grotesk',sans-serif;cursor:pointer}
+.msg{margin-top:18px;color:var(--mute);font-size:14px}
+/* bảng khoá */
+.modal{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(2,6,14,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.modal.on{display:flex}
+.lock{width:min(100%,380px);padding:30px 24px 24px;text-align:center;border-radius:24px;background:#0c1426;border:1px solid rgba(255,107,122,.4);box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.lock .ic{width:68px;height:68px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;background:rgba(255,107,122,.12);border:1px solid rgba(255,107,122,.45)}
+.lock .ic svg{width:30px;height:30px;stroke:var(--red);fill:none;stroke-width:1.9}
+.lock h3{font-size:17px;line-height:1.45;font-weight:700}
+.lock p{margin-top:10px;color:var(--red);font-weight:600;font-size:15px}
+.lock .btn{margin-top:22px;height:48px;font-size:15px}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}}
+</style>
+</head>
+<body>
+
+<!-- TRANG 1: nhập mật khẩu -->
+<main class="page on" id="p1">
+  <form class="card" id="gate" autocomplete="off">
+    <h1>Cổng làng</h1>
+    <p class="sub">Nhập mật khẩu của một trong hai vị cách để vào.</p>
+    <div class="field">
+      <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      <input id="pw-keeper" type="password" placeholder="Người giữ làng" autocomplete="off" aria-label="Mật khẩu Người giữ làng">
+    </div>
+    <div class="or">hoặc</div>
+    <div class="field">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+      <input id="pw-guest" type="password" placeholder="Khách xa hương" autocomplete="off" aria-label="Mật khẩu Khách xa hương">
+    </div>
+    <button class="btn" type="submit">Vào</button>
+    <div class="err" id="err" role="alert"></div>
+  </form>
+</main>
+
+<!-- TRANG 2: nội dung (thay bằng trang chủ thật của bạn) -->
+<main class="page" id="p2">
+  <div class="top">
+    <span class="badge" id="badge"></span>
+    <button class="ghost" id="out" type="button">Rời làng</button>
+  </div>
+  <h2>Trang chủ</h2>
+  <div class="grid">
+    <button class="tile restricted" data-go="nsfw" type="button"><svg class="lk" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><b>NSFW</b><span>Videos &amp; images</span></button>
+    <button class="tile" data-go="manhwa" type="button"><b>Manhwa - Manhua</b><span>Comics &amp; chapters</span></button>
+    <button class="tile" data-go="class" type="button"><b>Class</b><span>Class collection</span></button>
+    <button class="tile" data-go="basic" type="button"><b>Basic</b><span>General archive</span></button>
+    <button class="tile" data-go="test" type="button"><b>Test</b><span>Thử nghiệm &amp; bản mẫu</span></button>
+  </div>
+  <button class="add" id="add" type="button">+ Thêm nội dung</button>
+  <p class="msg" id="msg"></p>
+</main>
+
+<!-- Bảng khoá -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="lt">
+  <div class="lock">
+    <div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.2"/></svg></div>
+    <h3 id="lt">Chỉ Người giữ làng được phép truy cập toán tử này!</h3>
+    <p>Vị cách của bạn không đủ! Chưa Tày!</p>
+    <button class="btn" id="close" type="button">Đã hiểu</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Mật khẩu được lưu dưới dạng SHA-256, không để chữ thường trong code.
+  var HASH={
+    keeper:'da0d2bee3c518ba345e5ef91ea0532a5f889df4ad126dc04b216a759e1b36893', // Người giữ làng
+    guest:'af38562f9a570104d27c506a8b2adaec7e2111cc0d044bd38488694a360d6740'   // Khách xa hương
+  };
+  var $=function(i){return document.getElementById(i)};
+  var role=null;
+
+  function sha(s){
+    var b=new TextEncoder().encode(s.normalize('NFC'));
+    return crypto.subtle.digest('SHA-256',b).then(function(h){
+      return Array.prototype.map.call(new Uint8Array(h),function(x){return ('0'+x.toString(16)).slice(-2)}).join('');
+    });
+  }
+  function store(v){try{if(v)sessionStorage.setItem('role',v);else sessionStorage.removeItem('role')}catch(e){}}
+  function load(){try{return sessionStorage.getItem('role')}catch(e){return null}}
+
+  // Dùng hàm này để khoá bất kỳ thao tác nào (thêm / sửa / xoá / mở mục riêng)
+  function requireKeeper(){
+    if(role==='keeper')return true;
+    $('modal').classList.add('on');$('close').focus();return false;
+  }
+  window.requireKeeper=requireKeeper;
+
+  function enter(r){
+    role=r;store(r);
+    document.body.classList.toggle('guest',r!=='keeper');
+    $('badge').textContent=r==='keeper'?'Người giữ làng · toàn quyền':'Khách xa hương · chỉ xem';
+    $('badge').className='badge'+(r==='keeper'?'':' guest');
+    $('p1').classList.remove('on');$('p2').classList.add('on');
+    $('msg').textContent='';
+  }
+  function leave(){
+    role=null;store(null);document.body.classList.remove('guest');
+    $('pw-keeper').value='';$('pw-guest').value='';$('err').textContent='';
+    $('p2').classList.remove('on');$('p1').classList.add('on');
+  }
+  function fail(msg){
+    $('err').textContent=msg;
+    var c=$('gate');c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');
+  }
+
+  $('gate').addEventListener('submit',function(e){
+    e.preventDefault();
+    var k=$('pw-keeper').value.trim(),g=$('pw-guest').value.trim();
+    if(!k&&!g){fail('Hãy nhập mật khẩu vào một trong hai ô.');return}
+    if(!(window.crypto&&crypto.subtle)){fail('Trình duyệt cần mở trang bằng https để kiểm tra mật khẩu.');return}
+    Promise.all([k?sha(k):'',g?sha(g):'']).then(function(h){
+      if(k&&h[0]===HASH.keeper)enter('keeper');
+      else if(g&&h[1]===HASH.guest)enter('guest');
+      else fail('Mật khẩu không đúng.');
+    });
+  });
+  $('out').addEventListener('click',leave);
+  $('close').addEventListener('click',function(){$('modal').classList.remove('on')});
+  $('modal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('on')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')$('modal').classList.remove('on')});
+
+  // Mục NSFW chỉ dành cho Người giữ làng
+  [].forEach.call(document.querySelectorAll('.tile'),function(t){
+    t.addEventListener('click',function(){
+      if(t.classList.contains('restricted')&&!requireKeeper())return;
+      $('msg').textContent='Đã mở mục '+t.querySelector('b').textContent+' (gắn nội dung thật của bạn vào đây).';
+    });
+  });
+  $('add').addEventListener('click',function(){
+    if(!requireKeeper())return;
+    $('msg').textContent='Người giữ làng có thể thêm nội dung.';
+  });
+
+  var saved=load();if(saved==='keeper'||saved==='guest')enter(saved);
+})();
+</script>
+</body>
+</html>
