@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101820">
+  <meta name="description" content="Hướng dẫn xây dựng dây chuyền sản xuất Pyrrolyte Component trong Arknights: Endfield.">
+  <title>Pyrrolyte Component | Arknights: Endfield</title>
+  <style>
+    :root{
+      --bg:#0b1117;--panel:#121c25;--panel2:#182631;--line:#2b3b47;
+      --text:#edf3f5;--muted:#a5b4bd;--gold:#e6b85c;--cyan:#72c9d2;
+      --max:1080px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;background:
+      radial-gradient(circle at 80% 0%,rgba(67,126,139,.16),transparent 30rem),
+      linear-gradient(180deg,#0b1117,#0d151d 55%,#0a1016);
+      color:var(--text);font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(var(--max),calc(100% - 36px));margin:auto}
+    header{position:sticky;top:0;z-index:10;background:rgba(10,16,22,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(114,201,210,.16)}
+    .nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{font-weight:900;letter-spacing:.12em;font-size:.9rem}
+    .brand span{color:var(--gold)}
+    nav{display:flex;gap:22px;color:var(--muted);font-size:.88rem}
+    nav a:hover{color:var(--gold)}
+    .hero{padding:76px 0 58px;position:relative;overflow:hidden}
+    .eyebrow{color:var(--cyan);font-size:.75rem;letter-spacing:.2em;font-weight:800;text-transform:uppercase}
+    h1{font-size:clamp(2.5rem,7vw,5.4rem);line-height:.98;letter-spacing:-.055em;margin:18px 0}
+    h1 span{color:var(--gold)}
+    .lead{max-width:650px;color:var(--muted);font-size:1.05rem}
+    .hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+    .tag{border:1px solid var(--line);padding:7px 11px;color:#c6d3d9;font-size:.76rem;letter-spacing:.07em}
+    .hero-mark{position:absolute;right:4%;top:45px;width:min(34vw,310px);aspect-ratio:1;border:1px solid rgba(230,184,92,.22);transform:rotate(45deg);opacity:.45}
+    .hero-mark:before,.hero-mark:after{content:"";position:absolute;inset:16%;border:1px solid rgba(114,201,210,.25)}
+    .hero-mark:after{inset:32%;background:linear-gradient(135deg,transparent 49.5%,rgba(230,184,92,.3) 50%,transparent 50.5%)}
+    section{padding:38px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}
+    .kicker{font-size:.72rem;letter-spacing:.18em;color:var(--gold);font-weight:800}
+    h2{font-size:clamp(1.55rem,4vw,2.2rem);line-height:1.15;margin:5px 0 0}
+    .section-note{color:var(--muted);font-size:.86rem;max-width:380px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{background:linear-gradient(145deg,rgba(24,38,49,.94),rgba(15,24,32,.94));border:1px solid var(--line);padding:20px;min-height:150px;position:relative}
+    .card:before{content:"";position:absolute;left:0;top:0;width:3px;height:34px;background:var(--gold)}
+    .card small{color:var(--cyan);letter-spacing:.12em;font-weight:800}
+    .card h3{margin:9px 0 6px;font-size:1.05rem}
+    .card p{margin:0;color:var(--muted);font-size:.9rem}
+    .steps{display:grid;gap:14px}
+    .step{display:grid;grid-template-columns:76px 1fr;gap:18px;background:var(--panel);border:1px solid var(--line);padding:22px}
+    .num{font-size:1.7rem;color:var(--gold);font-weight:900;letter-spacing:-.05em}
+    .step h3{margin:0 0 8px;font-size:1.12rem}
+    .step p{margin:0;color:var(--muted)}
+    .step ul{margin:10px 0 0;padding-left:20px;color:#c8d4da}
+    .step li{margin:4px 0}
+    .notice{margin-top:18px;padding:16px 18px;border:1px solid rgba(230,184,92,.32);background:rgba(230,184,92,.06);color:#d8d0bd;font-size:.88rem}
+    .checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .check{display:flex;gap:11px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);padding:14px;color:#cbd6db}
+    .check input{accent-color:var(--gold);margin-top:5px;width:16px;height:16px}
+    footer{margin-top:40px;border-top:1px solid var(--line);padding:25px 0 38px;color:var(--muted);font-size:.82rem}
+    .footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    @media(max-width:720px){
+      .nav{height:auto;min-height:62px;align-items:flex-start;padding:17px 0;flex-direction:column}
+      nav{gap:15px;flex-wrap:wrap;font-size:.8rem}
+      .hero{padding:58px 0 42px}.hero-mark{right:-70px;top:80px;width:220px;opacity:.25}
+      .grid{grid-template-columns:1fr}
+      .section-head{display:block}.section-note{margin-top:10px}
+      .step{grid-template-columns:48px 1fr;padding:17px;gap:12px}
+      .checklist{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top">ENDFIELD <span>/</span> FIELD GUIDE</a>
+      <nav aria-label="Điều hướng">
+        <a href="#materials">Nguyên liệu</a>
+        <a href="#process">Quy trình</a>
+        <a href="#checklist">Kiểm tra</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">Industrial production guide · 01</div>
+        <h1>PYRROLYTE<br><span>COMPONENT</span></h1>
+        <p class="lead">Hướng dẫn tổng quan cách chuẩn bị nguyên liệu và bố trí dây chuyền sản xuất Pyrrolyte Component trong <strong>Arknights: Endfield</strong>.</p>
+        <div class="hero-meta">
+          <span class="tag">AR​​KNIGHTS: ENDFIELD</span>
+          <span class="tag">FACTORY GUIDE</span>
+          <span class="tag">SINGLE PAGE</span>
+        </div>
+      </div>
+      <div class="hero-mark" aria-hidden="true"></div>
+    </section>
+
+    <section id="materials">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">01 / MATERIALS</div><h2>Nguyên liệu cần chuẩn bị</h2></div>
+          <p class="section-note">Danh sách được tổng hợp theo nội dung hướng dẫn đã cung cấp. Hãy kiểm tra công thức trong game để xác nhận định mức cụ thể.</p>
+        </div>
+        <div class="grid">
+          <article class="card"><small>INPUT 01</small><h3>Water</h3><p>Nguồn nước cấp cho các công đoạn sản xuất.</p></article>
+          <article class="card"><small>INPUT 02</small><h3>Acid</h3><p>Nguyên liệu lỏng cần đưa tới dây chuyền theo hướng dẫn.</p></article>
+          <article class="card"><small>INPUT 03</small><h3>Inergen</h3><p>Kết nối vào khu vực cấp nguyên liệu ở giữa hệ thống.</p></article>
+          <article class="card"><small>INPUT 04</small><h3>Xiragen</h3><p>Nguồn nguyên liệu được bố trí ở phía Tây dây chuyền.</p></article>
+          <article class="card"><small>INPUT 05</small><h3>Cuprium Ore</h3><p>Quặng cần khai thác và cung cấp từ hệ thống sản xuất riêng.</p></article>
+          <article class="card"><small>SUPPLY</small><h3>Conduit & Depot</h3><p>Chuẩn bị đường dẫn và điểm kết nối phù hợp cho hệ thống.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">02 / PRODUCTION FLOW</div><h2>Các bước thực hiện</h2></div>
+          <p class="section-note">Thực hiện lần lượt từng công đoạn, sau đó kiểm tra kết nối và nguồn cung trước khi vận hành.</p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="num">01</div>
+            <div><h3>Chuẩn bị khu vực sản xuất</h3><p>Đến Sub-PAC tại khu vực mới và chuẩn bị mặt bằng để đặt dây chuyền Pyrrolyte.</p></div>
+          </article>
+          <article class="step">
+            <div class="num">02</div>
+            <div><h3>Lắp đặt Pyrrolyte Production</h3><p>Đặt Pyrrolyte Blueprint 1, sau đó sắp xếp lại các đầu nối theo bố cục trong hướng dẫn.</p>
+              <ul>
+                <li>Loại bỏ các Conduit Outlet không sử dụng.</li>
+                <li>Xiragen: kết nối từ phía Tây.</li>
+                <li>Inergen: kết nối ở khu vực giữa.</li>
+                <li>Water: kết nối từ phía Bắc.</li>
+              </ul>
+            </div>
+          </article>
+          <article class="step">
+            <div class="num">03</div>
+            <div><h3>Bổ sung dây chuyền Component</h3><p>Đặt Pyrrolyte Production 2 ở bên phải hệ thống đầu tiên. Kết nối Acid Outlet ở phía Bắc và điều chỉnh mức sử dụng trong mục Control.</p></div>
+          </article>
+          <article class="step">
+            <div class="num">04</div>
+            <div><h3>Thiết lập nguồn Cuprium Ore</h3><p>Quay lại Sub-PAC ở khu vực trước, bố trí khoảng 5 hệ thống Cuprium Ore Production theo hướng dẫn và kết nối nguồn Water qua Conduit.</p></div>
+          </article>
+          <article class="step">
+            <div class="num">05</div>
+            <div><h3>Kiểm tra và vận hành</h3><p>Kiểm tra nguyên liệu đầu vào, các đầu nối, đường dẫn và trạng thái hoạt động của từng máy. Chỉ vận hành khi toàn bộ chuỗi cung ứng đã được kết nối đúng.</p></div>
+          </article>
+        </div>
+        <div class="notice"><strong>Lưu ý:</strong> Đây là bản tóm tắt nội dung hướng dẫn, không phải blueprint chính xác theo từng ô. Vị trí máy, định mức nguyên liệu và tên công thức có thể cần đối chiếu trực tiếp trong game.</div>
+      </div>
+    </section>
+
+    <section id="checklist">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">03 / FINAL CHECK</div><h2>Checklist vận hành</h2></div>
+          <p class="section-note">Đánh dấu từng mục khi bạn đã hoàn thành trong game.</p>
+        </div>
+        <div class="checklist">
+          <label class="check"><input type="checkbox"> Đã chuẩn bị đủ nguyên liệu đầu vào.</label>
+          <label class="check"><input type="checkbox"> Đã đặt Pyrrolyte Blueprint 1.</label>
+          <label class="check"><input type="checkbox"> Đã kết nối Xiragen, Inergen và Water.</label>
+          <label class="check"><input type="checkbox"> Đã đặt Pyrrolyte Production 2.</label>
+          <label class="check"><input type="checkbox"> Đã kết nối Acid Outlet.</label>
+          <label class="check"><input type="checkbox"> Đã bố trí hệ thống Cuprium Ore Production.</label>
+          <label class="check"><input type="checkbox"> Đã kiểm tra toàn bộ Conduit và Depot.</label>
+          <label class="check"><input type="checkbox"> Dây chuyền đã hoạt động ổn định.</label>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>PYRROLYTE COMPONENT · FIELD GUIDE</span>
+      <span>Fan-made guide · Arknights: Endfield</span>
+    </div>
+  </footer>
+</body>
+</html>
